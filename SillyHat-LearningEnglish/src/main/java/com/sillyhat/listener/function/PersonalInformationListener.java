@@ -17,7 +17,6 @@ public class PersonalInformationListener implements ActionListener{
 		this.modulePanel = modulePanel;
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 //		modulePanel.removeAll();
 //		JPanel jPanel = new JPanel();

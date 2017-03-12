@@ -10,6 +10,9 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * 个人信息页面
+ */
 public class PersonalInfomationView extends SillyHatTabPanel{
 
 	/** 

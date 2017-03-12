@@ -1,6 +1,7 @@
 package com.sillyhat.swing.module.container.middle;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SillyHatTabPanel extends JPanel{
 
@@ -16,6 +17,10 @@ public class SillyHatTabPanel extends JPanel{
 
 	public SillyHatTabPanel(String panelCode){
 		setName(panelCode);
+	}
+
+	public void debugFrame(Color red){
+		setBorder(BorderFactory.createLineBorder(red));
 	}
 	
 }

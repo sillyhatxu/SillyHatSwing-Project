@@ -29,14 +29,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.sillyhat.swing</groupId>
             <artifactId>SillyHat-SwingModule</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sillyhat.swing</groupId>
+            <artifactId>SillyHat-SpringMybatisHikaricp</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <!-- google guava -->
         <dependency>

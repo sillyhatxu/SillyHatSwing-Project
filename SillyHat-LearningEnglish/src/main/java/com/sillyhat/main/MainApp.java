@@ -16,16 +16,22 @@ public class MainApp extends ViewForm{
 	private static final long serialVersionUID = -690238177122305692L;
 
 	public MainApp(){
+//		initListener();
+//		initComponents();
+//		initStyle(inputPane);
+//		registerListener();
+//		initPosition();
 		setTitleName("帽子学习系统");
 //		setWindowSize(1000,800);
 		setWindowSize(1000,500);
 		setWindowLocation(null);
-		initJMenuBar();
+		initComponents();
 		setTopJMenuBar(jMenuBar);
 		setborderLayoutCenter(centerPanel);
 	}
-	
-	private void initJMenuBar(){
+
+
+	private void initComponents(){
 		jMenu = new SillyHatJMenu("功能");
 		
 		jMenuButton = new SillyHatJMenuItem("个人信息",new PersonalInformationListener(centerPanel));
