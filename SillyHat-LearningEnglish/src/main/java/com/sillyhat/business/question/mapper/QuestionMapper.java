@@ -1,8 +1,8 @@
 package com.sillyhat.business.question.mapper;
 
 import com.sillyhat.business.question.dto.WordQuestionDTO;
-
 import java.util.List;
+import java.util.Map;
 
 /**
  * QuestionMapper

@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>SillyHat-SwingProject</artifactId>
-        <groupId>com.com.sillyhat.swing</groupId>
+        <groupId>com.sillyhat.swing</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -22,6 +22,7 @@
         <org.mybatis.spring.version>1.2.2</org.mybatis.spring.version>
         <org.mybatis.version>3.2.8</org.mybatis.version>
         <HikariCP.version>2.6.0</HikariCP.version>
+        <com.google.guava.version>18.0</com.google.guava.version>
         <org.xerial.sqlite.version>3.8.11.2</org.xerial.sqlite.version>
     </properties>
 
@@ -31,6 +32,21 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.com.sillyhat.swing</groupId>
+            <artifactId>SillyHat-SwingModule</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+        <!-- google guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${com.google.guava.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -120,3 +136,4 @@
         </dependency>
     </dependencies>
 </project>
+

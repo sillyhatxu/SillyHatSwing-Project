@@ -8,12 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * LoadTest
@@ -37,14 +39,6 @@ public class LoadTest extends JunitTestSupport {
     }
 
     @Test
-    public void testSpring() {
-        logger.info("--------------------------------");
-        WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-        QuestionService qService = (QuestionService) wac.getBean("questionService");
-        logger.info("--------------------------------");
-    }
-
-    @Test
     public void testSpringMybatis() {
         logger.info("--------------------------------");
         List<WordQuestionDTO> list = questionService.queryAllWordQuestion();
@@ -53,4 +47,6 @@ public class LoadTest extends JunitTestSupport {
         }
         logger.info("--------------------------------");
     }
+
+
 }

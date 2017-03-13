@@ -3,9 +3,7 @@ package com.sillyhat.business.question.service.impl;
 import com.sillyhat.business.question.dto.WordQuestionDTO;
 import com.sillyhat.business.question.mapper.QuestionMapper;
 import com.sillyhat.business.question.service.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 import javax.annotation.Resource;

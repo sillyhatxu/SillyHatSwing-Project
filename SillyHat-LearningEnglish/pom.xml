@@ -2,14 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>SillyHat-SwingProject</artifactId>
-        <groupId>com.com.sillyhat.swing</groupId>
+        <groupId>com.sillyhat.swing</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <!--<groupId>com.com.sillyhat.swing</groupId>-->
     <artifactId>SillyHat-LearningEnglish</artifactId>
-    <!--<version>1.0</version>-->
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>SillyHat-LearningEnglish</name>
@@ -24,7 +23,7 @@
         <org.mybatis.version>3.2.8</org.mybatis.version>
         <HikariCP.version>2.6.0</HikariCP.version>
         <com.google.guava.version>18.0</com.google.guava.version>
-        <org.xerial.sqlite.version>3.8.11.2</org.xerial.sqlite.version>`
+        <org.xerial.sqlite.version>3.8.11.2</org.xerial.sqlite.version>
     </properties>
 
     <dependencies>
@@ -33,22 +32,21 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
         </dependency>
+
         <dependency>
             <groupId>com.com.sillyhat.swing</groupId>
             <artifactId>SillyHat-SwingModule</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
+
+
         <!-- google guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${com.google.guava.version}</version>
         </dependency>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -137,4 +135,45 @@
             <version>${org.xerial.sqlite.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>
