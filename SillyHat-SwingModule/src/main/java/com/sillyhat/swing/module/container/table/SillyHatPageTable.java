@@ -23,13 +23,16 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
 
     private boolean isReorderingAllowed = true;//默认禁止拖拽
 
-    public final JPanel btnJPanel = new JPanel();
-    public final JLabel totalJLabel = new JLabel("共" + 0 + "条记录");
-    public final JLabel pageJLabel = new JLabel("第" + 1 + "页");
-    public final JButton btnHomePage = new JButton("首页");
-    public final JButton btnUpPage = new JButton("上一页");
-    public final JButton btnNextPage = new JButton("下一页");
-    public final JButton btnLastPage = new JButton("最后一页");
+    private JPanel searchJPanel = null;
+    private JToolBar operatorBar = null;
+
+    private final JPanel btnJPanel = new JPanel();
+    private final JLabel totalJLabel = new JLabel("共" + 0 + "条记录");
+    private final JLabel pageJLabel = new JLabel("第" + 1 + "页");
+    private final JButton btnHomePage = new JButton("首页");
+    private final JButton btnUpPage = new JButton("上一页");
+    private final JButton btnNextPage = new JButton("下一页");
+    private final JButton btnLastPage = new JButton("最后一页");
 
     /**
      * @param panelCode
@@ -58,6 +61,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
 
     public void initTable(){
         tableModel = new DefaultTableModel(getRowData(), getColumns());
+        searchJPanel = getSearchJPanel();
         table = new SillyHatTable(tableModel);
         if(isSingle){
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//单选
@@ -65,6 +69,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         if(isReorderingAllowed){
             table.getTableHeader().setReorderingAllowed(false);//禁止列拖拽
         }
+        operatorBar = getJToolBar();
     }
 
     /**
@@ -84,6 +89,12 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
      * 刷新表格
      */
     public void refreshTable(){
+        if(searchJPanel != null){
+            add(searchJPanel);
+        }
+        if(operatorBar != null){
+            add(operatorBar);
+        }
         //刷新table
         jsp.setViewportView(table);
         jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -92,6 +103,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         add(jsp);
         add(btnJPanel);
     }
+
 
     public void addRow(){
 
@@ -113,6 +125,25 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         btnJPanel.add(pageJLabel);
     }
 
+
+    /**
+     * 查询条件（需要时重写）
+     * @return
+     */
+    public JPanel getSearchJPanel(){
+        return null;
+    }
+
+
+    /**
+     * 工具条（需要时重写）
+     * @return
+     */
+    public JToolBar getJToolBar(){
+        return null;
+    }
+
+
     /**
      * 表格列名称
      * @return
@@ -125,7 +156,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
      */
     public abstract Vector<Vector<String>> getRowData();
 
-    public JTable getTable() {
+    public SillyHatTable getTable() {
         return table;
     }
 

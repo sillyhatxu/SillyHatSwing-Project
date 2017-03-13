@@ -8,15 +8,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * LoadTest
@@ -48,6 +41,8 @@ public class LoadTest extends JunitTestSupport {
         List<WordQuestionDTO> list = questionService.queryAllWordQuestion();
         for(WordQuestionDTO dto : list){
             logger.info(dto.toString());
+            logger.info(dto.toString().replaceAll("\n\r","\\n"));
+            logger.info(dto.toString().replaceAll("\\n","\n\r"));
         }
         logger.info("--------------------------------");
     }

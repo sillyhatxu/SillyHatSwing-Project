@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 
 /**
- * Created by ${XUSHIKUAN} on 2017-03-12.
+ * 不可编辑的JTable
  */
 public class SillyHatTable extends JTable{
 
@@ -15,5 +15,9 @@ public class SillyHatTable extends JTable{
 
     public SillyHatTable(TableModel dm){
         super(dm);
+    }
+
+    public boolean isCellEditable(int row, int column) {
+        return false;
     }
 }
