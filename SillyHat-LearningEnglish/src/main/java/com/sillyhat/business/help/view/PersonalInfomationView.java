@@ -1,4 +1,4 @@
-package com.sillyhat.view.function;
+package com.sillyhat.business.help.view;
 
 import com.sillyhat.swing.module.basic.SillyHatFactory;
 import com.sillyhat.swing.module.basic.SillyHatFormJPanel;

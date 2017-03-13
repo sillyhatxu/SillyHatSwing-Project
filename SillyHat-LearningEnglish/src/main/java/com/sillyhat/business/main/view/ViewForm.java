@@ -1,4 +1,4 @@
-package com.sillyhat.view.main;
+package com.sillyhat.business.main.view;
 
 import com.sillyhat.swing.module.basic.SillyHatJMenu;
 import com.sillyhat.swing.module.basic.SillyHatJMenuBar;

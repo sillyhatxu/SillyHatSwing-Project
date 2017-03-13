@@ -1,8 +1,8 @@
-package com.sillyhat.listener.function;
+package com.sillyhat.business.message.listener;
 
 import com.sillyhat.swing.module.container.middle.SillyHatTabModulePanel;
 import com.sillyhat.utils.Constants;
-import com.sillyhat.view.function.PersonalInfomationView;
+import com.sillyhat.business.help.view.PersonalInfomationView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

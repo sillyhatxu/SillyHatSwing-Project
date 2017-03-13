@@ -1,4 +1,4 @@
-package com.sillyhat.listener.function;
+package com.sillyhat.business.backups.listener;
 
 import com.sillyhat.swing.module.container.middle.ModulePanel;
 
@@ -17,7 +17,6 @@ public class InnerWindowListener implements ActionListener{
 	
 	final JPanel opPane = new JPanel();
 	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		InnerFrame iFrame = new InnerFrame(); 
 //        windowDialog.add(iFrame);

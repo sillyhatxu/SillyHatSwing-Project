@@ -1,4 +1,4 @@
-package com.sillyhat.view.question;
+package com.sillyhat.business.question.view;
 
 import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 

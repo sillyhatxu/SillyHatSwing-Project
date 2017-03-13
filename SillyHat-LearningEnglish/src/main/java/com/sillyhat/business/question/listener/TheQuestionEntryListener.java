@@ -1,8 +1,8 @@
-package com.sillyhat.listener.function;
+package com.sillyhat.business.question.listener;
 
 import com.sillyhat.swing.module.container.middle.SillyHatTabModulePanel;
 import com.sillyhat.utils.Constants;
-import com.sillyhat.view.question.QuestionList;
+import com.sillyhat.business.question.view.QuestionList;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
