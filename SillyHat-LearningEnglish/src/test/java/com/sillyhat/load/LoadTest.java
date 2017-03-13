@@ -1,5 +1,6 @@
 package com.sillyhat.load;
 
+import com.sillyhat.business.main.service.SystemService;
 import com.sillyhat.business.question.dto.WordQuestionDTO;
 import com.sillyhat.business.question.service.QuestionService;
 import com.sillyhat.utils.JunitTestSupport;
@@ -30,6 +31,9 @@ public class LoadTest extends JunitTestSupport {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private SystemService systemService;
+
     @Test
     public void testLogger() {
         logger.error("-------------error-------------");
@@ -45,6 +49,13 @@ public class LoadTest extends JunitTestSupport {
         for(WordQuestionDTO dto : list){
             logger.info(dto.toString());
         }
+        logger.info("--------------------------------");
+    }
+
+    @Test
+    public void testInitSystemTable() {
+        logger.info("--------------------------------");
+        systemService.initSystemTable();
         logger.info("--------------------------------");
     }
 

@@ -20,7 +20,7 @@ public class WordQuestionEntryListener implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		WordQuestionList wordQuestionList = new WordQuestionList(Constants.PANEL_CODE_THE_QUESTION_ENTRY);
+		WordQuestionList wordQuestionList = new WordQuestionList(Constants.PANEL_CODE_WORD_QUESTION_ENTRY);
 		wordQuestionList.initTable();
 		wordQuestionList.hiddenColumn(0);
 		wordQuestionList.refreshTable();;
