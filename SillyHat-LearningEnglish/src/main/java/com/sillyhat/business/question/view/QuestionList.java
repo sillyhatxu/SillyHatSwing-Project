@@ -12,7 +12,7 @@ public class QuestionList extends SillyHatPageTable {
 
     public QuestionList(String panelCode) {
         super(panelCode);
-        debugFrame(Color.red);
+//        debugFrame(Color.red);
     }
 
     public Vector<String> getColumns() {

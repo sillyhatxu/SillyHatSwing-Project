@@ -50,7 +50,7 @@
 		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath*:com/com.sillyhat/**/*/mapping/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath*:com/sillyhat/**/*/mapping/*Mapper.xml" />
 	</bean>
 	<!-- 采用自动扫描方式创建mapper bean(单个更新模式) -->  
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -92,5 +92,5 @@
 	</bean>
 
 	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
-	<context:component-scan base-package="com.com.sillyhat" />
+	<context:component-scan base-package="com.sillyhat" />
 </beans>

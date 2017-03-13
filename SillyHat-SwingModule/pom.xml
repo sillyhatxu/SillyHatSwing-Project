@@ -2,13 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>SillyHat-SwingProject</artifactId>
-        <groupId>com.sillyhat.swing</groupId>
+        <groupId>com.com.sillyhat.swing</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>com.sillyhat.swing</groupId>
+    <groupId>com.com.sillyhat.swing</groupId>
     <artifactId>SillyHat-SwingModule</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
