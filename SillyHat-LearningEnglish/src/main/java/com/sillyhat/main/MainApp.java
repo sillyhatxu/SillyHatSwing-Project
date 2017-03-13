@@ -2,7 +2,7 @@ package com.sillyhat.main;
 
 import com.sillyhat.business.help.listener.ExitListener;
 import com.sillyhat.business.message.listener.PersonalInformationListener;
-import com.sillyhat.business.question.listener.TheQuestionEntryListener;
+import com.sillyhat.business.question.listener.WordQuestionEntryListener;
 import com.sillyhat.swing.exception.SillyHatException;
 import com.sillyhat.swing.module.basic.SillyHatJMenu;
 import com.sillyhat.swing.module.basic.SillyHatJMenuItem;
@@ -61,7 +61,7 @@ public class MainApp extends ViewForm{
 	private void initJMenuFunction(){
 		jMenu = new SillyHatJMenu("功能");
 
-		jMenuButton = new SillyHatJMenuItem("题库录入", new TheQuestionEntryListener(centerPanel));
+		jMenuButton = new SillyHatJMenuItem("题库录入", new WordQuestionEntryListener(centerPanel));
 		jMenu.addMenuButton(jMenuButton);
 
 		jMenuButton = new SillyHatJMenuItem("选择答题");

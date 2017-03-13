@@ -1,9 +1,19 @@
 package com.sillyhat.load;
 
+import com.sillyhat.business.question.dto.WordQuestionDTO;
+import com.sillyhat.business.question.service.QuestionService;
 import com.sillyhat.utils.JunitTestSupport;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import java.util.List;
 
 /**
  * LoadTest
@@ -13,7 +23,10 @@ import org.slf4j.LoggerFactory;
  */
 public class LoadTest extends JunitTestSupport {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(LoadTest.class);
+
+    @Autowired
+    private QuestionService questionService;
 
     @Test
     public void testLogger() {
@@ -24,10 +37,20 @@ public class LoadTest extends JunitTestSupport {
     }
 
     @Test
+    public void testSpring() {
+        logger.info("--------------------------------");
+        WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+        QuestionService qService = (QuestionService) wac.getBean("questionService");
+        logger.info("--------------------------------");
+    }
+
+    @Test
     public void testSpringMybatis() {
-        logger.error("error");
-        logger.debug("debug");
-        logger.info("info");
-        System.out.println("-------------");
+        logger.info("--------------------------------");
+        List<WordQuestionDTO> list = questionService.queryAllWordQuestion();
+        for(WordQuestionDTO dto : list){
+            logger.info(dto.toString());
+        }
+        logger.info("--------------------------------");
     }
 }

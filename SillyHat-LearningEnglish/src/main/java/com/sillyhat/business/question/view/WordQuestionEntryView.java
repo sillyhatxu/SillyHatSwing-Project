@@ -7,14 +7,14 @@ import com.sillyhat.swing.module.container.middle.SillyHatTabPanel;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class TheQuestionEntryView extends SillyHatTabPanel{
+public class WordQuestionEntryView extends SillyHatTabPanel{
 
 	/** 
 	 * @Fields serialVersionUID : TODO 
 	 */ 
 	private static final long serialVersionUID = -7743068812917872442L;
 
-	public TheQuestionEntryView(String panelCode) {
+	public WordQuestionEntryView(String panelCode) {
 		super(panelCode);
 		setBorder(SillyHatFactory.getBorderDistanceNoneTop(10));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

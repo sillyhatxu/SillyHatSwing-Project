@@ -52,7 +52,7 @@
 
 	<!-- 采用自动扫描方式创建mapper bean(单个更新模式) -->  
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.sillyhat.**.mapper" />
+		<property name="basePackage" value="com.sillyhat.business.**.mapper" />
 	</bean>
 
 	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">

@@ -8,9 +8,9 @@ import java.util.Vector;
 /**
  * Created by ${XUSHIKUAN} on 2017-03-12.
  */
-public class QuestionList extends SillyHatPageTable {
+public class WordQuestionList extends SillyHatPageTable {
 
-    public QuestionList(String panelCode) {
+    public WordQuestionList(String panelCode) {
         super(panelCode);
 //        debugFrame(Color.red);
     }

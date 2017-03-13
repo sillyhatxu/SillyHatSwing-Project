@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {
-                "classpath:applicationContext-Spring.xml",
+//                "classpath:applicationContext-Servlet.xml",
                 "classpath:applicationContext-Spring.xml",
                 "classpath:mybatis-config.xml",
         })
