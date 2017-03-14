@@ -134,6 +134,11 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>${org.xerial.sqlite.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sillyhat.swing</groupId>
+            <artifactId>SillyHat-SpringMybatisHikaricp</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

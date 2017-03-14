@@ -18,8 +18,8 @@
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<!--<value>message/messages</value>-->
-				<value>classpath:message/messages</value>
+				<value>message/messages</value>
+				<!--<value>classpath:message/messages</value>-->
 			</list>
 		</property>
 	</bean>

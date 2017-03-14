@@ -47,7 +47,7 @@
 		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath*:com/sillyhat/business/*/mapping/*Mapping.xml" />
+		<property name="mapperLocations" value="classpath*:com/sillyhat/learningenglish/business/*/mapping/*Mapping.xml" />
 		<!--<property name="mapperLocations" value="classpath*:com/sillyhat/business/*/mapping/sqlmap-mapping-*.xml" />-->
 		<!--<property name="mapperLocations" value="classpath:com/sillyhat/business/*/mapping/sqlmap-mapping-*.xml" />-->
 	</bean>
@@ -55,8 +55,8 @@
 	<!-- 采用自动扫描方式创建mapper bean(单个更新模式) -->  
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!--<property name="basePackage" value="com.sillyhat.**.mapper" />-->
-		<property name="basePackage" value="com.sillyhat.business.*.mapper" />
-		<!--<property name="basePackage" value="com.sillyhat.business.question.dao" />-->
+		<property name="basePackage" value="com.sillyhat.learningenglish.business.*.mapper" />
+		<!--<property name="basePackage" value="com.sillyhat.learningenglish.business.question.dao" />-->
 	</bean>
 
 	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
@@ -94,5 +94,5 @@
 	</bean>
 
 	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
-	<context:component-scan base-package="com.sillyhat" />
+	<context:component-scan base-package="com.sillyhat.learningenglish" />
 </beans>

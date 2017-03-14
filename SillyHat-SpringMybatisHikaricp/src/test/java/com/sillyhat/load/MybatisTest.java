@@ -1,6 +1,6 @@
 package com.sillyhat.load;
 
-import com.sillyhat.utils.JunitTestSupport;
+import com.sillyhat.learningenglish.utils.JunitTestSupport;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
