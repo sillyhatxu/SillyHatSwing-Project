@@ -1,11 +1,18 @@
-package com.sillyhat.learningenglish.business.question.view;
+package com.sillyhat.learningenglish.business.wordrepository.view;
 
+import com.sillyhat.learningenglish.business.message.service.MessageService;
+import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
 import com.sillyhat.learningenglish.business.wordrepository.listener.DetailWordRepositoryListener;
 import com.sillyhat.learningenglish.business.wordrepository.listener.RemoveWordRepositoryListener;
+import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
+import com.sillyhat.learningenglish.utils.SpringUtils;
+import com.sillyhat.swing.dto.PageDTO;
 import com.sillyhat.swing.module.basic.SillyHatInputText;
 import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 
 import javax.swing.*;
+
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -13,8 +20,14 @@ import java.util.Vector;
  */
 public class WordRepositoryList extends SillyHatPageTable {
 
+    private MessageService messageService;
+
+    private WordRepositoryService wordRepositoryService;
+
     public WordRepositoryList(String panelCode) {
         super(panelCode);
+        messageService = (MessageService) SpringUtils.getInstance().getContext().getBean(MessageService.class);
+        wordRepositoryService = (WordRepositoryService) SpringUtils.getInstance().getContext().getBean(WordRepositoryService.class);
 //        debugFrame(Color.red);
     }
 
@@ -43,28 +56,33 @@ public class WordRepositoryList extends SillyHatPageTable {
     public Vector<String> getColumns() {
         Vector<String> columnNames = new Vector<String>();
         columnNames.add("ID");
-        columnNames.add("序号");
-        columnNames.add("公司编号");
-        columnNames.add("部门编号");
-        columnNames.add("部门名称");
-        columnNames.add("部门层级");
-        columnNames.add("父节点编号");
-        columnNames.add("是否删除");
-        columnNames.add("是否删除");
-        columnNames.add("是否删除");
-        columnNames.add("是否删除");
-        columnNames.add("是否删除");
-        columnNames.add("是否删除");
+        columnNames.add("单词");
+        columnNames.add("音标");
+        columnNames.add("提示");
+        columnNames.add("翻译");
+        columnNames.add("创建人");
+        columnNames.add("创建时间");
+        columnNames.add("修改人");
+        columnNames.add("修改时间");
         return columnNames;
     }
 
-    public Vector<Vector<String>> getRowData() {
+    public Vector<Vector<String>> getRowData(PageDTO page) {
         Vector<Vector<String>> rowData = new Vector<Vector<String>>();
-        for (int i = 1; i <= 100; i++) {
+        List<WordRepositoryDTO> list = wordRepositoryService.queryWordRepositoryByPage(page);
+        for (WordRepositoryDTO dto : list) {
             Vector<String> iColumns = new Vector<String>();
-            for (int j = 1; j <= 8; j++) {
-                iColumns.add(i + "-" + j);
-            }
+            iColumns.add(dto.getId());
+            iColumns.add(dto.getWord());
+            iColumns.add(dto.getPhonetic());
+            iColumns.add(dto.getReminder());
+            iColumns.add(dto.getTranslate());
+            iColumns.add(dto.getCreatedUser());
+//            iColumns.add(dto.getCreatedDate());
+            iColumns.add("");
+            iColumns.add(dto.getUpdatedUser());
+//            iColumns.add(dto.getUpdatedDate());
+            iColumns.add("");
             rowData.add(iColumns);
         }
         return rowData;

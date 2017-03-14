@@ -1,9 +1,11 @@
 package com.sillyhat.learningenglish.main;
 
+import com.sillyhat.learningenglish.business.message.service.MessageService;
 import com.sillyhat.learningenglish.business.system.listener.ExitListener;
-import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryListener;
 import com.sillyhat.learningenglish.business.system.listener.PersonalInformationListener;
 import com.sillyhat.learningenglish.business.system.view.ViewForm;
+import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryListener;
+import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.swing.exception.SillyHatException;
 import com.sillyhat.swing.module.basic.SillyHatJMenu;
 import com.sillyhat.swing.module.basic.SillyHatJMenuItem;
@@ -15,13 +17,16 @@ public class MainApp extends ViewForm{
 	 */ 
 	private static final long serialVersionUID = -690238177122305692L;
 
+	private MessageService messageService;
+
 	public MainApp(){
+		initService();
 //		initListener();
 //		initComponents();
 //		initStyle(inputPane);
 //		registerListener();
 //		initPosition();
-		setTitleName("帽子学习系统");
+		setTitleName(messageService.getMessageZH("ui.title"));
 //		setWindowSize(1000,800);
 		setWindowSize(1000,500);
 		setWindowLocation(null);
@@ -30,6 +35,11 @@ public class MainApp extends ViewForm{
 		setborderLayoutCenter(centerPanel);
 	}
 
+
+	private void initService(){
+		//加载Spring与注入service
+		messageService = (MessageService) SpringUtils.getInstance().getContext().getBean(MessageService.class);
+	}
 
 	private void initComponents(){
 		initJMenuSystem();
@@ -41,15 +51,15 @@ public class MainApp extends ViewForm{
 	 * 初始化系统菜单
 	 */
 	private void initJMenuSystem(){
-		jMenu = new SillyHatJMenu("系统");
+		jMenu = new SillyHatJMenu(messageService.getMessageZH("menu.system"));
 
-		jMenuButton = new SillyHatJMenuItem("个人信息",new PersonalInformationListener(centerPanel));
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.personal.message"),new PersonalInformationListener(centerPanel));
 		jMenu.addMenuButton(jMenuButton);
 
-		jMenuButton = new SillyHatJMenuItem("切换数据库");
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.switch.database"));
 		jMenu.addMenuButton(jMenuButton);
 
-		jMenuButton = new SillyHatJMenuItem("创建新数据库");
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.create.database"));
 		jMenu.addMenuButton(jMenuButton);
 
 		jMenuBar.addMenu(jMenu);
@@ -59,12 +69,12 @@ public class MainApp extends ViewForm{
 	 * 初始化功能菜单
 	 */
 	private void initJMenuFunction(){
-		jMenu = new SillyHatJMenu("功能");
+		jMenu = new SillyHatJMenu(messageService.getMessageZH("menu.function"));
 
-		jMenuButton = new SillyHatJMenuItem("词库管理", new WordRepositoryListener(centerPanel));
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.word.repository"), new WordRepositoryListener(centerPanel));
 		jMenu.addMenuButton(jMenuButton);
 
-		jMenuButton = new SillyHatJMenuItem("选择答题");
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.select.answer"));
 		jMenu.addMenuButton(jMenuButton);
 
 		jMenuBar.addMenu(jMenu);
@@ -74,15 +84,15 @@ public class MainApp extends ViewForm{
 	 * 初始化帮助菜单
 	 */
 	private void initJMenuHelp(){
-		jMenu = new SillyHatJMenu("帮助");
+		jMenu = new SillyHatJMenu(messageService.getMessageZH("menu.help"));
 
-		jMenuButton = new SillyHatJMenuItem("帮助文档");
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.help.doc"));
 		jMenu.addMenuButton(jMenuButton);
 
-		jMenuButton = new SillyHatJMenuItem("关于本系统");
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.about"));
 		jMenu.addMenuButton(jMenuButton);
 
-		jMenuButton = new SillyHatJMenuItem("退出",new ExitListener());
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.exit"),new ExitListener());
 		jMenu.addMenuButton(jMenuButton);
 
 		jMenuBar.addMenu(jMenu);

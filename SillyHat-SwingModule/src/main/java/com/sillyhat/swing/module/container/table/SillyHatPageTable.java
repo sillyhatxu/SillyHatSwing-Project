@@ -1,5 +1,6 @@
 package com.sillyhat.swing.module.container.table;
 
+import com.sillyhat.swing.dto.PageDTO;
 import com.sillyhat.swing.module.container.middle.SillyHatTabPanel;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
     private JScrollPane jsp = new JScrollPane();
 
     private DefaultTableModel tableModel = null;
+
+    private PageDTO page = null;
 
     private SillyHatTable table = null;
 
@@ -59,8 +62,9 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         this.isReorderingAllowed = reorderingAllowed;
     }
 
-    public void initTable(){
-        tableModel = new DefaultTableModel(getRowData(), getColumns());
+    public void initTable(PageDTO page){
+        this.page = page;
+        tableModel = new DefaultTableModel(getRowData(page), getColumns());
         searchJPanel = getSearchJPanel();
         table = new SillyHatTable(tableModel);
         if(isSingle){
@@ -146,6 +150,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
 
     /**
      * 表格列名称
+     * @param page      分页实体
      * @return
      */
     public abstract Vector<String> getColumns();
@@ -154,7 +159,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
      * 表格内容
      * @return
      */
-    public abstract Vector<Vector<String>> getRowData();
+    public abstract Vector<Vector<String>> getRowData(PageDTO page);
 
     public SillyHatTable getTable() {
         return table;
