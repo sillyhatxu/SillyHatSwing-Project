@@ -11,7 +11,6 @@ import com.sillyhat.swing.module.basic.SillyHatInputText;
 import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 
 import javax.swing.*;
-
 import java.util.List;
 import java.util.Vector;
 
@@ -41,11 +40,11 @@ public class WordRepositoryList extends SillyHatPageTable {
     @Override
     public JToolBar getJToolBar() {
         JToolBar operatorBar = new JToolBar();
-        JButton btnAdd = new JButton("新增");
-        JButton btnEdit = new JButton("修改");
-        JButton btnRemove = new JButton("删除");
-        btnAdd.addActionListener(new DetailWordRepositoryListener(this.getTable()));
-        btnEdit.addActionListener(new DetailWordRepositoryListener(this.getTable()));
+        JButton btnAdd = new JButton(messageService.getMessageZH("btn.add"));
+        JButton btnEdit = new JButton(messageService.getMessageZH("btn.edit"));
+        JButton btnRemove = new JButton(messageService.getMessageZH("btn.remove"));
+        btnAdd.addActionListener(new DetailWordRepositoryListener(this.getTable(),false));
+        btnEdit.addActionListener(new DetailWordRepositoryListener(this.getTable(),true));
         btnRemove.addActionListener(new RemoveWordRepositoryListener());
         operatorBar.add(btnAdd);
         operatorBar.add(btnEdit);
@@ -55,15 +54,15 @@ public class WordRepositoryList extends SillyHatPageTable {
 
     public Vector<String> getColumns() {
         Vector<String> columnNames = new Vector<String>();
-        columnNames.add("ID");
-        columnNames.add("单词");
-        columnNames.add("音标");
-        columnNames.add("提示");
-        columnNames.add("翻译");
-        columnNames.add("创建人");
-        columnNames.add("创建时间");
-        columnNames.add("修改人");
-        columnNames.add("修改时间");
+        columnNames.add("");
+        columnNames.add(messageService.getMessageZH("word.repository.word"));
+        columnNames.add(messageService.getMessageZH("word.repository.phonetic"));
+        columnNames.add(messageService.getMessageZH("word.repository.reminder"));
+        columnNames.add(messageService.getMessageZH("word.repository.word.translate"));
+        columnNames.add(messageService.getMessageZH("public.label.created.user"));
+        columnNames.add(messageService.getMessageZH("public.label.created.date"));
+        columnNames.add(messageService.getMessageZH("public.label.updated.user"));
+        columnNames.add(messageService.getMessageZH("public.label.updated.date"));
         return columnNames;
     }
 
@@ -76,13 +75,11 @@ public class WordRepositoryList extends SillyHatPageTable {
             iColumns.add(dto.getWord());
             iColumns.add(dto.getPhonetic());
             iColumns.add(dto.getReminder());
-            iColumns.add(dto.getTranslate());
+            iColumns.add(dto.getWordTranslate());
             iColumns.add(dto.getCreatedUser());
-//            iColumns.add(dto.getCreatedDate());
-            iColumns.add("");
+            iColumns.add(dto.getCreatedDate());
             iColumns.add(dto.getUpdatedUser());
-//            iColumns.add(dto.getUpdatedDate());
-            iColumns.add("");
+            iColumns.add(dto.getUpdatedDate());
             rowData.add(iColumns);
         }
         return rowData;

@@ -1,7 +1,6 @@
 package com.sillyhat.learningenglish.business.backups.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 学习计划
@@ -56,7 +55,7 @@ public class UserLearningPlanDTO implements Serializable {
     /**
      *  创建时间
      */
-    private Date createdDate;
+    private String createdDate;
 
     /**
      *  修改人
@@ -66,7 +65,7 @@ public class UserLearningPlanDTO implements Serializable {
     /**
      *  修改时间
      */
-    private Date updatedDate;
+    private String updatedDate;
 
     public String getId() {
         return id;
@@ -132,11 +131,11 @@ public class UserLearningPlanDTO implements Serializable {
         this.createdUser = createdUser;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -148,11 +147,28 @@ public class UserLearningPlanDTO implements Serializable {
         this.updatedUser = updatedUser;
     }
 
-    public Date getUpdatedDate() {
+    public String getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
+    public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLearningPlanDTO{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", wordId='" + wordId + '\'' +
+                ", isLearning=" + isLearning +
+                ", reviewFrequency=" + reviewFrequency +
+                ", errorFrequency=" + errorFrequency +
+                ", successFrequency=" + successFrequency +
+                ", createdUser='" + createdUser + '\'' +
+                ", createdDate=" + createdDate +
+                ", updatedUser='" + updatedUser + '\'' +
+                ", updatedDate=" + updatedDate +
+                '}';
     }
 }

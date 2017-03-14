@@ -11,10 +11,12 @@ import java.util.List;
  * @author 徐士宽
  * @date 2017/3/13 11:46
  */
-public interface WordRepository {
+public interface WordRepositoryMapper {
 
     public List<WordRepositoryDTO> queryWordRepositoryByPage(PageDTO page);
 
     public int queryWordRepositoryCountByPage(PageDTO page);
+
+    public WordRepositoryDTO getWordRepositoryById(String id);
 
 }

@@ -1,7 +1,6 @@
 package com.sillyhat.learningenglish.business.backups.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 今日计划单词列表
@@ -9,7 +8,7 @@ import java.util.Date;
  * @author 徐士宽
  * @date 2017/3/14 13:40
  */
-public class TodayPlanDetail implements Serializable {
+public class TodayPlanDetailDTO implements Serializable {
 
     private static final long serialVersionUID = 1545917272572810508L;
 
@@ -51,7 +50,7 @@ public class TodayPlanDetail implements Serializable {
     /**
      *  创建时间
      */
-    private Date createdDate;
+    private String createdDate;
 
     /**
      *  修改人
@@ -61,7 +60,7 @@ public class TodayPlanDetail implements Serializable {
     /**
      *  修改时间
      */
-    private Date updatedDate;
+    private String updatedDate;
 
     public String getId() {
         return id;
@@ -119,11 +118,11 @@ public class TodayPlanDetail implements Serializable {
         this.createdUser = createdUser;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -135,11 +134,27 @@ public class TodayPlanDetail implements Serializable {
         this.updatedUser = updatedUser;
     }
 
-    public Date getUpdatedDate() {
+    public String getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
+    public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "TodayPlanDetail{" +
+                "id='" + id + '\'' +
+                ", todayPlanId='" + todayPlanId + '\'' +
+                ", wordId='" + wordId + '\'' +
+                ", isError=" + isError +
+                ", occurrenceNum=" + occurrenceNum +
+                ", sortNum=" + sortNum +
+                ", createdUser='" + createdUser + '\'' +
+                ", createdDate=" + createdDate +
+                ", updatedUser='" + updatedUser + '\'' +
+                ", updatedDate=" + updatedDate +
+                '}';
     }
 }

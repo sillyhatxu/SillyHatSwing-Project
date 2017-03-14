@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepositoryMapper">
+
+    <!--select * from users order by id limit 10 offset 0;//offset代表从第几条记录“之后“开始查询，limit表明查询多少条结果-->
+    <select id="queryWordRepositoryByPage" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+        SELECT
+            ID AS id,
+            WORD AS word,
+            PHONETIC AS phonetic,
+            REMINDER AS reminder,
+            WORD_TRANSLATE AS wordTranslate,
+            (select USER_NAME from T_USER u where u.ID = wr.CREATED_USER) AS createdUser,
+            CREATED_DATE AS createdDate,
+            (select USER_NAME from T_USER u where u.ID = wr.UPDATED_USER) AS updatedUser,
+            UPDATED_DATE AS updatedDate
+        FROM
+            T_WORD_REPOSITORY wr
+    </select>
+
+    <select id="getWordRepositoryById" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+        SELECT
+            ID AS id,
+            WORD AS word,
+            PHONETIC AS phonetic,
+            REMINDER AS reminder,
+            WORD_TRANSLATE AS wordTranslate
+        FROM
+            T_WORD_REPOSITORY
+        WHERE ID = #{id}
+    </select>
+
+</mapper>

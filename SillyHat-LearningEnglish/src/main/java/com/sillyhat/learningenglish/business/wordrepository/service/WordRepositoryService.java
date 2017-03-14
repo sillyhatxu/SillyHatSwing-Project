@@ -15,4 +15,6 @@ public interface WordRepositoryService {
 
     public List<WordRepositoryDTO> queryWordRepositoryByPage(PageDTO page);
 
+    public WordRepositoryDTO getWordRepositoryById(String id);
+
 }

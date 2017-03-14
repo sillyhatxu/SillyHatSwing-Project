@@ -1,6 +1,5 @@
 package com.sillyhat.learningenglish.utils;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -26,7 +25,7 @@ public class SpringUtils {
     }
 
     private SpringUtils(){
-        String paths[] = {"applicationContext-Servlet.xml", "applicationContext-Spring.xml"};
+        String paths[] = {"applicationContext-database.xml", "applicationContext-config.xml"};
         //加载spring的配置文件
         context = new ClassPathXmlApplicationContext(paths);
     }

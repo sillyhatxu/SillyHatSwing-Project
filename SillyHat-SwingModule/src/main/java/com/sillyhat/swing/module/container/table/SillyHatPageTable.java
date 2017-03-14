@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
 import java.util.Vector;
 
 /**
@@ -28,6 +29,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
 
     private JPanel searchJPanel = null;
     private JToolBar operatorBar = null;
+    private JPanel jToolBarPanel = null;
 
     private final JPanel btnJPanel = new JPanel();
     private final JLabel totalJLabel = new JLabel("共" + 0 + "条记录");
@@ -74,6 +76,24 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
             table.getTableHeader().setReorderingAllowed(false);//禁止列拖拽
         }
         operatorBar = getJToolBar();
+        operatorBar.setFloatable(isFixationJToolBar());//是否固定不允许拖动，默认不允许拖动
+    }
+
+
+    /**
+     * 是否允许拖动JToolBar
+     * @return
+     */
+    public boolean isFixationJToolBar(){
+        return false;
+    }
+
+    /**
+     * 默认左对齐
+     * @return
+     */
+    public int getJToolBarFlow(){
+        return FlowLayout.LEFT;
     }
 
     /**
@@ -97,7 +117,9 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
             add(searchJPanel);
         }
         if(operatorBar != null){
-            add(operatorBar);
+            jToolBarPanel = new JPanel(new FlowLayout(getJToolBarFlow()));
+            jToolBarPanel.add(operatorBar);
+            add(jToolBarPanel);
         }
         //刷新table
         jsp.setViewportView(table);

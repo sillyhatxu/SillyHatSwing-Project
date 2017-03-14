@@ -1,7 +1,6 @@
 package com.sillyhat.learningenglish.business.wordrepository.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 单词库
@@ -33,7 +32,7 @@ public class WordRepositoryDTO implements Serializable {
     /**
      *  翻译
      */
-    private String translate;
+    private String wordTranslate;
 
     /**
      *  创建人
@@ -43,7 +42,7 @@ public class WordRepositoryDTO implements Serializable {
     /**
      *  创建时间
      */
-    private Date createdDate;
+    private String createdDate;
 
     /**
      *  修改人
@@ -53,7 +52,7 @@ public class WordRepositoryDTO implements Serializable {
     /**
      *  修改时间
      */
-    private Date updatedDate;
+    private String updatedDate;
 
     public String getId() {
         return id;
@@ -87,12 +86,12 @@ public class WordRepositoryDTO implements Serializable {
         this.reminder = reminder;
     }
 
-    public String getTranslate() {
-        return translate;
+    public String getWordTranslate() {
+        return wordTranslate;
     }
 
-    public void setTranslate(String translate) {
-        this.translate = translate;
+    public void setWordTranslate(String wordTranslate) {
+        this.wordTranslate = wordTranslate;
     }
 
     public String getCreatedUser() {
@@ -103,11 +102,11 @@ public class WordRepositoryDTO implements Serializable {
         this.createdUser = createdUser;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -119,11 +118,26 @@ public class WordRepositoryDTO implements Serializable {
         this.updatedUser = updatedUser;
     }
 
-    public Date getUpdatedDate() {
+    public String getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
+    public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "WordRepositoryDTO{" +
+                "id='" + id + '\'' +
+                ", word='" + word + '\'' +
+                ", phonetic='" + phonetic + '\'' +
+                ", reminder='" + reminder + '\'' +
+                ", wordTranslate='" + wordTranslate + '\'' +
+                ", createdUser='" + createdUser + '\'' +
+                ", createdDate=" + createdDate +
+                ", updatedUser='" + updatedUser + '\'' +
+                ", updatedDate=" + updatedDate +
+                '}';
     }
 }

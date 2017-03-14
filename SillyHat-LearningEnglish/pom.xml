@@ -23,7 +23,7 @@
         <org.mybatis.version>3.2.8</org.mybatis.version>
         <HikariCP.version>2.6.0</HikariCP.version>
         <com.google.guava.version>18.0</com.google.guava.version>
-        <org.xerial.sqlite.version>3.8.11.2</org.xerial.sqlite.version>
+        <org.xerial.sqlite.version>3.7.2</org.xerial.sqlite.version>
     </properties>
 
     <dependencies>

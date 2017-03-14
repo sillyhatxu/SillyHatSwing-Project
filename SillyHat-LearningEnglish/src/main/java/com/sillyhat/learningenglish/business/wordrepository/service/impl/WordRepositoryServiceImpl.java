@@ -1,15 +1,13 @@
 package com.sillyhat.learningenglish.business.wordrepository.service.impl;
 
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
-import com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepository;
+import com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepositoryMapper;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
 import com.sillyhat.swing.dto.PageDTO;
-
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * QuestionServiceImpl
@@ -21,10 +19,15 @@ import javax.annotation.Resource;
 public class WordRepositoryServiceImpl implements WordRepositoryService {
 
     @Resource
-    private WordRepository wordRepository;
+    private WordRepositoryMapper wordRepositoryMapper;
 
     @Override
     public List<WordRepositoryDTO> queryWordRepositoryByPage(PageDTO page) {
-        return wordRepository.queryWordRepositoryByPage(page);
+        return wordRepositoryMapper.queryWordRepositoryByPage(page);
+    }
+
+    @Override
+    public WordRepositoryDTO getWordRepositoryById(String id) {
+        return wordRepositoryMapper.getWordRepositoryById(id);
     }
 }
