@@ -84,4 +84,9 @@ public class WordRepositoryList extends SillyHatPageTable {
         }
         return rowData;
     }
+
+    @Override
+    public int getTotalCount(PageDTO page) {
+        return wordRepositoryService.queryWordRepositoryTotalCountByPage(page);
+    }
 }

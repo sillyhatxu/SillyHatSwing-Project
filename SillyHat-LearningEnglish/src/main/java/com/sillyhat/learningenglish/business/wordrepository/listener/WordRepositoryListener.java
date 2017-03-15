@@ -7,6 +7,7 @@ import com.sillyhat.swing.module.container.middle.SillyHatTabModulePanel;
 import com.sillyhat.learningenglish.utils.Constants;
 import com.sillyhat.learningenglish.business.wordrepository.view.WordRepositoryList;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

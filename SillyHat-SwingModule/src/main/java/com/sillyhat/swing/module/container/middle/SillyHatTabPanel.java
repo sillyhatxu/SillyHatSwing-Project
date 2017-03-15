@@ -19,8 +19,8 @@ public class SillyHatTabPanel extends JPanel{
 		setName(panelCode);
 	}
 
-	public void debugFrame(Color red){
-		setBorder(BorderFactory.createLineBorder(red));
+	public void debugFrame(Color color){
+		setBorder(BorderFactory.createLineBorder(color));
 	}
 	
 }

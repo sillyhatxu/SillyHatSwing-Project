@@ -19,6 +19,13 @@
             T_WORD_REPOSITORY wr
     </select>
 
+    <select id="queryWordRepositoryTotalCountByPage" resultType="int">
+        SELECT
+            count(1)
+        FROM
+            T_WORD_REPOSITORY wr
+    </select>
+
     <select id="getWordRepositoryById" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         SELECT
             ID AS id,

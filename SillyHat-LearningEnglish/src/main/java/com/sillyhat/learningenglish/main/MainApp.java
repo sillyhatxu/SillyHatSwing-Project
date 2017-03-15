@@ -28,7 +28,7 @@ public class MainApp extends ViewForm{
 //		initPosition();
 		setTitleName(messageService.getMessageZH("ui.title"));
 //		setWindowSize(1000,800);
-		setWindowSize(1000,500);
+		setWindowSize(1200,800);
 		setWindowLocation(null);
 		initComponents();
 		setTopJMenuBar(jMenuBar);

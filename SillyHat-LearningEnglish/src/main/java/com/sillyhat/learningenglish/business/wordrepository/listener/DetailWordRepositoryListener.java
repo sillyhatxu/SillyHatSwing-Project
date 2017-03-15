@@ -2,10 +2,13 @@ package com.sillyhat.learningenglish.business.wordrepository.listener;
 
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
+import com.sillyhat.learningenglish.business.wordrepository.view.WordRepositoryForm;
 import com.sillyhat.learningenglish.utils.SpringUtils;
-import com.sillyhat.swing.constants.SillyHatAlert;
+import com.sillyhat.swing.module.container.middle.SillyHatDialog;
 import com.sillyhat.swing.module.container.table.SillyHatTable;
+import com.sillyhat.swing.utils.SillyHatWindowUtils;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,6 +40,9 @@ public class DetailWordRepositoryListener implements ActionListener {
             //进入新增界面
             dto = new WordRepositoryDTO();
         }
-        SillyHatAlert.alert(dto.toString());
+        WordRepositoryForm form = new WordRepositoryForm(SillyHatWindowUtils.getActiveWindow(),dto);
+
+        form.openDialog();
+//        SillyHatDialog.showRegulationDialog(SillyHatWindowUtils.getActiveWindow(),null);
     }
 }

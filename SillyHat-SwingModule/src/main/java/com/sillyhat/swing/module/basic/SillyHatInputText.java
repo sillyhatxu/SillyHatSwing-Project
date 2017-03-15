@@ -50,30 +50,34 @@ public class SillyHatInputText extends JPanel{
 	}
 
 	public SillyHatInputText(){
-		initSillyHatInputText("",null,null,"",null);
+		initSillyHatInputText("",null,null,"",null,null);
 	}
 	
 	public SillyHatInputText(String labelName){
-		initSillyHatInputText(labelName,null,null,"",null);
+		initSillyHatInputText(labelName,null,null,"",null,null);
 	}
 	
 	public SillyHatInputText(String labelName,String textValue){
-		initSillyHatInputText(labelName,null,null,textValue,null);
+		initSillyHatInputText(labelName,null,null,textValue,null,null);
 	}
 	
 	public SillyHatInputText(String labelName,int labelWidth,int labelHeight,String textValue,int textWidth){
-		initSillyHatInputText(labelName, labelWidth, labelHeight, textValue, textWidth);
+		initSillyHatInputText(labelName, labelWidth, labelHeight, textValue, textWidth,null);
 	}
-	
+
+	public SillyHatInputText(String labelName,int labelWidth,int labelHeight,String textValue,int textWidth,Color color){
+		initSillyHatInputText(labelName, labelWidth, labelHeight, textValue, textWidth,color);
+	}
+
 	public SillyHatInputText(String labelName,int labelWidth,int labelHeight,String textValue,int textWidth,Border border){
-		initSillyHatInputText(labelName, labelWidth, labelHeight, textValue, textWidth);
+		initSillyHatInputText(labelName, labelWidth, labelHeight, textValue, textWidth,null);
 		if(border == null){
 			
 		}
 		setBorder(border);
 	}
 
-	private void initSillyHatInputText(String labelName,Integer labelWidth,Integer labelHeight,String textValue,Integer textWidth){
+	private void initSillyHatInputText(String labelName,Integer labelWidth,Integer labelHeight,String textValue,Integer textWidth,Color color){
 		jLabel = new JLabel();
 		if(textWidth != null){
 			jTextField = new JTextField(textWidth);
@@ -86,8 +90,12 @@ public class SillyHatInputText extends JPanel{
 		add(jTextField);
 		if(labelWidth != null && labelHeight != null){
 			setLabelWidthHeight(labelWidth, labelHeight);
+			setPreferredSize(new Dimension(800, labelHeight+10));//关键代码,设置JPanel的大小
 		}
 		setLayout(new FlowLayout(FlowLayout.LEFT));
+		if(color != null){
+			setBorder(BorderFactory.createLineBorder(color));
+		}
 	}
 	
 	private void setLabelWidthHeight(int width,int height){

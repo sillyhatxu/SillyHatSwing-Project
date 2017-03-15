@@ -23,4 +23,5 @@ public class SillyHatWindowDialog extends JDesktopPane{
 	public SillyHatWindowDialog(){
 		
 	}
+
 }

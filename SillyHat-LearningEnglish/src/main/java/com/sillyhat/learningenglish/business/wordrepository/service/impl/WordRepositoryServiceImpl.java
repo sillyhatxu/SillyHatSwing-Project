@@ -27,6 +27,11 @@ public class WordRepositoryServiceImpl implements WordRepositoryService {
     }
 
     @Override
+    public int queryWordRepositoryTotalCountByPage(PageDTO page) {
+        return wordRepositoryMapper.queryWordRepositoryTotalCountByPage(page);
+    }
+
+    @Override
     public WordRepositoryDTO getWordRepositoryById(String id) {
         return wordRepositoryMapper.getWordRepositoryById(id);
     }

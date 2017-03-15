@@ -65,8 +65,12 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
     }
 
     public void initTable(PageDTO page){
+        if(page == null){
+            page = new PageDTO();
+        }
         this.page = page;
         tableModel = new DefaultTableModel(getRowData(page), getColumns());
+        totalJLabel.setText("共" + getTotalCount(page) + "条记录");
         searchJPanel = getSearchJPanel();
         table = new SillyHatTable(tableModel);
         if(isSingle){
@@ -172,16 +176,24 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
 
     /**
      * 表格列名称
-     * @param page      分页实体
      * @return
      */
     public abstract Vector<String> getColumns();
 
+
     /**
      * 表格内容
+     * @param page      分页实体
      * @return
      */
     public abstract Vector<Vector<String>> getRowData(PageDTO page);
+
+    /**
+     * 分页总数
+     * @param page      分页实体
+     * @return
+     */
+    public abstract int getTotalCount(PageDTO page);
 
     public SillyHatTable getTable() {
         return table;
