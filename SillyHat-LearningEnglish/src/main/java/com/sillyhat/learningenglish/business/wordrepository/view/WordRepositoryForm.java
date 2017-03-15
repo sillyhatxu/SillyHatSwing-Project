@@ -5,14 +5,13 @@ import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDT
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
 import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.swing.module.basic.SillyHatInputText;
-import com.sillyhat.swing.module.basic.SillyHatTextArea;
+import com.sillyhat.swing.module.basic.SillyHatLabelTextArea;
 import com.sillyhat.swing.module.container.middle.SillyHatDialog;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
-
-import javax.swing.*;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-12.
@@ -51,41 +50,37 @@ public class WordRepositoryForm extends SillyHatDialog {
         return 500;
     }
 
+    private String id;
     private SillyHatInputText wordText;
     private SillyHatInputText phonetic;
-    private SillyHatInputText reminder;
+    private SillyHatLabelTextArea reminder;
+    private SillyHatLabelTextArea wordTranslate;
+
+
     public JPanel dialogContent() {
-//        JPanel fromPanel = new JPanel(new GridLayout(4,1));
         JPanel fromPanel = new JPanel();
-        fromPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-        wordText = new SillyHatInputText(messageService.getMessageZH("word.repository.word"),80, 30, "",20);
-        phonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.phonetic"),80, 30, "",20);
-        reminder = new SillyHatInputText(messageService.getMessageZH("word.repository.reminder"),80, 30, "",20);
-//        fromPanel.add(new SillyHatInputText(messageService.getMessageZH("word.repository.word"),80, 30, "",20,Color.BLUE));
-//        fromPanel.add(new SillyHatInputText(messageService.getMessageZH("word.repository.phonetic"),80, 30, "",20,Color.RED));
-//        fromPanel.add(new SillyHatInputText(messageService.getMessageZH("word.repository.reminder"),80, 30, "",20,Color.BLUE));
+        if(dto == null){
+            dto = new WordRepositoryDTO();
+        }
+        wordText = new SillyHatInputText(messageService.getMessageZH("word.repository.word"),80, 30, dto.getWord(),20);
+        phonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.phonetic"),80, 30, dto.getPhonetic(),20);
+        reminder = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.reminder"),80, 30, dto.getReminder(),500,100);
+        wordTranslate = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.word.translate"),80, 30, dto.getWordTranslate(),500,100);
         fromPanel.add(wordText);
         fromPanel.add(phonetic);
         fromPanel.add(reminder);
-//        TextArea textAreaOutput = new TextArea("缩略词词典", 20, 43,TextArea.SCROLLBARS_VERTICAL_ONLY);
-//        textAreaOutput.setSelectedTextColor(Color.RED);
-//        textAreaOutput.setLineWrap(true);//激活自动换行功能
-//        textAreaOutput.setWrapStyleWord(true);// 激活断行不断字功能
-//        JPanel panelOutput = new JPanel();
-//        panelOutput.add(new JScrollPane(textAreaOutput));
-//        fromPanel.add(new SillyHatInputText(messageService.getMessageZH("word.repository.word.translate"),80, 30, "",20));
-        fromPanel.add(new SillyHatTextArea("测试"));
+        fromPanel.add(wordTranslate);
         return fromPanel;
     }
 
-    public boolean clickCancelEvent(){
-        SillyHatJOptionPane.alert("提示","clickCancelEvent");
-        return false;
-    }
-
     public boolean clickSubmitEvent(){
-        SillyHatJOptionPane.alert("提示",wordText.getTextValue() + "---" + phonetic.getTextValue() + "---" + reminder.getTextValue());
-        return false;
+        dto.setWord(wordText.getTextValue());
+        dto.setPhonetic(phonetic.getTextValue());
+        dto.setReminder(reminder.getTextValue());
+        dto.setWordTranslate(wordTranslate.getTextValue());
+        wordRepositoryService.save(dto);
+        SillyHatJOptionPane.alert(messageService.getMessageZH("alert.reminder"),messageService.getMessageZH("alert.submit.success"));
+        return true;
     }
 
     public Map<String,Object> closeDialog(){

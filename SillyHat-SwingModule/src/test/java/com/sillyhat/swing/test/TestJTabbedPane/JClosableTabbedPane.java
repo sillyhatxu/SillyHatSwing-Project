@@ -1,4 +1,4 @@
-package com.sillyhat.learningenglish.test.TestJTabbedPane;
+package com.sillyhat.swing.test.TestJTabbedPane;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-13.

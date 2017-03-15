@@ -1,4 +1,4 @@
-package com.sillyhat.learningenglish.test.table;
+package com.sillyhat.swing.test.table;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-13.

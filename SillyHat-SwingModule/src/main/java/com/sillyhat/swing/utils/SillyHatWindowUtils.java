@@ -27,5 +27,13 @@ public class SillyHatWindowUtils {
         return KeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow();
     }
 
+    public static double getWindowsHeight(){
+        return getActiveWindow().getSize().getHeight();
+    }
+
+    public static double getWindowsWidth(){
+        return getActiveWindow().getSize().getWidth();
+    }
+
 
 }

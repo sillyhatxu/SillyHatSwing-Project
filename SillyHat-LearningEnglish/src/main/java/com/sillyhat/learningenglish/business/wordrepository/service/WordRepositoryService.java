@@ -19,4 +19,6 @@ public interface WordRepositoryService {
 
     public WordRepositoryDTO getWordRepositoryById(String id);
 
+    public void save(WordRepositoryDTO dto);
+
 }

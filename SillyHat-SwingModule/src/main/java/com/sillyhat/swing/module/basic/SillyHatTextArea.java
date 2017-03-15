@@ -2,9 +2,8 @@ package com.sillyhat.swing.module.basic;
 
 import com.sillyhat.swing.utils.LineNumberHeaderView;
 
-import java.awt.*;
-
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * SillyHatTextArea
@@ -14,30 +13,27 @@ import javax.swing.*;
  */
 public class SillyHatTextArea extends JPanel{
 
-    private JLabel label;
+    private JScrollPane centerPanel = new JScrollPane();
 
-    public static final String LAYOUT_NORTH = "North";
+    private JTextPane jTextPane = new JTextPane();
 
-    public static final String LAYOUT_CENTER = "Center";
-
-    public JScrollPane centerPanel = new JScrollPane();
-
-    public JTextPane showJTextPane = new JTextPane();
-
-
-    public SillyHatTextArea(String labelName){
-        showJTextPane.setBorder(BorderFactory.createLineBorder(Color.red));
-        label = new JLabel(labelName);
+    public SillyHatTextArea(String textValue, int textWidth,int textHeight){
+        setTextValue(textValue);
         centerPanel.setRowHeaderView(new LineNumberHeaderView());
-        centerPanel.setViewportView(showJTextPane);
+        centerPanel.setViewportView(jTextPane);
         centerPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         centerPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        centerPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-//        add(label, LAYOUT_CENTER);
-        add(centerPanel, LAYOUT_CENTER);
-        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-//        setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        centerPanel.setPreferredSize(new Dimension(textWidth, textHeight));//关键代码,设置JPanel的大小
+        add(centerPanel);
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+//        setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 
+    public void setTextValue(String textArea) {
+        jTextPane.setText(textArea);
+    }
 
+    public String getTextValue() {
+        return jTextPane.getText();
+    }
 }

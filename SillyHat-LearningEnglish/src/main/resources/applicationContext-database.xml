@@ -50,7 +50,7 @@
 		</property>
 		<property name="transactionAttributes">
 			<props>
-				<prop key="save*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
 				<prop key="insert*">PROPAGATION_REQUIRED,-Exception</prop>
 				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
 				<prop key="create*">PROPAGATION_REQUIRED,-Exception</prop>

@@ -11,7 +11,9 @@ import com.sillyhat.swing.module.basic.SillyHatInputText;
 import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -23,18 +25,46 @@ public class WordRepositoryList extends SillyHatPageTable {
 
     private WordRepositoryService wordRepositoryService;
 
-    public WordRepositoryList(String panelCode) {
-        super(panelCode);
+    private SillyHatInputText inputText;
+    public void initService(){
         messageService = (MessageService) SpringUtils.getInstance().getContext().getBean(MessageService.class);
         wordRepositoryService = (WordRepositoryService) SpringUtils.getInstance().getContext().getBean(WordRepositoryService.class);
-//        debugFrame(Color.red);
+    }
+
+    public WordRepositoryList(String panelCode,PageDTO page) {
+        super(panelCode,page);
+        hiddenColumn(0);//隐藏ID列
     }
 
     @Override
     public JPanel getSearchJPanel() {
         JPanel searchJPanel = new JPanel();
-        searchJPanel.add(new SillyHatInputText("这里有查询",80, 30, "",20));
+        inputText = new SillyHatInputText(messageService.getMessageZH("word.repository.word"),80, 30, "",20);
+        searchJPanel.add(inputText);
         return searchJPanel;
+    }
+
+    public void clickSearch(){
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("WORD",inputText.getTextValue());
+        setPageParams(params);
+        refreshTable();
+    }
+
+    public void clickUpPage(){
+
+    }
+
+    public void clickHomePage(){
+
+    }
+
+    public void clickNextPage(){
+
+    }
+
+    public void clickLastPage(){
+
     }
 
     @Override
@@ -54,7 +84,7 @@ public class WordRepositoryList extends SillyHatPageTable {
 
     public Vector<String> getColumns() {
         Vector<String> columnNames = new Vector<String>();
-        columnNames.add("");
+        columnNames.add("--");
         columnNames.add(messageService.getMessageZH("word.repository.word"));
         columnNames.add(messageService.getMessageZH("word.repository.phonetic"));
         columnNames.add(messageService.getMessageZH("word.repository.reminder"));

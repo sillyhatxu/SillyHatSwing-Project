@@ -1,4 +1,4 @@
-package com.sillyhat.learningenglish.test.TestJTabbedPane;
+package com.sillyhat.swing.test.TestJTabbedPane;
 
 import javax.swing.*;
 

@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -19,15 +21,13 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
 
     private DefaultTableModel tableModel = null;
 
-    private PageDTO page = null;
+    private PageDTO page;
 
     private SillyHatTable table = null;
 
-    private boolean isSingle = true;//默认表格单选
-
-    private boolean isReorderingAllowed = true;//默认禁止拖拽
-
     private JPanel searchJPanel = null;
+    private final JButton btnSearch = new JButton("查询");
+
     private JToolBar operatorBar = null;
     private JPanel jToolBarPanel = null;
 
@@ -43,46 +43,109 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
      * @param panelCode
      * @Fields panelCode : panel唯一ID
      */
-    public SillyHatPageTable(String panelCode) {
+    public SillyHatPageTable(String panelCode,PageDTO page) {
         super(panelCode);
-        initPageButton();
-    }
-
-    /**
-     * initTable前设置表格是否单选
-     * @param isSingle
-     */
-    public void setSingleSelection(boolean isSingle){
-        this.isSingle = isSingle;
-    }
-
-    /**
-     * initTable前设置表格是否禁止拖拽
-     * @param reorderingAllowed
-     */
-    public void setReorderingAllowed(boolean reorderingAllowed) {
-        this.isReorderingAllowed = reorderingAllowed;
-    }
-
-    public void initTable(PageDTO page){
-        if(page == null){
-            page = new PageDTO();
-        }
         this.page = page;
-        tableModel = new DefaultTableModel(getRowData(page), getColumns());
-        totalJLabel.setText("共" + getTotalCount(page) + "条记录");
+        initService();
         searchJPanel = getSearchJPanel();
-        table = new SillyHatTable(tableModel);
-        if(isSingle){
-            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//单选
+        searchJPanel.add(btnSearch);
+        if(searchJPanel != null){
+            add(searchJPanel);
         }
-        if(isReorderingAllowed){
-            table.getTableHeader().setReorderingAllowed(false);//禁止列拖拽
-        }
+        refreshTable();
         operatorBar = getJToolBar();
         operatorBar.setFloatable(isFixationJToolBar());//是否固定不允许拖动，默认不允许拖动
+        if(operatorBar != null){
+            jToolBarPanel = new JPanel(new FlowLayout(getJToolBarFlow()));
+            jToolBarPanel.add(operatorBar);
+            add(jToolBarPanel);
+        }
+        initPageButton();
+        initButtonListener();
+        jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));//全屏显示，占满panel
+        add(jsp);
+        add(btnJPanel);
     }
 
+    private void initButtonListener(){
+        btnSearch.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickSearch();
+            }
+        });
+        btnHomePage.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickHomePage();
+            }
+        });
+        btnUpPage.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickUpPage();
+            }
+        });
+        btnNextPage.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickNextPage();
+            }
+        });
+        btnLastPage.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickLastPage();
+            }
+        });
+    }
+
+    public void clickSearch(){
+
+    }
+    public void clickUpPage(){
+
+    }
+    public void clickHomePage(){
+
+    }
+    public void clickNextPage(){
+
+    }
+    public void clickLastPage(){
+
+    }
+
+    /**
+     * 刷新表格
+     */
+    public void refreshTable(){
+        tableModel = new DefaultTableModel(getRowData(page), getColumns());
+        totalJLabel.setText("共" + getTotalCount(page) + "条记录");
+
+        table = new SillyHatTable(tableModel);
+        if(getSingleSelection()){
+            table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//单选
+        }
+        table.getTableHeader().setReorderingAllowed(getReorderingAllowed());//禁止列拖拽
+        //刷新table
+        jsp.setViewportView(table);
+    }
+
+    public void initService(){
+
+    }
+
+    /**
+     * 表格是否单选
+     */
+    public boolean getSingleSelection(){
+        return true;//默认表格单选
+    }
+
+    /**
+     * 设置表格是否禁止拖拽
+     */
+    public boolean getReorderingAllowed() {
+        return false;//默认禁止拖拽
+    }
 
     /**
      * 是否允许拖动JToolBar
@@ -113,35 +176,6 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         column.setPreferredWidth(0);
     }
 
-    /**
-     * 刷新表格
-     */
-    public void refreshTable(){
-        if(searchJPanel != null){
-            add(searchJPanel);
-        }
-        if(operatorBar != null){
-            jToolBarPanel = new JPanel(new FlowLayout(getJToolBarFlow()));
-            jToolBarPanel.add(operatorBar);
-            add(jToolBarPanel);
-        }
-        //刷新table
-        jsp.setViewportView(table);
-        jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));//全屏显示，占满panel
-        add(jsp);
-        add(btnJPanel);
-    }
-
-
-    public void addRow(){
-
-    }
-
-    public void editRow(){
-
-    }
 
     /**
      * 初始化分页按钮
@@ -199,7 +233,8 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         return table;
     }
 
-    public boolean isSingle() {
-        return isSingle;
+
+    public void setPageParams(Map<String,Object> params){
+        page.setParams(params);
     }
 }

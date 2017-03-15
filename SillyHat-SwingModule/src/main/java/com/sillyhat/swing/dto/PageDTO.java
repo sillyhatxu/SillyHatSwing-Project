@@ -13,7 +13,8 @@ public class PageDTO {
 
     public PageDTO(){
         currentPage = 1;
-        pageSize = 20;
+        pageSize = 25;
+        compute();
     }
 
     //传递的参数或是配置的参数
@@ -27,8 +28,13 @@ public class PageDTO {
 
     //计算
     private int pageCount; // 总页数
-//    private int beginPageIndex; // 页码列表的开始索引（包含）
-//    private int endPageIndex; // 页码列表的结束索引（包含）
+    private int startIndex; // 页码列表的开始索引（包含）
+    private int endIndex; // 页码列表的结束索引（包含）
+
+    public void compute(){
+        startIndex = (currentPage - 1) * pageSize;
+        endIndex =  currentPage * pageSize;
+    }
 
     public int getCurrentPage() {
         return currentPage;
@@ -76,5 +82,21 @@ public class PageDTO {
 
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
     }
 }

@@ -27,7 +27,7 @@ public class SillyHatJOptionPane extends JOptionPane{
 	public static void alert(String title,String body){
 		JOptionPane.showMessageDialog(null, body, title,JOptionPane.INFORMATION_MESSAGE);  
 	}
-	
+
 	/**
 	 * <p>Title: alertWarning</p>
 	 * <p>Description: </p>警告对话框

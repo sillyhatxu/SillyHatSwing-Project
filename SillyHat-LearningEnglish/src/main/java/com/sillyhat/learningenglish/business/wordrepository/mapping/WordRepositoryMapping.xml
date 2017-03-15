@@ -17,6 +17,14 @@
             UPDATED_DATE AS updatedDate
         FROM
             T_WORD_REPOSITORY wr
+        WHERE
+            1 = 1
+            <if test ="params != null">
+                <if test ="params.WORD != null and params.WORD != ''">
+                    and WORD = #{params.WORD}
+                </if>
+            </if>
+            limit #{endIndex} offset #{startIndex}
     </select>
 
     <select id="queryWordRepositoryTotalCountByPage" resultType="int">
@@ -37,5 +45,22 @@
             T_WORD_REPOSITORY
         WHERE ID = #{id}
     </select>
+
+    <insert id="add" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+        insert into T_WORD_REPOSITORY (ID,WORD,PHONETIC,REMINDER,WORD_TRANSLATE,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
+        values (#{id},#{word},#{phonetic},#{reminder},#{wordTranslate},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
+    </insert>
+
+    <update id="update" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+        update T_WORD_REPOSITORY
+          set
+            WORD = #{word},
+            PHONETIC = #{phonetic},
+            REMINDER = #{reminder},
+            WORD_TRANSLATE = #{wordTranslate},
+            UPDATED_USER = #{updatedUser},
+            UPDATED_DATE = datetime('now')
+        where ID = #{id}
+    </update>
 
 </mapper>
