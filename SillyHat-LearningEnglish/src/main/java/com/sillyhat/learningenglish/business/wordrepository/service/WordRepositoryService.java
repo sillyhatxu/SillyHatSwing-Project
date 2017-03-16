@@ -19,6 +19,8 @@ public interface WordRepositoryService {
 
     public WordRepositoryDTO getWordRepositoryById(String id);
 
-    public void save(WordRepositoryDTO dto);
+    public void saveWordRepository(WordRepositoryDTO dto);
+
+    public void deleteWordRepository(String id);
 
 }

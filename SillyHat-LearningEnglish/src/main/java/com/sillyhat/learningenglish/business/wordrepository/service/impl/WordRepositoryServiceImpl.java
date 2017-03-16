@@ -41,15 +41,20 @@ public class WordRepositoryServiceImpl implements WordRepositoryService {
     }
 
     @Override
-    public void save(WordRepositoryDTO dto) {
+    public void saveWordRepository(WordRepositoryDTO dto) {
         UserDTO user = UserCache.getCache();
         dto.setUpdatedUser(user.getId());
         if(dto != null && StringUtils.isNotEmpty(dto.getId())){
-            wordRepositoryMapper.update(dto);
+            wordRepositoryMapper.updateWordRepository(dto);
         }else{
             dto.setCreatedUser(user.getId());
             dto.setId(UUIDUtils.getNextUUID());
-            wordRepositoryMapper.add(dto);
+            wordRepositoryMapper.addWordRepository(dto);
         }
+    }
+
+    @Override
+    public void deleteWordRepository(String id) {
+        wordRepositoryMapper.deleteWordRepository(id);
     }
 }

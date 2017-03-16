@@ -19,8 +19,10 @@ public interface WordRepositoryMapper {
 
     public WordRepositoryDTO getWordRepositoryById(String id);
 
-    public void add(WordRepositoryDTO dto);
+    public void addWordRepository(WordRepositoryDTO dto);
 
-    public void update(WordRepositoryDTO dto);
+    public void updateWordRepository(WordRepositoryDTO dto);
+
+    public void deleteWordRepository(String id);
 
 }

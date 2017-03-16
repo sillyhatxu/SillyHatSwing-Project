@@ -46,12 +46,12 @@
         WHERE ID = #{id}
     </select>
 
-    <insert id="add" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+    <insert id="addWordRepository" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         insert into T_WORD_REPOSITORY (ID,WORD,PHONETIC,REMINDER,WORD_TRANSLATE,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
         values (#{id},#{word},#{phonetic},#{reminder},#{wordTranslate},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
     </insert>
 
-    <update id="update" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+    <update id="updateWordRepository" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         update T_WORD_REPOSITORY
           set
             WORD = #{word},
@@ -62,5 +62,9 @@
             UPDATED_DATE = datetime('now')
         where ID = #{id}
     </update>
+
+    <delete id="deleteWordRepository" parameterType="string">
+        delete from T_WORD_REPOSITORY where ID = #{id}
+    </delete>
 
 </mapper>

@@ -75,7 +75,7 @@ public class WordRepositoryList extends SillyHatPageTable {
         JButton btnRemove = new JButton(messageService.getMessageZH("btn.remove"));
         btnAdd.addActionListener(new DetailWordRepositoryListener(this.getTable(),false));
         btnEdit.addActionListener(new DetailWordRepositoryListener(this.getTable(),true));
-        btnRemove.addActionListener(new RemoveWordRepositoryListener());
+        btnRemove.addActionListener(new RemoveWordRepositoryListener(this.getTable()));
         operatorBar.add(btnAdd);
         operatorBar.add(btnEdit);
         operatorBar.add(btnRemove);

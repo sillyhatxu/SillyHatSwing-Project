@@ -78,7 +78,7 @@ public class WordRepositoryForm extends SillyHatDialog {
         dto.setPhonetic(phonetic.getTextValue());
         dto.setReminder(reminder.getTextValue());
         dto.setWordTranslate(wordTranslate.getTextValue());
-        wordRepositoryService.save(dto);
+        wordRepositoryService.saveWordRepository(dto);
         SillyHatJOptionPane.alert(messageService.getMessageZH("alert.reminder"),messageService.getMessageZH("alert.submit.success"));
         return true;
     }
