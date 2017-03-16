@@ -12,9 +12,8 @@ import java.util.Map;
 public class PageDTO {
 
     public PageDTO(){
-        currentPage = 1;
         pageSize = 25;
-        compute();
+        setCurrentPage(1);
     }
 
     //传递的参数或是配置的参数
@@ -23,11 +22,11 @@ public class PageDTO {
     private Map<String,Object> params;
 
     //查询数据库
-    private List recordList; // 本页的数据列表
-    private int recordCount; // 总记录数
+    private List resultList; // 本页的数据列表
+    private int totalCount; // 总记录数
 
     //计算
-    private int pageCount; // 总页数
+    private int totalPage; // 总页数
     private int startIndex; // 页码列表的开始索引（包含）
     private int endIndex; // 页码列表的结束索引（包含）
 
@@ -42,6 +41,7 @@ public class PageDTO {
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+        compute();
     }
 
     public int getPageSize() {
@@ -60,29 +60,31 @@ public class PageDTO {
         this.params = params;
     }
 
-    public List getRecordList() {
-        return recordList;
+    public List getResultList() {
+        return resultList;
     }
 
-    public void setRecordList(List recordList) {
-        this.recordList = recordList;
+    public void setResultList(List resultList) {
+        this.resultList = resultList;
     }
 
-    public int getRecordCount() {
-        return recordCount;
+    public int getTotalCount() {
+        return totalCount;
     }
 
-    public void setRecordCount(int recordCount) {
-        this.recordCount = recordCount;
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+        setTotalPage((totalCount + (pageSize - 1)) / pageSize);
     }
 
-    public int getPageCount() {
-        return pageCount;
+    public int getTotalPage() {
+        return totalPage;
     }
 
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
+
 
     public int getStartIndex() {
         return startIndex;

@@ -17,8 +17,7 @@
             UPDATED_DATE AS updatedDate
         FROM
             T_WORD_REPOSITORY wr
-        WHERE
-            1 = 1
+        WHERE 1 = 1
             <if test ="params != null">
                 <if test ="params.WORD != null and params.WORD != ''">
                     and WORD = #{params.WORD}
@@ -32,6 +31,12 @@
             count(1)
         FROM
             T_WORD_REPOSITORY wr
+        WHERE 1 = 1
+        <if test ="params != null">
+            <if test ="params.WORD != null and params.WORD != ''">
+                and WORD = #{params.WORD}
+            </if>
+        </if>
     </select>
 
     <select id="getWordRepositoryById" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">

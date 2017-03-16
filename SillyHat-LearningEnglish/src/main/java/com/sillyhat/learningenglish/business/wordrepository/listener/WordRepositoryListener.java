@@ -4,7 +4,6 @@ import com.sillyhat.learningenglish.business.message.service.MessageService;
 import com.sillyhat.learningenglish.business.wordrepository.view.WordRepositoryList;
 import com.sillyhat.learningenglish.utils.Constants;
 import com.sillyhat.learningenglish.utils.SpringUtils;
-import com.sillyhat.swing.dto.PageDTO;
 import com.sillyhat.swing.module.container.middle.SillyHatTabModulePanel;
 
 import java.awt.event.ActionEvent;
@@ -25,7 +24,7 @@ public class WordRepositoryListener implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		modulePanel.addTabPanel(messageService.getMessageZH("menu.word.repository"),new WordRepositoryList(Constants.PANEL_CODE_WORD_REPOSITORY,new PageDTO()));
+		modulePanel.addTabPanel(messageService.getMessageZH("menu.word.repository"),new WordRepositoryList(Constants.PANEL_CODE_WORD_REPOSITORY));
 	}
 
 }

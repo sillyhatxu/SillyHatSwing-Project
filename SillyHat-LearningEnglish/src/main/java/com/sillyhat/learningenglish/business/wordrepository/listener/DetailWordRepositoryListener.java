@@ -6,7 +6,7 @@ import com.sillyhat.learningenglish.business.wordrepository.service.WordReposito
 import com.sillyhat.learningenglish.business.wordrepository.view.WordRepositoryForm;
 import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
-import com.sillyhat.swing.module.container.table.SillyHatTable;
+import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 import com.sillyhat.swing.utils.SillyHatWindowUtils;
 import com.sillyhat.swing.utils.StringUtils;
 
@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  */
 public class DetailWordRepositoryListener implements ActionListener {
 
-    private SillyHatTable table;
+    private SillyHatPageTable sillyHatPageTable;
 
     private boolean isEdit;
 
@@ -26,9 +26,9 @@ public class DetailWordRepositoryListener implements ActionListener {
 
     private MessageService messageService;
 
-    public DetailWordRepositoryListener(SillyHatTable table,boolean isEdit){
+    public DetailWordRepositoryListener(SillyHatPageTable sillyHatPageTable,boolean isEdit){
         this.isEdit = isEdit;
-        this.table = table;
+        this.sillyHatPageTable = sillyHatPageTable;
         wordRepositoryService = (WordRepositoryService) SpringUtils.getInstance().getContext().getBean(WordRepositoryService.class);
         messageService = (MessageService) SpringUtils.getInstance().getContext().getBean(MessageService.class);
     }
@@ -36,7 +36,10 @@ public class DetailWordRepositoryListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         WordRepositoryDTO dto = null;
-        String id = (String)table.getValueAt(table.getSelectedRow(), 0);
+        String id = "";
+        if(sillyHatPageTable.getTable().getSelectedRowCount() > 0){
+            id = (String)sillyHatPageTable.getTable().getValueAt(sillyHatPageTable.getTable().getSelectedRow(), 0);
+        }
         if(StringUtils.isEmpty(id) && isEdit){
             SillyHatJOptionPane.alert(messageService.getMessageZH("alert.reminder"),messageService.getMessageZH("alert.reminder.select.data"));
         }else{
@@ -49,7 +52,7 @@ public class DetailWordRepositoryListener implements ActionListener {
             }
             WordRepositoryForm form = new WordRepositoryForm(SillyHatWindowUtils.getActiveWindow(),dto);
             form.openDialog();
+            sillyHatPageTable.refreshTable();
         }
-//        SillyHatDialog.showRegulationDialog(SillyHatWindowUtils.getActiveWindow(),null);
     }
 }
