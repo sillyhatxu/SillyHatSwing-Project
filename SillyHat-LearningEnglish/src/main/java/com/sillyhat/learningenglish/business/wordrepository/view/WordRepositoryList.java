@@ -11,7 +11,6 @@ import com.sillyhat.swing.module.basic.SillyHatInputText;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 import com.sillyhat.swing.utils.StringUtils;
-
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;

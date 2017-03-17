@@ -39,6 +39,12 @@
             <version>1.0</version>
         </dependency>
 
+        <!-- MP3解析 -->
+        <dependency>
+            <groupId>javazoom</groupId>
+            <artifactId>jlayer</artifactId>
+            <version>1.0.1</version>
+        </dependency>
 
         <!-- google guava -->
         <dependency>

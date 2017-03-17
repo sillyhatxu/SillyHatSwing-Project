@@ -37,7 +37,7 @@ public class CopyMp4 {
 //        long end = System.currentTimeMillis();
 //        System.out.println(end);
 //        System.out.println("一共耗时"+(end - start)+"毫秒");
-        String word = "interface";
+        String word = "computer";
         String url = "http://dict.youdao.com/speech";
         String params = "audio=" + word;
         String filePath = "F:\\downlands\\" + word + ".mp3";
