@@ -1,9 +1,10 @@
 package com.sillyhat.learningenglish.load;
 
 import com.sillyhat.learningenglish.business.main.service.SystemService;
+import com.sillyhat.learningenglish.business.message.service.MessageService;
+import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
-import com.sillyhat.learningenglish.business.message.service.MessageService;
 import com.sillyhat.learningenglish.utils.JunitTestSupport;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -29,6 +30,9 @@ public class LoadTest extends JunitTestSupport {
 
     @Autowired
     private SystemService systemService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MessageSource messageSource;

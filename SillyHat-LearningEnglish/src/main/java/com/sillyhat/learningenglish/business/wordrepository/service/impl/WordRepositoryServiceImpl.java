@@ -1,13 +1,11 @@
 package com.sillyhat.learningenglish.business.wordrepository.service.impl;
 
-import com.sillyhat.learningenglish.business.system.dto.UserDTO;
+import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
 import com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepositoryMapper;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
-import com.sillyhat.learningenglish.utils.UUIDUtils;
 import com.sillyhat.learningenglish.utils.cache.UserCache;
 import com.sillyhat.swing.dto.PageDTO;
-import com.sillyhat.swing.utils.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +22,11 @@ public class WordRepositoryServiceImpl implements WordRepositoryService {
 
     @Resource
     private WordRepositoryMapper wordRepositoryMapper;
+
+    @Override
+    public List<WordRepositoryDTO> queryWordRepositoryAll() {
+        return wordRepositoryMapper.queryWordRepositoryAll();
+    }
 
     @Override
     public List<WordRepositoryDTO> queryWordRepositoryByPage(PageDTO page) {
@@ -44,11 +47,11 @@ public class WordRepositoryServiceImpl implements WordRepositoryService {
     public void saveWordRepository(WordRepositoryDTO dto) {
         UserDTO user = UserCache.getCache();
         dto.setUpdatedUser(user.getId());
-        if(dto != null && StringUtils.isNotEmpty(dto.getId())){
+        if(dto != null && dto.getId() != 0l){
             wordRepositoryMapper.updateWordRepository(dto);
         }else{
+
             dto.setCreatedUser(user.getId());
-            dto.setId(UUIDUtils.getNextUUID());
             wordRepositoryMapper.addWordRepository(dto);
         }
     }

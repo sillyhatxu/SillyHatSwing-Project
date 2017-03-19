@@ -3,13 +3,13 @@ package com.sillyhat.learningenglish.utils.cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.sillyhat.learningenglish.business.system.dto.UserDTO;
-import com.sillyhat.learningenglish.business.system.service.UserService;
+import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
+import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.utils.Constants;
 import com.sillyhat.learningenglish.utils.SpringUtils;
 import org.apache.log4j.Logger;
+
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * UserCache
@@ -26,20 +26,22 @@ public class UserCache {
     public static LoadingCache<String, UserDTO> cache = CacheBuilder.newBuilder()
 //        .refreshAfterWrite(10, TimeUnit.SECONDS)// 给定时间内没有被读/写访问，则回收。
 //        .expireAfterAccess(10, TimeUnit.SECONDS)//设置过期时间
-        .refreshAfterWrite(1, TimeUnit.HOURS)// 给定时间内没有被读/写访问，则回收。
-        .expireAfterAccess(1, TimeUnit.HOURS)//设置过期时间
-        .maximumSize(1000).// 设置缓存个数
+//        .refreshAfterWrite(1, TimeUnit.HOURS)// 给定时间内没有被读/写访问，则回收。
+//        .expireAfterAccess(1, TimeUnit.HOURS)//设置过期时间
+        .maximumSize(10).// 设置缓存个数
         build(new CacheLoader<String, UserDTO>() {
             @Override
             /** 当本地缓存命没有中时，调用load方法获取结果并将结果缓存 **/
             public UserDTO load(String key) throws Exception {
-                return getCurrentUser(key);
+                return null;//取消加载，同时取消过期时间
+//                return getCurrentUser(key);
             }
 
             /** 数据库进行查询 **/
-            private UserDTO getCurrentUser(String key) throws Exception {
-                return userService.getUserById(Constants.ADMINISTRATOR_ID);
-            }
+//            private UserDTO getCurrentUser(String key) throws Exception {
+//                return userService.getUserById(Constants.ADMINISTRATOR_ID);
+////                return userService.getUserById(key);
+//            }
         }
     );
 
@@ -52,7 +54,8 @@ public class UserCache {
         }
     }
 
-    public static void putCache(){
-        cache.put(Constants.CURRENT_USER,null);
+    public static void putCache(String key,UserDTO dto){
+        cache.put(key,dto);
     }
+
 }

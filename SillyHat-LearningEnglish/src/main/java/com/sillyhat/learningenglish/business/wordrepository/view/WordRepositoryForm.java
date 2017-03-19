@@ -50,6 +50,14 @@ public class WordRepositoryForm extends SillyHatDialog {
         return 500;
     }
 
+    public String getButtonNameSubmit(){
+        return messageService.getMessageZH("btn.save");
+    }
+
+    public String getButtonNameCancel(){
+        return messageService.getMessageZH("btn.cancel");
+    }
+
     private String id;
     private SillyHatInputText wordText;
     private SillyHatInputText phonetic;

@@ -3,7 +3,21 @@
 
 <mapper namespace="com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepositoryMapper">
 
-    <!--select * from users order by id limit 10 offset 0;//offset代表从第几条记录“之后“开始查询，limit表明查询多少条结果-->
+    <select id="queryWordRepositoryAll" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
+        SELECT
+            ID AS id,
+            WORD AS word,
+            PHONETIC AS phonetic,
+            REMINDER AS reminder,
+            WORD_TRANSLATE AS wordTranslate,
+            (select USER_NAME from T_USER u where u.ID = wr.CREATED_USER) AS createdUserName,
+            CREATED_DATE AS createdDate,
+            (select USER_NAME from T_USER u where u.ID = wr.UPDATED_USER) AS updatedUserName,
+            UPDATED_DATE AS updatedDate
+        FROM
+            T_WORD_REPOSITORY wr
+    </select>
+
     <select id="queryWordRepositoryByPage" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         SELECT
             ID AS id,
@@ -11,9 +25,9 @@
             PHONETIC AS phonetic,
             REMINDER AS reminder,
             WORD_TRANSLATE AS wordTranslate,
-            (select USER_NAME from T_USER u where u.ID = wr.CREATED_USER) AS createdUser,
+            (select USER_NAME from T_USER u where u.ID = wr.CREATED_USER) AS createdUserName,
             CREATED_DATE AS createdDate,
-            (select USER_NAME from T_USER u where u.ID = wr.UPDATED_USER) AS updatedUser,
+            (select USER_NAME from T_USER u where u.ID = wr.UPDATED_USER) AS updatedUserName,
             UPDATED_DATE AS updatedDate
         FROM
             T_WORD_REPOSITORY wr
@@ -52,8 +66,8 @@
     </select>
 
     <insert id="addWordRepository" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
-        insert into T_WORD_REPOSITORY (ID,WORD,PHONETIC,REMINDER,WORD_TRANSLATE,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
-        values (#{id},#{word},#{phonetic},#{reminder},#{wordTranslate},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
+        insert into T_WORD_REPOSITORY (WORD,PHONETIC,REMINDER,WORD_TRANSLATE,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
+        values (#{word},#{phonetic},#{reminder},#{wordTranslate},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
     </insert>
 
     <update id="updateWordRepository" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">

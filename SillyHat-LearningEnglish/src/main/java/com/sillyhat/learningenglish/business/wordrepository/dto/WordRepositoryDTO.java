@@ -12,7 +12,7 @@ public class WordRepositoryDTO implements Serializable {
     /**
      *  主键
      */
-    private String id;
+    private long id;
 
     /**
      *  单词
@@ -37,7 +37,8 @@ public class WordRepositoryDTO implements Serializable {
     /**
      *  创建人
      */
-    private String createdUser;
+    private long createdUser;
+
 
     /**
      *  创建时间
@@ -47,18 +48,36 @@ public class WordRepositoryDTO implements Serializable {
     /**
      *  修改人
      */
-    private String updatedUser;
+    private long updatedUser;
 
     /**
      *  修改时间
      */
     private String updatedDate;
 
-    public String getId() {
+    private String createdUserName;
+    private String updatedUserName;
+    public String getCreatedUserName() {
+        return createdUserName;
+    }
+
+    public void setCreatedUserName(String createdUserName) {
+        this.createdUserName = createdUserName;
+    }
+
+    public String getUpdatedUserName() {
+        return updatedUserName;
+    }
+
+    public void setUpdatedUserName(String updatedUserName) {
+        this.updatedUserName = updatedUserName;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -94,14 +113,6 @@ public class WordRepositoryDTO implements Serializable {
         this.wordTranslate = wordTranslate;
     }
 
-    public String getCreatedUser() {
-        return createdUser;
-    }
-
-    public void setCreatedUser(String createdUser) {
-        this.createdUser = createdUser;
-    }
-
     public String getCreatedDate() {
         return createdDate;
     }
@@ -110,11 +121,19 @@ public class WordRepositoryDTO implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public String getUpdatedUser() {
+    public long getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(long createdUser) {
+        this.createdUser = createdUser;
+    }
+
+    public long getUpdatedUser() {
         return updatedUser;
     }
 
-    public void setUpdatedUser(String updatedUser) {
+    public void setUpdatedUser(long updatedUser) {
         this.updatedUser = updatedUser;
     }
 

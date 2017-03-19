@@ -1,8 +1,7 @@
 package com.sillyhat.learningenglish.business.system.mapper;
 
-import com.sillyhat.learningenglish.business.system.dto.UserDTO;
-import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
-import com.sillyhat.swing.dto.PageDTO;
+import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
+import com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningParamsDTO;
 
 import java.util.List;
 
@@ -14,6 +13,18 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    public UserDTO getUserById(String id);
+    public UserDTO getUserById(long id);
+
+    public void addUse(UserDTO dto);
+
+    public void updateUse(UserDTO dto);
+
+    public UserDTO getUserByLogin(String login);
+
+    public List<UserDTO> queryAllUser();
+
+    public UserLearningParamsDTO getUserLearningParamsByUserId(long userId);
+
+    public void addUserLearningParams(UserLearningParamsDTO dto);
 
 }

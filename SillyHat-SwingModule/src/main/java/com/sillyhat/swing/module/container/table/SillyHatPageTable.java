@@ -148,7 +148,6 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
      */
     public SillyHatPageTable(String panelCode) {
         super(panelCode);
-        initService();//业务初始化Service
         initComponents();//初始化组件
         add(searchContextJPanel);//加载查询区域
         add(jToolBarPanel);//加载工具按钮区域

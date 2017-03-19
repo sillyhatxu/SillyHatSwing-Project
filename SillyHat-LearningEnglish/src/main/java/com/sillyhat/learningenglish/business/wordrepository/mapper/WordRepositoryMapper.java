@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface WordRepositoryMapper {
 
+    public List<WordRepositoryDTO> queryWordRepositoryAll();
+
     public List<WordRepositoryDTO> queryWordRepositoryByPage(PageDTO page);
 
     public int queryWordRepositoryTotalCountByPage(PageDTO page);

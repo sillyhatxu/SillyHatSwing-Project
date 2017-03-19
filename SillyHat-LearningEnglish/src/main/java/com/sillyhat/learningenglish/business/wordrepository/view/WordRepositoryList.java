@@ -2,8 +2,8 @@ package com.sillyhat.learningenglish.business.wordrepository.view;
 
 import com.sillyhat.learningenglish.business.message.service.MessageService;
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
-import com.sillyhat.learningenglish.business.wordrepository.listener.DetailWordRepositoryListener;
-import com.sillyhat.learningenglish.business.wordrepository.listener.RemoveWordRepositoryListener;
+import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryDetailListener;
+import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryRemoveListener;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
 import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.swing.dto.PageDTO;
@@ -11,6 +11,7 @@ import com.sillyhat.swing.module.basic.SillyHatInputText;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 import com.sillyhat.swing.module.container.table.SillyHatPageTable;
 import com.sillyhat.swing.utils.StringUtils;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ import java.util.Vector;
  * Created by ${XUSHIKUAN} on 2017-03-12.
  */
 public class WordRepositoryList extends SillyHatPageTable {
+
+    private static final long serialVersionUID = 2324535510229650690L;
 
     private MessageService messageService;
 
@@ -82,9 +85,9 @@ public class WordRepositoryList extends SillyHatPageTable {
         JButton btnAdd = new JButton(messageService.getMessageZH("btn.add"));
         JButton btnEdit = new JButton(messageService.getMessageZH("btn.edit"));
         JButton btnRemove = new JButton(messageService.getMessageZH("btn.remove"));
-        btnAdd.addActionListener(new DetailWordRepositoryListener(this,false));
-        btnEdit.addActionListener(new DetailWordRepositoryListener(this,true));
-        btnRemove.addActionListener(new RemoveWordRepositoryListener(this));
+        btnAdd.addActionListener(new WordRepositoryDetailListener(this,false));
+        btnEdit.addActionListener(new WordRepositoryDetailListener(this,true));
+        btnRemove.addActionListener(new WordRepositoryRemoveListener(this));
         operatorBar.add(btnAdd);
         operatorBar.add(btnEdit);
         operatorBar.add(btnRemove);
@@ -110,14 +113,14 @@ public class WordRepositoryList extends SillyHatPageTable {
         List<WordRepositoryDTO> list = wordRepositoryService.queryWordRepositoryByPage(page);
         for (WordRepositoryDTO dto : list) {
             Vector<String> iColumns = new Vector<String>();
-            iColumns.add(dto.getId());
+            iColumns.add(dto.getId()+"");
             iColumns.add(dto.getWord());
             iColumns.add(dto.getPhonetic());
             iColumns.add(dto.getReminder());
             iColumns.add(dto.getWordTranslate());
-            iColumns.add(dto.getCreatedUser());
+            iColumns.add(dto.getCreatedUserName());
             iColumns.add(dto.getCreatedDate());
-            iColumns.add(dto.getUpdatedUser());
+            iColumns.add(dto.getUpdatedUserName());
             iColumns.add(dto.getUpdatedDate());
             rowData.add(iColumns);
         }

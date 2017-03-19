@@ -60,6 +60,6 @@ public class MD5Util{
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5Util.toMD5Upper("123465"));
+        System.out.println(MD5Util.toMD5Upper("123"));
     }
 }

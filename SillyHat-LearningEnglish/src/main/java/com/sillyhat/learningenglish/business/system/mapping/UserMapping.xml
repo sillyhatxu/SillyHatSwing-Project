@@ -3,7 +3,7 @@
 
 <mapper namespace="com.sillyhat.learningenglish.business.system.mapper.UserMapper">
 
-    <select id="getUserById" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.system.dto.UserDTO">
+    <select id="getUserById" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO">
         SELECT
             ID AS id,
             LOGIN AS login,
@@ -14,4 +14,70 @@
         WHERE ID = #{id}
     </select>
 
+    <select id="getUserByLogin" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO">
+        SELECT
+            ID AS id,
+            LOGIN AS login,
+            PASSWORD AS password,
+            USER_NAME AS userName
+        FROM
+            T_USER
+        WHERE LOGIN = #{login}
+    </select>
+
+    <select id="queryAllUser" resultType="com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO">
+        SELECT
+            ID AS id,
+            LOGIN AS login,
+            PASSWORD AS password,
+            USER_NAME AS userName
+        FROM
+            T_USER
+    </select>
+
+    <insert id="addUse" parameterType="com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO">
+        insert into T_USER (LOGIN,PASSWORD,USER_NAME,IS_DELETE,IS_ADMINISTRATORS,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
+        values (#{login},#{password},#{userName},#{isDelete},#{isAdministrators},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
+    </insert>
+
+    <update id="updateUse" parameterType="com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO">
+        update T_USER
+        set
+        LOGIN = #{login},
+        PASSWORD = #{password},
+        USER_NAME = #{userName},
+        IS_DELETE = #{isDelete},
+        IS_ADMINISTRATORS = #{isAdministrators},
+        UPDATED_USER = #{updatedUser},
+        UPDATED_DATE = datetime('now')
+        where ID = #{id}
+    </update>
+
+
+    <select id="getUserLearningParamsByUserId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningParamsDTO">
+        SELECT
+            ID AS id,
+            USER_ID AS userId,
+            LEARNING_NUM AS learningNum,
+            REVIEW_NUM AS reviewNum
+        FROM
+          T_USER_LEARNING_PARAMS
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <insert id="addUserLearningParams" parameterType="com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningParamsDTO">
+        insert into T_USER_LEARNING_PARAMS
+        (
+          USER_ID,
+          LEARNING_NUM,
+          REVIEW_NUM,
+          UPDATED_USER,
+          UPDATED_DATE,
+          CREATED_USER,
+          CREATED_DATE
+        )
+        values(
+          #{userId},#{learningNum},#{reviewNum},#{createdUser},datetime('now'),#{updatedUser},datetime('now')
+        )
+    </insert>
 </mapper>

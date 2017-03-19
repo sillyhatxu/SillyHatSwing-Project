@@ -1,10 +1,11 @@
 package com.sillyhat.learningenglish.main;
 
 import com.sillyhat.learningenglish.business.message.service.MessageService;
+import com.sillyhat.learningenglish.business.personalinformation.listener.PersonalInformationListener;
+import com.sillyhat.learningenglish.business.reciteword.listener.ReciteWordListener;
 import com.sillyhat.learningenglish.business.system.listener.ExitListener;
-import com.sillyhat.learningenglish.business.system.listener.PersonalInformationListener;
 import com.sillyhat.learningenglish.business.system.view.ViewForm;
-import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryListener;
+import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryListListener;
 import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.swing.exception.SillyHatException;
 import com.sillyhat.swing.module.basic.SillyHatJMenu;
@@ -71,7 +72,10 @@ public class MainApp extends ViewForm{
 	private void initJMenuFunction(){
 		jMenu = new SillyHatJMenu(messageService.getMessageZH("menu.function"));
 
-		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.word.repository"), new WordRepositoryListener(centerPanel));
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.word.repository"), new WordRepositoryListListener(centerPanel));
+		jMenu.addMenuButton(jMenuButton);
+
+		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.recite.word"), new ReciteWordListener(centerPanel));
 		jMenu.addMenuButton(jMenuButton);
 
 		jMenuButton = new SillyHatJMenuItem(messageService.getMessageZH("menu.select.answer"));
@@ -99,6 +103,7 @@ public class MainApp extends ViewForm{
 	}
 	
 	public static void main(String[] args) {
+//		JFrame.setDefaultLookAndFeelDecorated(true);//是否提供装饰（如边界、关闭窗口的小部件、标题……）
 		try {
 			MainApp window = new MainApp();
 			window.openWindow();
