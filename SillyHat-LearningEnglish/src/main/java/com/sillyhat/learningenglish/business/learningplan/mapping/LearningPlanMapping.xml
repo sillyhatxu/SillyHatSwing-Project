@@ -3,7 +3,7 @@
 
 <mapper namespace="com.sillyhat.learningenglish.business.learningplan.mapper.LearningPlanMapper">
 
-    <select id="queryUserLearningPlanByUserId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningPlanDTO">
+    <select id="queryUserLearningPlanByUserId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         SELECT
             ID AS id,
             USER_ID AS userId,
@@ -22,7 +22,7 @@
             t.USER_ID = #{userId}
     </select>
 
-    <select id="queryUserLearningPlanAll" resultType="com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningPlanDTO">
+    <select id="queryUserLearningPlanAll" resultType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         SELECT
             ID AS id,
             USER_ID AS userId,
@@ -39,8 +39,7 @@
             T_USER_LEARNING_PLAN t
     </select>
 
-
-    <insert id="addUserLearningPlan" parameterType="com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningPlanDTO">
+    <insert id="addUserLearningPlan" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         insert into T_USER_LEARNING_PLAN
         (
           USER_ID,
@@ -59,7 +58,7 @@
         )
     </insert>
 
-    <update id="updateUserLearningPlan" parameterType="com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningPlanDTO">
+    <update id="updateUserLearningPlan" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         update T_USER_LEARNING_PLAN
           set
             USER_ID = #{userId},
@@ -70,6 +69,77 @@
             SUCCESS_FREQUENCY = #{successFrequency},
             UPDATED_USER = #{updatedUser},
             UPDATED_DATE = datetime('now')
+        where ID = #{id}
+    </update>
+
+
+    <select id="getLastTodayPlanByUserId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
+        SELECT
+          LEARNING_NUM as learningNum,IS_FINISH as isFinish
+        FROM
+          T_USER_TODAY_PLAN t
+        WHERE
+          t.CREATED_DATE = (select max(tt.CREATED_DATE) from T_USER_TODAY_PLAN tt WHERE USER_ID = #{userId})
+    </select>
+
+    <select id="getTodayPlan" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
+        SELECT
+          LEARNING_NUM as learningNum,IS_FINISH as isFinish
+        FROM
+          T_USER_TODAY_PLAN t
+        WHERE
+            <![CDATA[
+              t.CREATED_DATE >= datetime(#{data}) and t.CREATED_DATE <= datetime(#{data})
+            ]]>
+    </select>
+
+    <insert id="addTodayPlan" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
+        insert into T_USER_TODAY_PLAN
+        (
+          USER_ID,
+          LEARNING_NUM,
+          IS_FINISH,
+          CREATED_USER,
+          CREATED_DATE,
+          UPDATED_USER,
+          UPDATED_DATE
+        ) values (
+          #{userId},#{learningNum},#{isFinish},#{createdUser},datetime('now'),#{updatedUser},datetime('now')
+        )
+    </insert>
+
+    <update id="updateTodayPlan" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
+        update T_USER_TODAY_PLAN
+        set
+            LEARNING_NUM = #{learningNum},
+            IS_FINISH = #{isFinish},
+            UPDATED_USER = #{updatedUser},
+            UPDATED_DATE = datetime('now')
+        where ID = #{id}
+    </update>
+
+    <select id="queryTodayPlanDetailByTodayPlanId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+        SELECT
+          ID as id,TODAY_PLAN_ID as todayPlanId,WORD_ID as wordId,IS_ERROR as isError,OCCURRENCE_NUM as occurrenceNum,SORT_NUM as sortNum
+            LEARNING_NUM as learningNum,IS_FINISH as isFinish
+        FROM
+          T_TODAY_PLAN_DETAIL t
+        WHERE
+          TODAY_PLAN_ID = #{todayPlanId}
+    </select>
+
+    <insert id="addTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+        insert into T_TODAY_PLAN_DETAIL (TODAY_PLAN_ID,WORD_ID,IS_ERROR,OCCURRENCE_NUM,SORT_NUM)
+        values (
+          #{todayPlanId},#{wordId},#{isError},#{occurrenceNum},#{sortNum}
+        )
+    </insert>
+
+    <update id="updateTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+        update T_TODAY_PLAN_DETAIL
+        set
+        IS_ERROR = #{isError},
+        OCCURRENCE_NUM = #{occurrenceNum}
         where ID = #{id}
     </update>
 

@@ -1,4 +1,4 @@
-package com.sillyhat.learningenglish.business.backups.dto;
+package com.sillyhat.learningenglish.business.learningplan.dto;
 
 import java.io.Serializable;
 
@@ -8,19 +8,19 @@ import java.io.Serializable;
  * @author 徐士宽
  * @date 2017/3/14 13:40
  */
-public class UserTodayPlanDTO implements Serializable {
+public class TodayPlanDTO implements Serializable {
 
-    private static final long serialVersionUID = 1545917272572810508L;
 
+    private static final long serialVersionUID = 8277707522673895793L;
     /**
      *  主键
      */
-    private String id;
+    private long id;
 
     /**
      *  用户ID
      */
-    private String userId;
+    private long userId;
 
     /**
      *  学习次数
@@ -35,7 +35,7 @@ public class UserTodayPlanDTO implements Serializable {
     /**
      *  创建人
      */
-    private String createdUser;
+    private long createdUser;
 
     /**
      *  创建时间
@@ -45,26 +45,26 @@ public class UserTodayPlanDTO implements Serializable {
     /**
      *  修改人
      */
-    private String updatedUser;
+    private long updatedUser;
 
     /**
      *  修改时间
      */
     private String updatedDate;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -84,11 +84,11 @@ public class UserTodayPlanDTO implements Serializable {
         this.isFinish = isFinish;
     }
 
-    public String getCreatedUser() {
+    public long getCreatedUser() {
         return createdUser;
     }
 
-    public void setCreatedUser(String createdUser) {
+    public void setCreatedUser(long createdUser) {
         this.createdUser = createdUser;
     }
 
@@ -100,11 +100,11 @@ public class UserTodayPlanDTO implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public String getUpdatedUser() {
+    public long getUpdatedUser() {
         return updatedUser;
     }
 
-    public void setUpdatedUser(String updatedUser) {
+    public void setUpdatedUser(long updatedUser) {
         this.updatedUser = updatedUser;
     }
 

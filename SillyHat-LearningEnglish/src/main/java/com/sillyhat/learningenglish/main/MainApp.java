@@ -20,6 +20,12 @@ public class MainApp extends ViewForm{
 
 	private MessageService messageService;
 
+	private Thread loadingDatabaseToCacheThread;
+
+	public Thread getLoadingDatabaseToCacheThread() {
+		return loadingDatabaseToCacheThread;
+	}
+
 	public MainApp(){
 		initService();
 //		initListener();
@@ -35,7 +41,6 @@ public class MainApp extends ViewForm{
 		setTopJMenuBar(jMenuBar);
 		setborderLayoutCenter(centerPanel);
 	}
-
 
 	private void initService(){
 		//加载Spring与注入service
@@ -101,7 +106,7 @@ public class MainApp extends ViewForm{
 
 		jMenuBar.addMenu(jMenu);
 	}
-	
+
 	public static void main(String[] args) {
 //		JFrame.setDefaultLookAndFeelDecorated(true);//是否提供装饰（如边界、关闭窗口的小部件、标题……）
 		try {
@@ -111,4 +116,5 @@ public class MainApp extends ViewForm{
 			new SillyHatException(e.getMessage());
 		}
 	}
+
 }

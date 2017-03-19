@@ -2,6 +2,7 @@ package com.sillyhat.learningenglish.main;
 
 import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.utils.SpringUtils;
+import com.sillyhat.learningenglish.utils.thread.LoadingMainApp;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 import com.sillyhat.swing.utils.StringUtils;
 
@@ -9,7 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Login extends JFrame {
 
@@ -148,17 +152,5 @@ public class Login extends JFrame {
     public static void main(String[] args) {
 //        JFrame.setDefaultLookAndFeelDecorated(true);
         new Login();
-    }
-
-    class LoadingMainApp implements Callable<MainApp> {
-
-        public LoadingMainApp() {
-
-        }
-
-        @Override
-        public MainApp call() throws Exception {
-            return new MainApp();
-        }
     }
 }

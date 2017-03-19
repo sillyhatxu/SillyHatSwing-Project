@@ -4,7 +4,7 @@ import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
 import com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepositoryMapper;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
-import com.sillyhat.learningenglish.utils.cache.UserCache;
+import com.sillyhat.learningenglish.utils.cache.SystemCache;
 import com.sillyhat.swing.dto.PageDTO;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class WordRepositoryServiceImpl implements WordRepositoryService {
 
     @Override
     public void saveWordRepository(WordRepositoryDTO dto) {
-        UserDTO user = UserCache.getCache();
+        UserDTO user = SystemCache.getUserCache();
         dto.setUpdatedUser(user.getId());
         if(dto != null && dto.getId() != 0l){
             wordRepositoryMapper.updateWordRepository(dto);

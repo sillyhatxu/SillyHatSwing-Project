@@ -1,4 +1,4 @@
-package com.sillyhat.learningenglish.business.personalinformation.dto;
+package com.sillyhat.learningenglish.business.learningplan.dto;
 
 import java.io.Serializable;
 

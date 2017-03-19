@@ -114,7 +114,14 @@ public class SillyHatWindow extends JFrame{
 	public void setborderLayoutWest(Container container){
 		getContentPane().add(container, BorderLayout.WEST);
 	}
-	
+
+	/**
+	 * 打开窗口前
+	 */
+	public void openWindowBefore(){
+
+	}
+
 	/**
 	 * <p>Title: openWindow</p>
 	 * <p>Description: </p>打开窗口
@@ -122,6 +129,7 @@ public class SillyHatWindow extends JFrame{
 	 * @date 2016-11-17
 	 */
 	public void openWindow(){
+		openWindowBefore();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}

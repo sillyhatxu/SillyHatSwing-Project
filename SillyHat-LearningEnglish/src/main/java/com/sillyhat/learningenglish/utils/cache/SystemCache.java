@@ -17,13 +17,13 @@ import java.util.concurrent.ExecutionException;
  * @author 徐士宽
  * @date 2017/3/15 16:41
  */
-public class UserCache {
+public class SystemCache {
 
-    private static Logger logger = Logger.getLogger(UserCache.class);
+    private static Logger logger = Logger.getLogger(SystemCache.class);
 
     private static UserService userService = (UserService) SpringUtils.getInstance().getContext().getBean(UserService.class);
 
-    public static LoadingCache<String, UserDTO> cache = CacheBuilder.newBuilder()
+    public static LoadingCache<String, UserDTO> userCache = CacheBuilder.newBuilder()
 //        .refreshAfterWrite(10, TimeUnit.SECONDS)// 给定时间内没有被读/写访问，则回收。
 //        .expireAfterAccess(10, TimeUnit.SECONDS)//设置过期时间
 //        .refreshAfterWrite(1, TimeUnit.HOURS)// 给定时间内没有被读/写访问，则回收。
@@ -45,17 +45,40 @@ public class UserCache {
         }
     );
 
-    public static UserDTO getCache(){
+    public static UserDTO getUserCache(){
         try {
-            return cache.get(Constants.CURRENT_USER);
+            return userCache.get(Constants.CURRENT_USER);
         } catch (ExecutionException e) {
             logger.error("过去缓存内容异常",e);
             return null;
         }
     }
 
-    public static void putCache(String key,UserDTO dto){
-        cache.put(key,dto);
+    public static void putUserCache(String key,UserDTO dto){
+        userCache.put(key,dto);
+    }
+
+    public static LoadingCache<String, Integer> countCache = CacheBuilder.newBuilder().maximumSize(10).// 设置缓存个数
+        build(new CacheLoader<String, Integer>() {
+            @Override
+            /** 当本地缓存命没有中时，调用load方法获取结果并将结果缓存 **/
+            public Integer load(String key) throws Exception {
+                return null;//取消加载，同时取消过期时间
+            }
+        }
+    );
+
+    public static Integer getCountCache(String key){
+        try {
+            return countCache.get(key);
+        } catch (ExecutionException e) {
+            logger.error("过去缓存内容异常",e);
+            return null;
+        }
+    }
+
+    public static void putCountCache(String key,int value){
+        countCache.put(key,value);
     }
 
 }

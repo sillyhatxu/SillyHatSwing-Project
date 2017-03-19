@@ -17,10 +17,15 @@ public class SillyHatTabPanel extends JPanel{
 
 	public SillyHatTabPanel(String panelCode){
 		initService();//业务初始化Service
+		initComponents();
 		setName(panelCode);
 	}
 
 	public void initService(){
+
+	}
+
+	public void initComponents(){
 
 	}
 

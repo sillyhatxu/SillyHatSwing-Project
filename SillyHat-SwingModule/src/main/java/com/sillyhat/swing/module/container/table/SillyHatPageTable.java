@@ -136,7 +136,7 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
     /**
      * 初始化组件
      */
-    private void initComponents(){
+    public void initComponents(){
         initComponentsSearchContextJPanel();//初始化搜索Panel
         initComponentsToolBar();//初始化工具条
         initComponentsPageButton();//初始化分页按钮

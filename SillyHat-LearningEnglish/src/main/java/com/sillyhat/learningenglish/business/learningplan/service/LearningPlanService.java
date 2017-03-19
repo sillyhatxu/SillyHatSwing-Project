@@ -1,6 +1,7 @@
 package com.sillyhat.learningenglish.business.learningplan.service;
 
-import com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningPlanDTO;
+import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO;
+import com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO;
 
 import java.util.List;
 
@@ -16,5 +17,13 @@ public interface LearningPlanService {
     public void addUserLearningPlan(UserLearningPlanDTO dto);
 
     public void updateUserLearningPlan(UserLearningPlanDTO dto);
+
+    /**
+     * 得到今日计划
+     * @param userId
+     * @return
+     */
+    public TodayPlanDTO getTodayPlan(long userId);
+
 
 }

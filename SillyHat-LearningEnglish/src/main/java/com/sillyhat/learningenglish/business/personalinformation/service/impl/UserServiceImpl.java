@@ -6,7 +6,7 @@ import com.sillyhat.learningenglish.business.personalinformation.service.UserSer
 import com.sillyhat.learningenglish.business.system.mapper.UserMapper;
 import com.sillyhat.learningenglish.utils.Constants;
 import com.sillyhat.learningenglish.utils.MD5Util;
-import com.sillyhat.learningenglish.utils.cache.UserCache;
+import com.sillyhat.learningenglish.utils.cache.SystemCache;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void saveUse(UserDTO dto) {
-        UserDTO user = UserCache.getCache();
+        UserDTO user = SystemCache.getUserCache();
         dto.setUpdatedUser(user.getId());
         dto.setPassword(MD5Util.toMD5Upper(dto.getPassword()));
         if(dto != null && dto.getId() == 0l){
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
         UserDTO user = userMapper.getUserByLogin(login);
         if(user != null){
             if(user.getPassword().equals(MD5Util.toMD5Upper(password))){
-                UserCache.putCache(Constants.CURRENT_USER,user);
+                SystemCache.putUserCache(Constants.CURRENT_USER,user);
                 return true;
             }
         }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public synchronized UserLearningParamsDTO loadUserLearningParamsByUserId(long userId) {
+    public synchronized UserLearningParamsDTO getUserLearningParamsByUserId(long userId) {
         UserLearningParamsDTO dto = userMapper.getUserLearningParamsByUserId(userId);
         if(dto == null){
             dto = new UserLearningParamsDTO();

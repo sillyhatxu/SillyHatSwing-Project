@@ -5,7 +5,7 @@ import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
 import com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningParamsDTO;
 import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.utils.SpringUtils;
-import com.sillyhat.learningenglish.utils.cache.UserCache;
+import com.sillyhat.learningenglish.utils.cache.SystemCache;
 import com.sillyhat.swing.module.basic.SillyHatFactory;
 import com.sillyhat.swing.module.basic.SillyHatFormJPanel;
 import com.sillyhat.swing.module.basic.SillyHatInputText;
@@ -36,18 +36,21 @@ public class PersonalInfomationDetail extends SillyHatTabPanel{
 		userService = (UserService) SpringUtils.getInstance().getContext().getBean(UserService.class);
 	}
 
+	@Override
+	public void initComponents() {
+		setBorder(SillyHatFactory.getBorderDistanceNoneTop(10));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		UserDTO user = SystemCache.getUserCache();
+		TitledBorder titled = BorderFactory.createTitledBorder(user.getUserName());
+		SillyHatFormJPanel formPanel = SillyHatFactory.createCerticalFormJPanel(titled);
+		UserLearningParamsDTO userLearningParams = userService.getUserLearningParamsByUserId(user.getId());
+		formPanel.add(new SillyHatInputText(messageService.getMessageZH("personal.infomation.learning.params.learningNum"),80, 30, userLearningParams.getLearningNum() + "",20));
+		formPanel.add(new SillyHatInputText(messageService.getMessageZH("personal.infomation.learning.params.reviewNum"),80, 30, userLearningParams.getReviewNum() + "",20));
+		add(formPanel);
+	}
+
 	public PersonalInfomationDetail(String panelCode) {
 		super(panelCode);
-		setBorder(SillyHatFactory.getBorderDistanceNoneTop(10));
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		UserDTO user = UserCache.getCache();
-        TitledBorder titled = BorderFactory.createTitledBorder(user.getUserName());
-        SillyHatFormJPanel formPanel = SillyHatFactory.createCerticalFormJPanel(titled);
-		UserLearningParamsDTO userLearningParams = userService.loadUserLearningParamsByUserId(user.getId());
-//        formPanel.add(new SillyHatInputText(messageService.getMessageZH("personal.infomation.learning.params.learningNum"),80, 30, "",20,BorderFactory.createLineBorder(Color.blue)));
-        formPanel.add(new SillyHatInputText(messageService.getMessageZH("personal.infomation.learning.params.learningNum"),80, 30, userLearningParams.getLearningNum() + "",20));
-        formPanel.add(new SillyHatInputText(messageService.getMessageZH("personal.infomation.learning.params.reviewNum"),80, 30, userLearningParams.getReviewNum() + "",20));
-        add(formPanel);
 	}
 	
 	

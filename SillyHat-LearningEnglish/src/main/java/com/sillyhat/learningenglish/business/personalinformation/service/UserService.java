@@ -21,5 +21,5 @@ public interface UserService {
 
     public List<UserDTO> queryAllUser();
 
-    public UserLearningParamsDTO loadUserLearningParamsByUserId(long userId);
+    public UserLearningParamsDTO getUserLearningParamsByUserId(long userId);
 }

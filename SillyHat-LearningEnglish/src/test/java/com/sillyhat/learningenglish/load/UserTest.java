@@ -1,8 +1,8 @@
 package com.sillyhat.learningenglish.load;
 
+import com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO;
 import com.sillyhat.learningenglish.business.learningplan.service.LearningPlanService;
 import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
-import com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningPlanDTO;
 import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
 import com.sillyhat.learningenglish.business.wordrepository.service.WordRepositoryService;
