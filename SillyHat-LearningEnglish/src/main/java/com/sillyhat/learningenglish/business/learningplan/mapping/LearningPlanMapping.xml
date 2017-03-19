@@ -89,7 +89,7 @@
           T_USER_TODAY_PLAN t
         WHERE
             <![CDATA[
-              t.CREATED_DATE >= datetime(#{data}) and t.CREATED_DATE <= datetime(#{data})
+              t.CREATED_DATE >= datetime(#{data}) and t.CREATED_DATE <= datetime(#{nextData})
             ]]>
     </select>
 
