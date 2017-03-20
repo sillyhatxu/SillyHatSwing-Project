@@ -5,6 +5,7 @@ import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO
 import com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-19.
@@ -19,8 +20,6 @@ public interface LearningPlanMapper {
 
     public void updateUserLearningPlan(UserLearningPlanDTO dto);
 
-
-    /**************************************************************/
     /**
      * 得到上一次的今日计划
      * @param userId
@@ -47,5 +46,15 @@ public interface LearningPlanMapper {
     public void addTodayPlanDetail(TodayPlanDetailDTO dto);
 
     public void updateTodayPlanDetail(TodayPlanDetailDTO dto);
+
+    /**************************************************************/
+
+    /**
+     * 查询新增词汇数量，查询复习词汇数量
+     * @param Params
+     * @return
+     */
+    public List<UserLearningPlanDTO> queryUserLearningPlanByParams(Map<String,Object> params);
+
 
 }
