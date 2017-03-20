@@ -143,4 +143,45 @@
         where ID = #{id}
     </update>
 
+
+    <select id="queryLearningPlanLearningWordList" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+        SELECT
+            ID,
+            WORD_ID,
+            UPDATED_DATE
+        FROM
+            T_USER_LEARNING_PLAN
+        WHERE IS_LEARNING = 0
+          AND USER_ID = #{userId}
+        <if test="null != existingWordIdSet">
+            AND WORD_ID NOT IN
+            <foreach item="item" collection="existingWordIdSet" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY UPDATED_DATE DESC
+        LIMIT #{learningNum}
+    </select>
+
+    <select id="queryLearningPlanReviewWordList" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+        SELECT
+            ID,
+            WORD_ID,
+            (ERROR_FREQUENCY - SUCCESS_FREQUENCY) result_num,
+            UPDATED_DATE
+        FROM
+            T_USER_LEARNING_PLAN
+        WHERE IS_LEARNING = 1
+          AND USER_ID = #{userId}
+        <if test="null != existingWordIdSet">
+            AND WORD_ID NOT IN
+            <foreach item="item" collection="existingWordIdSet" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY result_num DESC,UPDATED_DATE DESC
+        LIMIT #{reviewNum}
+    </select>
+
+
 </mapper>

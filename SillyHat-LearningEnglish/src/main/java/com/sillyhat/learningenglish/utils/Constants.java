@@ -66,4 +66,15 @@ public class Constants {
 	 */
 	public static final int DEFAULT_SUCCESS_FREQUENCY = 0;
 
+
+	/**
+	 * 默认是否错误
+	 */
+	public static final int DEFAULT_IS_ERROR = 0;
+
+	/**
+	 * 默认需要重复次数
+	 */
+	public static final int DEFAULT_OCCURRENCE_NUM = 3;
+
 }
