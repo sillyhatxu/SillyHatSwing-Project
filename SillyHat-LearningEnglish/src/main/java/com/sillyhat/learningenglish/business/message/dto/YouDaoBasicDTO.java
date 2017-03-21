@@ -1,6 +1,7 @@
 package com.sillyhat.learningenglish.business.message.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-18.
@@ -27,7 +28,7 @@ public class YouDaoBasicDTO implements Serializable{
     /**
      * 翻译列表
      */
-//    private List<String> explains;
+    private List<String> explains;
 
 
     public String getUkPhonetic() {
@@ -54,13 +55,13 @@ public class YouDaoBasicDTO implements Serializable{
         this.phonetic = phonetic;
     }
 
-//    public List<String> getExplains() {
-//        return explains;
-//    }
-//
-//    public void setExplains(List<String> explains) {
-//        this.explains = explains;
-//    }
+    public List<String> getExplains() {
+        return explains;
+    }
+
+    public void setExplains(List<String> explains) {
+        this.explains = explains;
+    }
 
     @Override
     public String toString() {

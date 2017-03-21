@@ -30,13 +30,11 @@ public class PersonalInfomationDetail extends SillyHatTabPanel{
 
 	private UserService userService;
 
-	@Override
 	public void initService() {
 		messageService = (MessageService) SpringUtils.getInstance().getContext().getBean(MessageService.class);
 		userService = (UserService) SpringUtils.getInstance().getContext().getBean(UserService.class);
 	}
 
-	@Override
 	public void initComponents() {
 		setBorder(SillyHatFactory.getBorderDistanceNoneTop(10));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

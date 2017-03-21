@@ -29,7 +29,7 @@ public class YouDaoDTO implements Serializable {
     /**
      * 基本词典
      */
-    private List<YouDaoBasicDTO> basic;
+    private YouDaoBasicDTO basic;
 
     /**
      * 有道词典的翻译
@@ -58,11 +58,11 @@ public class YouDaoDTO implements Serializable {
         this.query = query;
     }
 
-    public List<YouDaoBasicDTO> getBasic() {
+    public YouDaoBasicDTO getBasic() {
         return basic;
     }
 
-    public void setBasic(List<YouDaoBasicDTO> basic) {
+    public void setBasic(YouDaoBasicDTO basic) {
         this.basic = basic;
     }
 

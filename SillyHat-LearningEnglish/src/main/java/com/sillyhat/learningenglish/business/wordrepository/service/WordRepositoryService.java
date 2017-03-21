@@ -23,6 +23,8 @@ public interface WordRepositoryService {
 
     public void saveWordRepository(WordRepositoryDTO dto);
 
+    public void addWordRepository(WordRepositoryDTO dto);
+
     public void deleteWordRepository(String id);
 
 }

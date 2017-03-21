@@ -27,6 +27,7 @@ public class TodayPlanDetailDTO implements Serializable {
      */
     private long wordId;
 
+
     /**
      * 记忆过程中发生错误次数
      */
@@ -41,6 +42,17 @@ public class TodayPlanDetailDTO implements Serializable {
      *  排序
      */
     private int sortNum;
+
+
+    private String word;
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
 
     public long getId() {
         return id;
@@ -97,6 +109,7 @@ public class TodayPlanDetailDTO implements Serializable {
                 "id='" + id + '\'' +
                 ", todayPlanId='" + todayPlanId + '\'' +
                 ", wordId='" + wordId + '\'' +
+                ", word='" + word + '\'' +
                 ", isError=" + isError +
                 ", occurrenceNum=" + occurrenceNum +
                 ", sortNum=" + sortNum +

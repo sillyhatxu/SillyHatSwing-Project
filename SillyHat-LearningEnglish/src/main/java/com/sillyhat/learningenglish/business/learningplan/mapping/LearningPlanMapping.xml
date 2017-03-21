@@ -120,16 +120,17 @@
 
     <select id="queryTodayPlanDetailByTodayPlanId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
         SELECT
-          ID as id,
-          TODAY_PLAN_ID as todayPlanId,
-          WORD_ID as wordId,
-          IS_ERROR as isError,
-          OCCURRENCE_NUM as occurrenceNum,
-          SORT_NUM as sortNum
+          t.ID as id,
+          t.TODAY_PLAN_ID as todayPlanId,
+          t.WORD_ID as wordId,
+          wr.word as word,
+          t.IS_ERROR as isError,
+          t.OCCURRENCE_NUM as occurrenceNum,
+          t.SORT_NUM as sortNum
         FROM
-          T_TODAY_PLAN_DETAIL t
-        WHERE
-          TODAY_PLAN_ID = #{todayPlanId}
+          T_TODAY_PLAN_DETAIL t,T_WORD_REPOSITORY wr
+        WHERE t.WORD_ID = wr.ID
+          AND TODAY_PLAN_ID = #{todayPlanId}
     </select>
 
     <insert id="addTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">

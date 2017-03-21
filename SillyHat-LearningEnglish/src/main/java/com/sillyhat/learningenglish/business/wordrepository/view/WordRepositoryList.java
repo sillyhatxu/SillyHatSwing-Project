@@ -98,9 +98,11 @@ public class WordRepositoryList extends SillyHatPageTable {
         Vector<String> columnNames = new Vector<String>();
         columnNames.add("");
         columnNames.add(messageService.getMessageZH("word.repository.word"));
-        columnNames.add(messageService.getMessageZH("word.repository.phonetic"));
-        columnNames.add(messageService.getMessageZH("word.repository.reminder"));
+        columnNames.add(messageService.getMessageZH("word.repository.us.phonetic"));
+        columnNames.add(messageService.getMessageZH("word.repository.uk.phonetic"));
         columnNames.add(messageService.getMessageZH("word.repository.word.translate"));
+        columnNames.add(messageService.getMessageZH("word.repository.web.translate"));
+        columnNames.add(messageService.getMessageZH("word.repository.sample.sentences"));
         columnNames.add(messageService.getMessageZH("public.label.created.user"));
         columnNames.add(messageService.getMessageZH("public.label.created.date"));
         columnNames.add(messageService.getMessageZH("public.label.updated.user"));
@@ -115,9 +117,11 @@ public class WordRepositoryList extends SillyHatPageTable {
             Vector<String> iColumns = new Vector<String>();
             iColumns.add(dto.getId()+"");
             iColumns.add(dto.getWord());
-            iColumns.add(dto.getPhonetic());
-            iColumns.add(dto.getReminder());
+            iColumns.add(dto.getUsPhonetic());
+            iColumns.add(dto.getUkPhonetic());
             iColumns.add(dto.getWordTranslate());
+            iColumns.add(dto.getWebTranslate());
+            iColumns.add(dto.getSampleSentences());
             iColumns.add(dto.getCreatedUserName());
             iColumns.add(dto.getCreatedDate());
             iColumns.add(dto.getUpdatedUserName());

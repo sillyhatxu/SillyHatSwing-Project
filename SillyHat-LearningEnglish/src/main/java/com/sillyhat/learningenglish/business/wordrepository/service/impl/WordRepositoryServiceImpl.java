@@ -50,10 +50,14 @@ public class WordRepositoryServiceImpl implements WordRepositoryService {
         if(dto != null && dto.getId() != 0l){
             wordRepositoryMapper.updateWordRepository(dto);
         }else{
-
             dto.setCreatedUser(user.getId());
             wordRepositoryMapper.addWordRepository(dto);
         }
+    }
+
+    @Override
+    public void addWordRepository(WordRepositoryDTO dto) {
+        wordRepositoryMapper.addWordRepository(dto);
     }
 
     @Override

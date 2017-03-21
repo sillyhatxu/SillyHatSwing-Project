@@ -1,6 +1,8 @@
 package com.sillyhat.learningenglish.utils;
 
 import com.sillyhat.learningenglish.business.message.dto.YouDaoDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,6 +17,7 @@ import java.util.Map;
  */
 public class HttpUtils {
 
+    private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
     public static YouDaoDTO requestHttpGetToYouDao(String url, String param) {
         String result = "";
@@ -34,7 +37,7 @@ public class HttpUtils {
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
             for (String key : map.keySet()) {
-                System.out.println(key + "--->" + map.get(key));
+                logger.info(key + "--->" + map.get(key));
             }
             // 定义 BufferedReader输入流来读取URL的响应
             InputStream inputStream = connection.getInputStream();
@@ -43,8 +46,10 @@ public class HttpUtils {
             while ((line = in.readLine()) != null) {
                 result += line;
             }
+            result = result.replaceAll("us-phonetic","usPhonetic").replaceAll("uk-phonetic","ukPhonetic");
+            logger.info(result);
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
+            logger.error("发送GET请求出现异常！",e);
             e.printStackTrace();
         }
         // 使用finally块来关闭输入流
@@ -57,7 +62,7 @@ public class HttpUtils {
                 e2.printStackTrace();
             }
         }
-        return (YouDaoDTO) JsonUtils.jsonToObject(result,YouDaoDTO.class);
+        return JsonUtils.jsonToObject(result,YouDaoDTO.class);
     }
 
     public static Map<String,Object> requestHttpGetToYouDaoReturnMap(String url, String param) {
@@ -78,7 +83,7 @@ public class HttpUtils {
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
             for (String key : map.keySet()) {
-                System.out.println(key + "--->" + map.get(key));
+                logger.info(key + "--->" + map.get(key));
             }
             // 定义 BufferedReader输入流来读取URL的响应
             InputStream inputStream = connection.getInputStream();
@@ -87,8 +92,10 @@ public class HttpUtils {
             while ((line = in.readLine()) != null) {
                 result += line;
             }
+            result = result.replaceAll("us-phonetic","usPhonetic").replaceAll("uk-phonetic","ukPhonetic");
+            logger.info(result);
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
+            logger.error("发送GET请求出现异常！",e);
             e.printStackTrace();
         }
         // 使用finally块来关闭输入流
@@ -101,43 +108,15 @@ public class HttpUtils {
                 e2.printStackTrace();
             }
         }
-        return JsonUtils.jsonToMap(result);
+        return JsonUtils.jsonToObject(result,Map.class);
     }
 
     public static void main(String[] args) {
-        String url = "http://fanyi.youdao.com/openapi.do";
-        String params = "keyfrom=SillyHatYouDao&key=987724779&type=data&doctype=json&version=1.1&q=interface";
-        //发送 GET 请求
-        Map<String,Object> map = HttpUtils.requestHttpGetToYouDaoReturnMap(url, params);
-        System.out.println("-------------------" + map);
-        System.out.println("errorCode--------------" + map.get("errorCode"));
-        System.out.println("query--------------" + map.get("query"));
-        System.out.println("basic--------------" + map.get("basic"));
-        System.out.println("translation--------------" + map.get("translation"));
-        System.out.println("web--------------" + map.get("web"));
-//        YouDaoDTO dto = HttpUtils.requestHttpGetToYouDao(url, params);
-//        System.out.println("errorCode--------------" + dto.getErrorCode());
-//        System.out.println("query--------------" + dto.getQuery());
-//        if(dto.getBasic() != null){
-//            System.out.println("basic--------------" + dto.getBasic().size());
-//            for (int i = 0; i < dto.getBasic().size(); i++) {
-//                Map<String,Object> basicMap = dto.getBasic().get(i);
-//                System.out.println("basicDTO -- [" + i + "] --- " + basicMap.toString());
-//            }
-//        }
-//        if(dto.getTranslation() != null){
-//            System.out.println("translation--------------" + dto.getTranslation().size());
-//            for (int i = 0; i < dto.getTranslation().size(); i++) {
-//                String translation = dto.getTranslation().get(i);
-//                System.out.println("translation  -- [" + i + "] --- " + translation);
-//            }
-//        }
-//        if(dto.getWeb() != null){
-//            System.out.println("web--------------" + dto.getWeb().size());
-//            for (int i = 0; i < dto.getWeb().size(); i++) {
-//                YouDaoWebDTO webDTO = dto.getWeb().get(i);
-//                System.out.println("webDTO  -- [" + i + "] --- " + webDTO.toString());
-//            }
-//        }
+        String json = "{\"translation\":[\"接口\"],\"basic\":{\"us-phonetic\":\"'?nt?'fes\",\"phonetic\":\"'?nt?fe?s\",\"uk-phonetic\":\"'?nt?fe?s\",\"explains\":[\"n. 界面；<计>接口；交界面\",\"v. （使通过界面或接口）接合，连接；[计算机]使联系\",\"vi. 相互作用（或影响）；交流，交谈\"]},\"query\":\"interface\",\"errorCode\":0,\"web\":[{\"value\":[\"接口\",\"界面\",\"介面\"],\"key\":\"Interface\"},{\"value\":[\"通讯接口\",\"通信接口\",\"通信服务接口\"],\"key\":\"Communication Interface\"},{\"value\":[\"接口模式\"],\"key\":\"pattern interface\"}]}";
+        logger.info(json);
+        json = json.replaceAll("us-phonetic","usPhonetic").replaceAll("uk-phonetic","ukPhonetic");
+        logger.info(json);
+        YouDaoDTO dto = JsonUtils.jsonToObject(json,YouDaoDTO.class);
+        logger.info(dto.toString());
     }
 }

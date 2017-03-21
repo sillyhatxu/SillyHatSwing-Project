@@ -24,27 +24,27 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
     /****************** 查询 Panel ******************************/
     private JPanel searchContextJPanel = null;
     private JPanel searchButtonJPanel = null;
-    private final JButton btnSearch = new JButton("查询");
+    private JButton btnSearch = null;
 
 
     /****************** 工具按钮 ToolBarPanel ******************************/
     private JPanel jToolBarPanel = null;
     private JToolBar operatorBar = null;
-    private final JPanel btnJPanel = new JPanel();
-    private final JLabel totalBeginJLabel = new JLabel("共");
-    private final JLabel totalJLabel = new JLabel("0");
-    private final JLabel totalEndJLabel = new JLabel("条记录");
+    private JPanel btnJPanel = null;
+    private JLabel totalBeginJLabel = null;
+    private JLabel totalJLabel = null;
+    private JLabel totalEndJLabel = null;
 
-    private final JLabel pageBeginJLabel = new JLabel("第");
-    private final JLabel pageCurrentJLabel = new JLabel("1");
-    private final JLabel pageMiddleJLabel = new JLabel("页/共");
-    private final JLabel pageTotalJLabel = new JLabel("1");
-    private final JLabel pageEndJLabel = new JLabel("页");
+    private JLabel pageBeginJLabel = null;
+    private JLabel pageCurrentJLabel = null;
+    private JLabel pageMiddleJLabel = null;
+    private JLabel pageTotalJLabel = null;
+    private JLabel pageEndJLabel = null;
 
-    private final JButton btnHomePage = new JButton("首页");
-    private final JButton btnUpPage = new JButton("上一页");
-    private final JButton btnNextPage = new JButton("下一页");
-    private final JButton btnLastPage = new JButton("最后一页");
+    private JButton btnHomePage = null;
+    private JButton btnUpPage = null;
+    private JButton btnNextPage = null;
+    private JButton btnLastPage = null;
 
     /****************** 表格内容 Tabel ******************************/
     private JScrollPane jsp = null;
@@ -133,10 +133,27 @@ public abstract class SillyHatPageTable extends SillyHatTabPanel {
         });
     }
 
+    private void initPageModule(){
+        btnSearch = new JButton("查询");
+        btnJPanel = new JPanel();
+        totalBeginJLabel = new JLabel("共");
+        totalJLabel = new JLabel("0");
+        totalEndJLabel = new JLabel("条记录");
+        pageBeginJLabel = new JLabel("第");
+        pageCurrentJLabel = new JLabel("1");
+        pageMiddleJLabel = new JLabel("页/共");
+        pageTotalJLabel = new JLabel("1");
+        pageEndJLabel = new JLabel("页");
+        btnHomePage = new JButton("首页");
+        btnUpPage = new JButton("上一页");
+        btnNextPage = new JButton("下一页");
+        btnLastPage = new JButton("最后一页");
+    }
     /**
      * 初始化组件
      */
     public void initComponents(){
+        initPageModule();
         initComponentsSearchContextJPanel();//初始化搜索Panel
         initComponentsToolBar();//初始化工具条
         initComponentsPageButton();//初始化分页按钮

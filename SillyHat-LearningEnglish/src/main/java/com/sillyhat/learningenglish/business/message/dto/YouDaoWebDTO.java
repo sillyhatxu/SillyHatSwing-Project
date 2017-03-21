@@ -1,6 +1,7 @@
 package com.sillyhat.learningenglish.business.message.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-18.
@@ -11,7 +12,7 @@ public class YouDaoWebDTO implements Serializable {
 
     private String key;
 
-    private String value;
+    private List<String> value;
 
     public String getKey() {
         return key;
@@ -21,11 +22,11 @@ public class YouDaoWebDTO implements Serializable {
         this.key = key;
     }
 
-    public String getValue() {
+    public List<String> getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(List<String> value) {
         this.value = value;
     }
 
@@ -33,7 +34,7 @@ public class YouDaoWebDTO implements Serializable {
     public String toString() {
         return "YouDaoWebDTO{" +
                 "key='" + key + '\'' +
-                ", value='" + value + '\'' +
+                ", value=" + value +
                 '}';
     }
 }

@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sillyhat.learningenglish.business.wordrepository.mapper.WordRepositoryMapper">
-
     <select id="queryWordRepositoryAll" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         SELECT
             ID AS id,
             WORD AS word,
-            PHONETIC AS phonetic,
-            REMINDER AS reminder,
+            US_PHONETIC AS usPhonetic,
+            UK_PHONETIC AS ukPhonetic,
             WORD_TRANSLATE AS wordTranslate,
+            WEB_TRANSLATE AS webTranslate,
+            SAMPLE_SENTENCES AS sampleSentences,
             (select USER_NAME from T_USER u where u.ID = wr.CREATED_USER) AS createdUserName,
             CREATED_DATE AS createdDate,
             (select USER_NAME from T_USER u where u.ID = wr.UPDATED_USER) AS updatedUserName,
@@ -22,9 +23,11 @@
         SELECT
             ID AS id,
             WORD AS word,
-            PHONETIC AS phonetic,
-            REMINDER AS reminder,
+            US_PHONETIC AS usPhonetic,
+            UK_PHONETIC AS ukPhonetic,
             WORD_TRANSLATE AS wordTranslate,
+            WEB_TRANSLATE AS webTranslate,
+            SAMPLE_SENTENCES AS sampleSentences,
             (select USER_NAME from T_USER u where u.ID = wr.CREATED_USER) AS createdUserName,
             CREATED_DATE AS createdDate,
             (select USER_NAME from T_USER u where u.ID = wr.UPDATED_USER) AS updatedUserName,
@@ -57,26 +60,30 @@
         SELECT
             ID AS id,
             WORD AS word,
-            PHONETIC AS phonetic,
-            REMINDER AS reminder,
-            WORD_TRANSLATE AS wordTranslate
+            US_PHONETIC AS usPhonetic,
+            UK_PHONETIC AS ukPhonetic,
+            WORD_TRANSLATE AS wordTranslate,
+            WEB_TRANSLATE AS webTranslate,
+            SAMPLE_SENTENCES AS sampleSentences
         FROM
             T_WORD_REPOSITORY
         WHERE ID = #{id}
     </select>
 
     <insert id="addWordRepository" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
-        insert into T_WORD_REPOSITORY (WORD,PHONETIC,REMINDER,WORD_TRANSLATE,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
-        values (#{word},#{phonetic},#{reminder},#{wordTranslate},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
+        insert into T_WORD_REPOSITORY (WORD,US_PHONETIC,UK_PHONETIC,WORD_TRANSLATE,WEB_TRANSLATE,SAMPLE_SENTENCES,CREATED_USER,CREATED_DATE,UPDATED_USER,UPDATED_DATE)
+        values (#{word},#{usPhonetic},#{ukPhonetic},#{wordTranslate},#{webTranslate},#{sampleSentences},#{createdUser},datetime('now'),#{updatedUser},datetime('now'))
     </insert>
 
     <update id="updateWordRepository" parameterType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         update T_WORD_REPOSITORY
           set
             WORD = #{word},
-            PHONETIC = #{phonetic},
-            REMINDER = #{reminder},
+            US_PHONETIC = #{usPhonetic},
+            UK_PHONETIC = #{ukPhonetic},
             WORD_TRANSLATE = #{wordTranslate},
+            WEB_TRANSLATE = #{webTranslate},
+            SAMPLE_SENTENCES = #{sampleSentences},
             UPDATED_USER = #{updatedUser},
             UPDATED_DATE = datetime('now')
         where ID = #{id}

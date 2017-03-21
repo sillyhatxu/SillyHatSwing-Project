@@ -20,19 +20,29 @@ public class WordRepositoryDTO implements Serializable {
     private String word;
 
     /**
-     *  音标
+     *  美式音标
      */
-    private String phonetic;
+    private String usPhonetic;
 
     /**
-     *  提示
+     *  英式音标
      */
-    private String reminder;
+    private String ukPhonetic;
 
     /**
      *  翻译
      */
     private String wordTranslate;
+
+    /**
+     *  网络释义
+     */
+    private String webTranslate;
+
+    /**
+     *  例句
+     */
+    private String sampleSentences;
 
     /**
      *  创建人
@@ -89,20 +99,20 @@ public class WordRepositoryDTO implements Serializable {
         this.word = word;
     }
 
-    public String getPhonetic() {
-        return phonetic;
+    public String getUsPhonetic() {
+        return usPhonetic;
     }
 
-    public void setPhonetic(String phonetic) {
-        this.phonetic = phonetic;
+    public void setUsPhonetic(String usPhonetic) {
+        this.usPhonetic = usPhonetic;
     }
 
-    public String getReminder() {
-        return reminder;
+    public String getUkPhonetic() {
+        return ukPhonetic;
     }
 
-    public void setReminder(String reminder) {
-        this.reminder = reminder;
+    public void setUkPhonetic(String ukPhonetic) {
+        this.ukPhonetic = ukPhonetic;
     }
 
     public String getWordTranslate() {
@@ -111,6 +121,22 @@ public class WordRepositoryDTO implements Serializable {
 
     public void setWordTranslate(String wordTranslate) {
         this.wordTranslate = wordTranslate;
+    }
+
+    public String getWebTranslate() {
+        return webTranslate;
+    }
+
+    public void setWebTranslate(String webTranslate) {
+        this.webTranslate = webTranslate;
+    }
+
+    public String getSampleSentences() {
+        return sampleSentences;
+    }
+
+    public void setSampleSentences(String sampleSentences) {
+        this.sampleSentences = sampleSentences;
     }
 
     public String getCreatedDate() {
@@ -148,15 +174,19 @@ public class WordRepositoryDTO implements Serializable {
     @Override
     public String toString() {
         return "WordRepositoryDTO{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", word='" + word + '\'' +
-                ", phonetic='" + phonetic + '\'' +
-                ", reminder='" + reminder + '\'' +
+                ", usPhonetic='" + usPhonetic + '\'' +
+                ", ukPhonetic='" + ukPhonetic + '\'' +
                 ", wordTranslate='" + wordTranslate + '\'' +
-                ", createdUser='" + createdUser + '\'' +
-                ", createdDate=" + createdDate +
-                ", updatedUser='" + updatedUser + '\'' +
-                ", updatedDate=" + updatedDate +
+                ", webTranslate='" + webTranslate + '\'' +
+                ", sampleSentences='" + sampleSentences + '\'' +
+                ", createdUser=" + createdUser +
+                ", createdDate='" + createdDate + '\'' +
+                ", updatedUser=" + updatedUser +
+                ", updatedDate='" + updatedDate + '\'' +
+                ", createdUserName='" + createdUserName + '\'' +
+                ", updatedUserName='" + updatedUserName + '\'' +
                 '}';
     }
 }

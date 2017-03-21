@@ -27,7 +27,6 @@ public class ReciteWord extends SillyHatTabPanel {
 
     private LearningPlanService learningPlanService;
 
-    @Override
     public void initService() {
         messageService = (MessageService) SpringUtils.getInstance().getContext().getBean(MessageService.class);
         userService = (UserService) SpringUtils.getInstance().getContext().getBean(UserService.class);
@@ -51,17 +50,20 @@ public class ReciteWord extends SillyHatTabPanel {
         SystemCache.putCountCache(Constants.CACHE_USER_REVIEW_NUM,userLearningParams.getReviewNum());
         TodayPlanDTO todayPlanDTO = learningPlanService.getTodayPlan(user.getId());
 
+        setLayout(new GridLayout(3, 1));
         northJpanel = new JPanel(new GridLayout(1, 3));
         contextJpanel = new JPanel();
         southJpanel = new JPanel(new GridLayout(2, 1));
-
+        northJpanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        contextJpanel.setBorder(BorderFactory.createLineBorder(Color.CYAN));
+        southJpanel.setBorder(BorderFactory.createLineBorder(Color.RED));
         btnKnow = new JButton(messageService.getMessageZH("btn.know"));
         btnUnKnow = new JButton(messageService.getMessageZH("btn.unknow"));
         southJpanel.add(btnKnow);
         southJpanel.add(btnUnKnow);
-        add(northJpanel, BorderLayout.NORTH);
-        add(contextJpanel, BorderLayout.CENTER);
-        add(southJpanel, BorderLayout.SOUTH);
+        add(northJpanel);
+        add(contextJpanel);
+        add(southJpanel);
     }
 
     /**

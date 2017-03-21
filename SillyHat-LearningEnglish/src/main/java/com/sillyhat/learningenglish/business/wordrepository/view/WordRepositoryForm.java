@@ -60,10 +60,11 @@ public class WordRepositoryForm extends SillyHatDialog {
 
     private String id;
     private SillyHatInputText wordText;
-    private SillyHatInputText phonetic;
-    private SillyHatLabelTextArea reminder;
+    private SillyHatInputText usPhonetic;
+    private SillyHatInputText ukPhonetic;
     private SillyHatLabelTextArea wordTranslate;
-
+    private SillyHatLabelTextArea webTranslate;
+    private SillyHatLabelTextArea sampleSentences;
 
     public JPanel dialogContent() {
         JPanel fromPanel = new JPanel();
@@ -71,21 +72,26 @@ public class WordRepositoryForm extends SillyHatDialog {
             dto = new WordRepositoryDTO();
         }
         wordText = new SillyHatInputText(messageService.getMessageZH("word.repository.word"),80, 30, dto.getWord(),20);
-        phonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.phonetic"),80, 30, dto.getPhonetic(),20);
-        reminder = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.reminder"),80, 30, dto.getReminder(),500,100);
+        usPhonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.us.phonetic"),80, 30, dto.getUsPhonetic(),20);
+        ukPhonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.uk.phonetic"),80, 30, dto.getUkPhonetic(),20);
+        webTranslate = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.web.translate"),80, 30, dto.getWebTranslate(),500,100);
         wordTranslate = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.word.translate"),80, 30, dto.getWordTranslate(),500,100);
+        sampleSentences = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.sample.sentences"),80, 30, dto.getSampleSentences(),500,100);
         fromPanel.add(wordText);
-        fromPanel.add(phonetic);
-        fromPanel.add(reminder);
+        fromPanel.add(usPhonetic);
+        fromPanel.add(ukPhonetic);
+        fromPanel.add(webTranslate);
         fromPanel.add(wordTranslate);
         return fromPanel;
     }
 
     public boolean clickSubmitEvent(){
         dto.setWord(wordText.getTextValue());
-        dto.setPhonetic(phonetic.getTextValue());
-        dto.setReminder(reminder.getTextValue());
+        dto.setUsPhonetic(usPhonetic.getTextValue());
+        dto.setUkPhonetic(ukPhonetic.getTextValue());
+        dto.setWebTranslate(webTranslate.getTextValue());
         dto.setWordTranslate(wordTranslate.getTextValue());
+        dto.setSampleSentences(sampleSentences.getTextValue());
         wordRepositoryService.saveWordRepository(dto);
         SillyHatJOptionPane.alert(messageService.getMessageZH("alert.reminder"),messageService.getMessageZH("alert.submit.success"));
         return true;
