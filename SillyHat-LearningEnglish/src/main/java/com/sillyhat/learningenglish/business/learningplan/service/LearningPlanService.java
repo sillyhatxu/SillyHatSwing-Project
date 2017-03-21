@@ -1,6 +1,7 @@
 package com.sillyhat.learningenglish.business.learningplan.service;
 
 import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO;
+import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO;
 import com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface LearningPlanService {
      */
     public TodayPlanDTO getTodayPlan(long userId);
 
+    public List<TodayPlanDetailDTO> queryTodayPlanDetailByTodayPlanId(long todayPlanId);
 
+    public void clearUserPlan();
 }

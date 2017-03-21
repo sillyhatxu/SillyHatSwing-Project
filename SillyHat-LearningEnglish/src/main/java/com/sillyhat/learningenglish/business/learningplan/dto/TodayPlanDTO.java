@@ -1,6 +1,7 @@
 package com.sillyhat.learningenglish.business.learningplan.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *  今日计划
@@ -51,6 +52,8 @@ public class TodayPlanDTO implements Serializable {
      *  修改时间
      */
     private String updatedDate;
+
+    private List<TodayPlanDetailDTO> todayPlanDetailList;
 
     public long getId() {
         return id;
@@ -114,6 +117,14 @@ public class TodayPlanDTO implements Serializable {
 
     public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public List<TodayPlanDetailDTO> getTodayPlanDetailList() {
+        return todayPlanDetailList;
+    }
+
+    public void setTodayPlanDetailList(List<TodayPlanDetailDTO> todayPlanDetailList) {
+        this.todayPlanDetailList = todayPlanDetailList;
     }
 
     @Override

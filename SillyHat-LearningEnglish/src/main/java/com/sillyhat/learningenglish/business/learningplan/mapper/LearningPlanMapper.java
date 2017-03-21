@@ -54,4 +54,6 @@ public interface LearningPlanMapper {
 
     public List<UserLearningPlanDTO> queryLearningPlanReviewWordList(@Param("userId")long userId,@Param("reviewNum")int reviewNum,@Param("existingWordIdSet")Set<Long> existingWordIdSet);
 
+    public void deleteUserTodayPlan();
+    public void deleteUserTodayPlanDetail();
 }

@@ -11,12 +11,16 @@ import com.sillyhat.swing.exception.SillyHatException;
 import com.sillyhat.swing.module.basic.SillyHatJMenu;
 import com.sillyhat.swing.module.basic.SillyHatJMenuItem;
 
+import org.apache.log4j.Logger;
+
 public class MainApp extends ViewForm{
 	
 	/** 
 	 * @Fields serialVersionUID : TODO 
 	 */ 
 	private static final long serialVersionUID = -690238177122305692L;
+
+	private static Logger logger = Logger.getLogger(MainApp.class);
 
 	private MessageService messageService;
 
@@ -113,6 +117,7 @@ public class MainApp extends ViewForm{
 			MainApp window = new MainApp();
 			window.openWindow();
 		} catch (Exception e) {
+			logger.error("启动项目发生异常；",e);
 			new SillyHatException(e.getMessage());
 		}
 	}

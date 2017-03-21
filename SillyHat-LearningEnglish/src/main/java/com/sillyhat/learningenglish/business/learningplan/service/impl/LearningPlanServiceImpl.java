@@ -102,7 +102,7 @@ public class LearningPlanServiceImpl implements LearningPlanService{
         int learningNum = SystemCache.getCountCache(Constants.CACHE_USER_LEARNING_NUM);
         int reviewNum = SystemCache.getCountCache(Constants.CACHE_USER_REVIEW_NUM);
         //copy上一批计划词汇
-        List<TodayPlanDetailDTO> todayPlanDetailList = learningPlanMapper.queryTodayPlanDetailByTodayPlanId(lastPlanId);
+        List<TodayPlanDetailDTO> todayPlanDetailList = queryTodayPlanDetailByTodayPlanId(lastPlanId);
         Set<Long> existingWordIdSet = getWordIdSet(todayPlanDetailList);//已经存在的WordID列表
         int total = learningNum + reviewNum;
         if(todayPlanDetailList.size() < total){
@@ -177,6 +177,20 @@ public class LearningPlanServiceImpl implements LearningPlanService{
                 }
             }
         }
+        List<TodayPlanDetailDTO> todayPlanDetailList = queryTodayPlanDetailByTodayPlanId(todayPlan.getId());
+        todayPlan.setTodayPlanDetailList(todayPlanDetailList);
         return todayPlan;
+    }
+
+    @Override
+    public List<TodayPlanDetailDTO> queryTodayPlanDetailByTodayPlanId(long todayPlanId) {
+        return learningPlanMapper.queryTodayPlanDetailByTodayPlanId(todayPlanId);
+    }
+
+    @Override
+    public void clearUserPlan() {
+        learningPlanMapper.deleteUserTodayPlan();
+        learningPlanMapper.deleteUserTodayPlanDetail();
+
     }
 }

@@ -5,7 +5,6 @@ import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.learningenglish.utils.thread.LoadingMainApp;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 import com.sillyhat.swing.utils.StringUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

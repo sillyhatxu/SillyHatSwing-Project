@@ -120,8 +120,12 @@
 
     <select id="queryTodayPlanDetailByTodayPlanId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
         SELECT
-          ID as id,TODAY_PLAN_ID as todayPlanId,WORD_ID as wordId,IS_ERROR as isError,OCCURRENCE_NUM as occurrenceNum,SORT_NUM as sortNum
-            LEARNING_NUM as learningNum,IS_FINISH as isFinish
+          ID as id,
+          TODAY_PLAN_ID as todayPlanId,
+          WORD_ID as wordId,
+          IS_ERROR as isError,
+          OCCURRENCE_NUM as occurrenceNum,
+          SORT_NUM as sortNum
         FROM
           T_TODAY_PLAN_DETAIL t
         WHERE
@@ -144,10 +148,10 @@
     </update>
 
 
-    <select id="queryLearningPlanLearningWordList" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+    <select id="queryLearningPlanLearningWordList" resultType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         SELECT
             ID,
-            WORD_ID,
+            WORD_ID as wordId,
             UPDATED_DATE
         FROM
             T_USER_LEARNING_PLAN
@@ -163,10 +167,10 @@
         LIMIT #{learningNum}
     </select>
 
-    <select id="queryLearningPlanReviewWordList" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+    <select id="queryLearningPlanReviewWordList" resultType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         SELECT
             ID,
-            WORD_ID,
+            WORD_ID as wordId,
             (ERROR_FREQUENCY - SUCCESS_FREQUENCY) result_num,
             UPDATED_DATE
         FROM
@@ -183,5 +187,13 @@
         LIMIT #{reviewNum}
     </select>
 
+
+    <delete id="deleteUserTodayPlan">
+        DELETE FROM T_USER_TODAY_PLAN
+    </delete>
+
+    <delete id="deleteUserTodayPlanDetail">
+        DELETE FROM T_TODAY_PLAN_DETAIL
+    </delete>
 
 </mapper>
