@@ -5,17 +5,15 @@ import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO
 import com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO;
 import com.sillyhat.learningenglish.business.learningplan.mapper.LearningPlanMapper;
 import com.sillyhat.learningenglish.business.learningplan.service.LearningPlanService;
+import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
 import com.sillyhat.learningenglish.utils.Constants;
+import com.sillyhat.learningenglish.utils.SortNumUtils;
 import com.sillyhat.learningenglish.utils.cache.SystemCache;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-19.
@@ -59,73 +57,104 @@ public class LearningPlanServiceImpl implements LearningPlanService{
         return todayPlan;
     }
 
+
     private void addTodayPlanDetail(Long todayPlanId){
         int learningNum = SystemCache.getCountCache(Constants.CACHE_USER_LEARNING_NUM);
         int reviewNum = SystemCache.getCountCache(Constants.CACHE_USER_REVIEW_NUM);
-
-
+        UserDTO user = SystemCache.getUserCache();
+        List<UserLearningPlanDTO> learningWordList = learningPlanMapper.queryLearningPlanLearningWordList(user.getId(),learningNum,null);
+        List<UserLearningPlanDTO> reviewWordList = learningPlanMapper.queryLearningPlanReviewWordList(user.getId(),reviewNum,null);
+        List<TodayPlanDetailDTO> todayPlanDetailList = new ArrayList<TodayPlanDetailDTO>();
+        List<Integer> sortList = SortNumUtils.getSortList(learningNum + reviewNum);
+        int sortIndex = 0;
+        for (UserLearningPlanDTO dto : learningWordList) {
+            TodayPlanDetailDTO todayPlanDetail = new TodayPlanDetailDTO();
+            todayPlanDetail.setTodayPlanId(todayPlanId);
+            todayPlanDetail.setWordId(dto.getWordId());
+            todayPlanDetail.setIsError(Constants.DEFAULT_IS_ERROR);
+            todayPlanDetail.setOccurrenceNum(Constants.DEFAULT_OCCURRENCE_NUM);
+            todayPlanDetail.setSortNum(sortList.get(sortIndex));
+            sortIndex++;
+            learningPlanMapper.addTodayPlanDetail(todayPlanDetail);
+        }
+        for (UserLearningPlanDTO dto : reviewWordList) {
+            TodayPlanDetailDTO todayPlanDetail = new TodayPlanDetailDTO();
+            todayPlanDetail.setTodayPlanId(todayPlanId);
+            todayPlanDetail.setWordId(dto.getWordId());
+            todayPlanDetail.setIsError(Constants.DEFAULT_IS_ERROR);
+            todayPlanDetail.setOccurrenceNum(Constants.DEFAULT_OCCURRENCE_NUM);
+            todayPlanDetail.setSortNum(sortList.get(sortIndex));
+            sortIndex++;
+            learningPlanMapper.addTodayPlanDetail(todayPlanDetail);
+        }
     }
 
-    /**
-     * 新增learningNum个新词汇，新增reviewNum个复习词汇
-     * @param learningNum
-     * @param reviewNum
-     * @param todayPlanId
-     */
-    private void addTodayPlanDetail(int learningNum,int reviewNum,long todayPlanId){
-        Map<String,Object> params = new HashMap<String,Object>();
-        params.put("learningNum",learningNum);
-        params.put("reviewNum",reviewNum);
-        params.put("todayPlanId",todayPlanId);
-        List<TodayPlanDetailDTO> addUserLearningPlanList = new ArrayList<TodayPlanDetailDTO>();
-        List<UserLearningPlanDTO> userLearningPlanList = learningPlanMapper.queryUserLearningPlanByParams(params);
-//        private int isError;//记忆过程中发生错误次数  默认0
-//        private int occurrenceNum;//出现次数    默认 3
-//        private int sortNum;   //乱序后    取值i
-        for (UserLearningPlanDTO userLearningPlan : userLearningPlanList) {
-            TodayPlanDetailDTO todayPlanDetail = new TodayPlanDetailDTO();
-            todayPlanDetail.setWordId(userLearningPlan.getWordId());
-            todayPlanDetail.setTodayPlanId(todayPlanId);
-            addUserLearningPlanList.add(todayPlanDetail);
+    private Set<Long> getWordIdSet(List<TodayPlanDetailDTO> todayPlanDetailList){
+        Set<Long> existingWordIdSet = new HashSet<Long>();
+        for (TodayPlanDetailDTO dto : todayPlanDetailList){
+            existingWordIdSet.add(dto.getWordId());
         }
-
-        //乱序算法
-
-
-
-        for (int i = 0; i < addUserLearningPlanList.size(); i++) {
-            TodayPlanDetailDTO dto = addUserLearningPlanList.get(i);
-            dto.setSortNum(i + 1);
-            learningPlanMapper.addTodayPlanDetail(dto);
-        }
+        return  existingWordIdSet;
     }
 
     private void copyTodayPlanDetail(Long todayPlanId,Long lastPlanId){
+        UserDTO user = SystemCache.getUserCache();
         int learningNum = SystemCache.getCountCache(Constants.CACHE_USER_LEARNING_NUM);
         int reviewNum = SystemCache.getCountCache(Constants.CACHE_USER_REVIEW_NUM);
-        int total = learningNum + reviewNum;
         //copy上一批计划词汇
         List<TodayPlanDetailDTO> todayPlanDetailList = learningPlanMapper.queryTodayPlanDetailByTodayPlanId(lastPlanId);
+        Set<Long> existingWordIdSet = getWordIdSet(todayPlanDetailList);//已经存在的WordID列表
+        int total = learningNum + reviewNum;
+        if(todayPlanDetailList.size() < total){
+            //词汇数量不足，需要补充
+            if(total - todayPlanDetailList.size() >= learningNum){
+                //需从数据库中提取新词汇
+                int collectNum = learningNum;
+                List<UserLearningPlanDTO> learningWordList = learningPlanMapper.queryLearningPlanLearningWordList(user.getId(),learningNum,existingWordIdSet);
+                for (UserLearningPlanDTO dto : learningWordList) {
+                    TodayPlanDetailDTO todayPlanDetail = new TodayPlanDetailDTO();
+                    todayPlanDetail.setWordId(dto.getWordId());
+                    todayPlanDetailList.add(todayPlanDetail);
+                }
+            }
+            if(total - todayPlanDetailList.size() - learningNum > 0){
+                //需从数据库中提取复习词汇
+                int collectNum = total - todayPlanDetailList.size() - learningNum;
+                List<UserLearningPlanDTO> reviewWordList = learningPlanMapper.queryLearningPlanReviewWordList(user.getId(),collectNum,existingWordIdSet);
+                for (UserLearningPlanDTO dto : reviewWordList) {
+                    TodayPlanDetailDTO todayPlanDetail = new TodayPlanDetailDTO();
+                    todayPlanDetail.setWordId(dto.getWordId());
+                    todayPlanDetailList.add(todayPlanDetail);
+                }
+            }
+        }
+        batchAddTodayPlanDetail(todayPlanDetailList,todayPlanId);
+    }
+
+    private void batchAddTodayPlanDetail(List<TodayPlanDetailDTO> todayPlanDetailList,long todayPlanId){
+        List<Integer> sortList = SortNumUtils.getSortList(todayPlanDetailList.size());
+        int sortIndex = 0;
         for (TodayPlanDetailDTO todayPlanDetail : todayPlanDetailList){
             todayPlanDetail.setTodayPlanId(todayPlanId);
+            todayPlanDetail.setIsError(Constants.DEFAULT_IS_ERROR);
+            todayPlanDetail.setOccurrenceNum(Constants.DEFAULT_OCCURRENCE_NUM);
+            todayPlanDetail.setSortNum(sortList.get(sortIndex));
+            sortIndex++;
             learningPlanMapper.addTodayPlanDetail(todayPlanDetail);
-        }
-        int nowWordNum = todayPlanDetailList.size();
-        if(nowWordNum < total){
-            //单词不够，默认上次单词为已经学过的内容，为单词添加新单词
-            if(learningNum > total - nowWordNum){
-                //不需要补充全部新词汇
-
-            }else{
-
-            }
         }
     }
 
+    private String getNextDate(){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR,1);
+        return sdfData.format(calendar.getTime());
+    }
     @Override
     public TodayPlanDTO getTodayPlan(long userId) {
         //得到今日计划
-        TodayPlanDTO todayPlan = learningPlanMapper.getTodayPlan(sdfData.format(new Date()));
+        TodayPlanDTO todayPlan = learningPlanMapper.getTodayPlan(sdfData.format(new Date()),getNextDate());
         if(todayPlan == null){
             //未初始化今日计划，需要初始化,得到上一次的今日计划
             todayPlan = learningPlanMapper.getLastTodayPlanByUserId(userId);

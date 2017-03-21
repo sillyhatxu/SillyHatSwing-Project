@@ -1,5 +1,6 @@
 package com.sillyhat.learningenglish.business.reciteword.view;
 
+import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO;
 import com.sillyhat.learningenglish.business.learningplan.service.LearningPlanService;
 import com.sillyhat.learningenglish.business.message.service.MessageService;
 import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
@@ -33,11 +34,11 @@ public class ReciteWord extends SillyHatTabPanel {
         learningPlanService = (LearningPlanService) SpringUtils.getInstance().getContext().getBean(LearningPlanService.class);
     }
 
-    private JPanel northJpanel = new JPanel(new GridLayout(1, 3));
+    private JPanel northJpanel;
 
-    private JPanel contextJpanel = new JPanel();
+    private JPanel contextJpanel;
 
-    private JPanel southJpanel = new JPanel(new GridLayout(2, 1));
+    private JPanel southJpanel;
 
     private JButton btnKnow;
     private JButton btnUnKnow;
@@ -48,7 +49,11 @@ public class ReciteWord extends SillyHatTabPanel {
         UserLearningParamsDTO userLearningParams = userService.getUserLearningParamsByUserId(user.getId());
         SystemCache.putCountCache(Constants.CACHE_USER_LEARNING_NUM,userLearningParams.getLearningNum());
         SystemCache.putCountCache(Constants.CACHE_USER_REVIEW_NUM,userLearningParams.getReviewNum());
+        TodayPlanDTO todayPlanDTO = learningPlanService.getTodayPlan(user.getId());
 
+        northJpanel = new JPanel(new GridLayout(1, 3));
+        contextJpanel = new JPanel();
+        southJpanel = new JPanel(new GridLayout(2, 1));
 
         btnKnow = new JButton(messageService.getMessageZH("btn.know"));
         btnUnKnow = new JButton(messageService.getMessageZH("btn.unknow"));
