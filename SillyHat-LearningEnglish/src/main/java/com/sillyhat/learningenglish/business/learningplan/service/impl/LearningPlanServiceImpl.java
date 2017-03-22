@@ -188,6 +188,11 @@ public class LearningPlanServiceImpl implements LearningPlanService{
     }
 
     @Override
+    public void updateTodayPlanDetail(TodayPlanDetailDTO dto) {
+        learningPlanMapper.updateTodayPlanDetail(dto);
+    }
+
+    @Override
     public void clearUserPlan() {
         learningPlanMapper.deleteUserTodayPlan();
         learningPlanMapper.deleteUserTodayPlanDetail();

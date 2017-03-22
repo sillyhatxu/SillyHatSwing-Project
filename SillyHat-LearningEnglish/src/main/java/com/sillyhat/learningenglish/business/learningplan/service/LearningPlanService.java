@@ -28,5 +28,7 @@ public interface LearningPlanService {
 
     public List<TodayPlanDetailDTO> queryTodayPlanDetailByTodayPlanId(long todayPlanId);
 
+    public void updateTodayPlanDetail(TodayPlanDetailDTO dto);
+
     public void clearUserPlan();
 }

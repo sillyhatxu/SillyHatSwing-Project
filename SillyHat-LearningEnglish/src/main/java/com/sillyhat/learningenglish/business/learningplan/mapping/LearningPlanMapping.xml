@@ -141,11 +141,7 @@
     </insert>
 
     <update id="updateTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
-        update T_TODAY_PLAN_DETAIL
-        set
-        IS_ERROR = #{isError},
-        OCCURRENCE_NUM = #{occurrenceNum}
-        where ID = #{id}
+        update T_TODAY_PLAN_DETAIL set IS_ERROR = #{isError},OCCURRENCE_NUM = #{occurrenceNum} where ID = #{id}
     </update>
 
 

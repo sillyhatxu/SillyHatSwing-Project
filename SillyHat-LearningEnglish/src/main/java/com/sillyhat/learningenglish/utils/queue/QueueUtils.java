@@ -1,16 +1,39 @@
 package com.sillyhat.learningenglish.utils.queue;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
+import com.sillyhat.learningenglish.utils.thread.TodayPlanDetailThread;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
- * QueueUtils
- *
- * @author 徐士宽
- * @date 2017/3/22 17:58
+ * Created by ${XUSHIKUAN} on 2017-03-22.
  */
 public class QueueUtils {
 
-    //队列大小
-    private static final BlockingQueue<String> queue = new LinkedBlockingDeque<>(500);
+    private static Logger logger = LoggerFactory.getLogger(QueueUtils.class);
+
+    public volatile static QueueUtils instance;
+
+    public boolean isStart = false;//线程是否已经开启
+
+    public static QueueUtils getInstance() {
+        if (instance == null) {
+            synchronized (QueueUtils.class) {
+                if (instance == null) instance = new QueueUtils();
+            }
+        }
+        return instance;
+    }
+
+    public void startThread(){
+        logger.info("启动队列线程");
+        if(!isStart){
+            isStart = true;
+            ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
+            fixedThreadPool.execute(new TodayPlanDetailThread());
+        }
+        logger.info("启动队列线程结束");
+    }
 }
