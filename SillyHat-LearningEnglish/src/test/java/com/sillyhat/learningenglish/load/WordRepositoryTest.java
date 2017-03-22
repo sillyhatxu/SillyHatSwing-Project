@@ -68,7 +68,9 @@ public class WordRepositoryTest extends JunitTestSupport {
 
     @Test
     public void testInitWord() {
-        String wordSrc = "private,privacy,modify,model,mode,modern,moderate,modest,alert,alternative,significant,significance,extreme,extremely,tremendous,comment,outstanding,excellent,splendid,formal,glance ,grace,graceful,elegant,elegance,grateful,magnificent,official,officer,sacrifice,appealing,ball,race,racial,discrimination,global,globe,glory,glorious,glare,flag,flame,fly,flexible,flexibility,reflect,reflection,conflict,appeal,alcohol,sympathetic,pathetic,miserable,symbol,meter,system,systematic,flood,float,fluent,criticize,criticism,critic,classical,symptom,sympathetically,flu,influence,influential,classic";
+//        String wordSrc = "private,privacy,modify,model,mode,modern,moderate,modest,alert,alternative,significant";
+//        String wordSrc = "private,privacy,modify,model,mode,modern,moderate,modest,alert,alternative,significant,significance,extreme,extremely,tremendous,comment,outstanding,excellent,splendid,formal,glance ,grace,graceful,elegant,elegance,grateful,magnificent,official,officer,sacrifice,appealing,ball,race,racial,discrimination,global,globe,glory,glorious,glare,flag,flame,fly,flexible,flexibility,reflect,reflection,conflict,appeal,alcohol,sympathetic,pathetic,miserable,symbol,meter,system,systematic,flood,float,fluent,criticize,criticism,critic,classical,symptom,sympathetically,flu,influence,influential,classic";
+        String wordSrc = "critic,classical,symptom,sympathetically,flu,influence,influential,classic";
         String [] words = wordSrc.split(",");
         String url = "http://fanyi.youdao.com/openapi.do";
         String params = "keyfrom=SillyHatYouDao&key=987724779&type=data&doctype=json&version=1.1&q=";
@@ -77,8 +79,8 @@ public class WordRepositoryTest extends JunitTestSupport {
             YouDaoDTO youdao = HttpUtils.requestHttpGetToYouDao(url,params + word);
             WordRepositoryDTO dto = new WordRepositoryDTO();
             dto.setWord(word);
-            dto.setUsPhonetic(youdao.getBasic().getUsPhonetic());
-            dto.setUkPhonetic(youdao.getBasic().getUkPhonetic());
+            dto.setUsPhonetic("[" + youdao.getBasic().getUsPhonetic() + "]");
+            dto.setUkPhonetic("[" + youdao.getBasic().getUkPhonetic() + "]");
             List<String> wordTranslateList = youdao.getBasic().getExplains();
             String wordTranslate = "";
             for (int j = 0; j < wordTranslateList.size(); j++) {
@@ -90,11 +92,12 @@ public class WordRepositoryTest extends JunitTestSupport {
             List<YouDaoWebDTO> youdaoWebList = youdao.getWeb();
             for (int j = 0; j < youdaoWebList.size(); j++) {
                 YouDaoWebDTO youDaoWebDTO = youdaoWebList.get(j);
-                webTranslate += youDaoWebDTO.getKey() + "\r\n";
+                webTranslate += youDaoWebDTO.getKey() + "  ";
                 List<String> values = youDaoWebDTO.getValue();
                 for (int k = 0; k < values.size(); k++) {
-                    webTranslate += values.get(k) + "\r\n";
+                    webTranslate += values.get(k) + ";  ";
                 }
+                webTranslate += "\r\n";
             }
             dto.setWebTranslate(webTranslate);
             dto.setCreatedUser(1l);

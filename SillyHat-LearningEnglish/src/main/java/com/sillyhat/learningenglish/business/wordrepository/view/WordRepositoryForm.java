@@ -47,7 +47,7 @@ public class WordRepositoryForm extends SillyHatDialog {
 
     @Override
     public int getDialogHeight() {
-        return 500;
+        return 600;
     }
 
     public String getButtonNameSubmit(){
@@ -74,14 +74,15 @@ public class WordRepositoryForm extends SillyHatDialog {
         wordText = new SillyHatInputText(messageService.getMessageZH("word.repository.word"),80, 30, dto.getWord(),20);
         usPhonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.us.phonetic"),80, 30, dto.getUsPhonetic(),20);
         ukPhonetic = new SillyHatInputText(messageService.getMessageZH("word.repository.uk.phonetic"),80, 30, dto.getUkPhonetic(),20);
-        webTranslate = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.web.translate"),80, 30, dto.getWebTranslate(),500,100);
         wordTranslate = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.word.translate"),80, 30, dto.getWordTranslate(),500,100);
+        webTranslate = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.web.translate"),80, 30, dto.getWebTranslate(),500,100);
         sampleSentences = new SillyHatLabelTextArea(messageService.getMessageZH("word.repository.sample.sentences"),80, 30, dto.getSampleSentences(),500,100);
         fromPanel.add(wordText);
         fromPanel.add(usPhonetic);
         fromPanel.add(ukPhonetic);
-        fromPanel.add(webTranslate);
         fromPanel.add(wordTranslate);
+        fromPanel.add(webTranslate);
+        fromPanel.add(sampleSentences);
         return fromPanel;
     }
 
@@ -89,8 +90,8 @@ public class WordRepositoryForm extends SillyHatDialog {
         dto.setWord(wordText.getTextValue());
         dto.setUsPhonetic(usPhonetic.getTextValue());
         dto.setUkPhonetic(ukPhonetic.getTextValue());
-        dto.setWebTranslate(webTranslate.getTextValue());
         dto.setWordTranslate(wordTranslate.getTextValue());
+        dto.setWebTranslate(webTranslate.getTextValue());
         dto.setSampleSentences(sampleSentences.getTextValue());
         wordRepositoryService.saveWordRepository(dto);
         SillyHatJOptionPane.alert(messageService.getMessageZH("alert.reminder"),messageService.getMessageZH("alert.submit.success"));
