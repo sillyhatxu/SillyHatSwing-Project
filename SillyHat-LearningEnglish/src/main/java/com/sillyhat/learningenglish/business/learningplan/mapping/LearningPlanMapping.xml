@@ -131,6 +131,7 @@
           T_TODAY_PLAN_DETAIL t,T_WORD_REPOSITORY wr
         WHERE t.WORD_ID = wr.ID
           AND TODAY_PLAN_ID = #{todayPlanId}
+          order by t.SORT_NUM
     </select>
 
     <insert id="addTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">

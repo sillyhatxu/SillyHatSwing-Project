@@ -14,15 +14,6 @@ public class Constants {
 
 	public static final long ADMINISTRATOR_ID = 1l;
 
-	/**
-	 * 新词汇
-	 */
-	public static final String CACHE_USER_LEARNING_NUM = "CACHE_LEARNING_NUM";
-
-	/**
-	 * 复习词汇
-	 */
-	public static final String CACHE_USER_REVIEW_NUM = "CACHE_REVIEW_NUM";
 
 	/**
 	 * 是否完成；已完成
@@ -76,5 +67,22 @@ public class Constants {
 	 * 默认需要重复次数
 	 */
 	public static final int DEFAULT_OCCURRENCE_NUM = 3;
+
+
+	/**
+	 * 默认每组词汇数量
+	 */
+	public static final int DEFAULT_LEARNING_GROUP_NUM = 8;
+
+	/**
+	 * 新词汇
+	 */
+	public static final String CACHE_USER_LEARNING_NUM = "CACHE_LEARNING_NUM";
+
+	/**
+	 * 复习词汇
+	 */
+	public static final String CACHE_USER_REVIEW_NUM = "CACHE_REVIEW_NUM";
+
 
 }

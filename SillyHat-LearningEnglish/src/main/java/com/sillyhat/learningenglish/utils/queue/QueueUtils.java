@@ -14,9 +14,9 @@ public class QueueUtils {
 
     private static Logger logger = LoggerFactory.getLogger(QueueUtils.class);
 
-    public volatile static QueueUtils instance;
+    private volatile static QueueUtils instance;
 
-    public boolean isStart = false;//线程是否已经开启
+    private boolean isStart = false;//线程是否已经开启
 
     public static QueueUtils getInstance() {
         if (instance == null) {

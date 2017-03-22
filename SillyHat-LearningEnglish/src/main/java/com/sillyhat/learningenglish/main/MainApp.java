@@ -7,10 +7,10 @@ import com.sillyhat.learningenglish.business.system.listener.ExitListener;
 import com.sillyhat.learningenglish.business.system.view.ViewForm;
 import com.sillyhat.learningenglish.business.wordrepository.listener.WordRepositoryListListener;
 import com.sillyhat.learningenglish.utils.SpringUtils;
+import com.sillyhat.learningenglish.utils.queue.QueueUtils;
 import com.sillyhat.swing.exception.SillyHatException;
 import com.sillyhat.swing.module.basic.SillyHatJMenu;
 import com.sillyhat.swing.module.basic.SillyHatJMenuItem;
-
 import org.apache.log4j.Logger;
 
 public class MainApp extends ViewForm{
@@ -44,6 +44,7 @@ public class MainApp extends ViewForm{
 		initComponents();
 		setTopJMenuBar(jMenuBar);
 		setborderLayoutCenter(centerPanel);
+		QueueUtils.getInstance().startThread();//启动队列监听程序
 	}
 
 	private void initService(){

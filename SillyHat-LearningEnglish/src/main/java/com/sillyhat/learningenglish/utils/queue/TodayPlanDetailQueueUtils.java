@@ -20,7 +20,7 @@ public class TodayPlanDetailQueueUtils {
     //队列大小
     private static final BlockingQueue<TodayPlanDetailDTO> queue = new LinkedBlockingDeque<>(500);
 
-    public volatile static TodayPlanDetailQueueUtils instance;
+    private volatile static TodayPlanDetailQueueUtils instance;
 
     public static TodayPlanDetailQueueUtils getInstance() {
         if (instance == null) {
