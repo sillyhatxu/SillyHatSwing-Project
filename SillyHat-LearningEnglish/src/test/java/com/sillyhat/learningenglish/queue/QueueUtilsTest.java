@@ -21,6 +21,10 @@ public class QueueUtilsTest {
 
     public volatile static QueueUtilsTest instance;
 
+    private QueueUtilsTest(){
+
+    }
+
     public static QueueUtilsTest getInstance() {
         if (instance == null) {
             synchronized (QueueUtilsTest.class) {

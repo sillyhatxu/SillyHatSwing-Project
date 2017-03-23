@@ -18,6 +18,10 @@ public class QueueUtils {
 
     private boolean isStart = false;//线程是否已经开启
 
+    private QueueUtils(){
+
+    }
+
     public static QueueUtils getInstance() {
         if (instance == null) {
             synchronized (QueueUtils.class) {

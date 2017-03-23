@@ -22,6 +22,10 @@ public class TodayPlanDetailQueueUtils {
 
     private volatile static TodayPlanDetailQueueUtils instance;
 
+    private TodayPlanDetailQueueUtils(){
+
+    }
+
     public static TodayPlanDetailQueueUtils getInstance() {
         if (instance == null) {
             synchronized (TodayPlanDetailQueueUtils.class) {

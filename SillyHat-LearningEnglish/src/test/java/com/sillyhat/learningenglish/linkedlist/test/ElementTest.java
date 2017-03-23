@@ -1,4 +1,4 @@
-package com.sillyhat.learningenglish.linkedlist.dto;
+package com.sillyhat.learningenglish.linkedlist.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,27 +9,27 @@ import java.util.List;
  * @author 徐士宽
  * @date 2017/3/23 11:59
  */
-public class Element {
+public class ElementTest {
 
 //    public Element(String value) {
 //        this.element = value;
 //    }
     // 头节点的构造方法
-    public Element(Element nextval) {
+    public ElementTest(ElementTest nextval) {
         this.next = nextval;
     }
 
     // 非头节点的构造方法
-    public Element(String value, Element nextval) {
+    public ElementTest(String value, ElementTest nextval) {
         this.element = value;
         this.next = nextval;
     }
 
     private String element;// 数据域
 
-    private Element next;//后继指针域
+    private ElementTest next;//后继指针域
 
-    private Element prior;//前驱指针域
+    private ElementTest prior;//前驱指针域
 
     public String getElement() {
         return element;
@@ -39,22 +39,22 @@ public class Element {
         this.element = element;
     }
 
-    public Element getNext() {
+    public ElementTest getNext() {
         return next;
     }
 
-    public void setNext(Element next) {
+    public void setNext(ElementTest next) {
 //        if(next != null){
 //            System.out.println("修改next的值 ----------" + next.getElement());
 //        }
         this.next = next;
     }
 
-    public Element getPrior() {
+    public ElementTest getPrior() {
         return prior;
     }
 
-    public void setPrior(Element prior) {
+    public void setPrior(ElementTest prior) {
         this.prior = prior;
     }
 
@@ -63,6 +63,6 @@ public class Element {
         for (int i = 0; i < 10; i++) {
             list.add("Value(" + (i) + ")");
         }
-        Element root = new Element(null);
+        ElementTest root = new ElementTest(null);
     }
 }

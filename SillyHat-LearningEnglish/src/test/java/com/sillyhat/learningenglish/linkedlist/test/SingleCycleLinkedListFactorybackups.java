@@ -1,7 +1,5 @@
 package com.sillyhat.learningenglish.linkedlist.test;
 
-import com.sillyhat.learningenglish.linkedlist.dto.Element;
-
 /**
  * 单循环链表工厂
  *
@@ -13,13 +11,13 @@ public class SingleCycleLinkedListFactorybackups {
     /**
      * 开头节点元素
      */
-    private Element head;
-    private Element headPointer;
+    private ElementTest head;
+    private ElementTest headPointer;
 
     /**
      * 当前指针所指向节点元素
      */
-    private Element current;
+    private ElementTest current;
 
     /**
      * 链表节点的个数（存储时使用下一个节点的指针，既链表长度）
@@ -58,7 +56,7 @@ public class SingleCycleLinkedListFactorybackups {
             // 定位到要操作节点的前一个节点对象
             index(index - 1);
             // 将前一个节点进行设置,使其指向要插入节点的指针域，
-            current.setNext(new Element(value, current.getNext()));
+            current.setNext(new ElementTest(value, current.getNext()));
             current.setPrior(current);
             if(index == 1){
                 //更新头节点的上一个节点（最后一个节点）
@@ -145,7 +143,7 @@ public class SingleCycleLinkedListFactorybackups {
      * 得到当前指针指向位置
      * @return
      */
-    public Element get(int index) throws Exception {
+    public ElementTest get(int index) throws Exception {
         if (index < -1) {
             throw new Exception("参数非法，无法查询");
         }
@@ -158,7 +156,7 @@ public class SingleCycleLinkedListFactorybackups {
      * 得到头指针
      * @return
      */
-    public Element getHead() {
+    public ElementTest getHead() {
         return head;
     }
 
@@ -172,7 +170,7 @@ public class SingleCycleLinkedListFactorybackups {
         System.out.println("head上一个元素 --- " + linkedListFactory.getHead().getPrior().getElement());
         System.out.println("head下一个元素 --- " + linkedListFactory.getHead().getNext().getElement());
         for (int i = 0; i < linkedListFactory.getSize(); i++) {
-            Element element = linkedListFactory.get(i);
+            ElementTest element = linkedListFactory.get(i);
             System.out.println("得到第"+i+"个元素 --- " + element.getElement() + "");
             System.out.println("直接得到上一个元素 --- " + (element.getPrior() != null ? element.getPrior().getElement() : "") + "");
             System.out.println("直接得到下一个元素 --- " + element.getNext().getElement() + "");

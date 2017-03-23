@@ -1,6 +1,6 @@
-package com.sillyhat.learningenglish.linkedlist.factory;
+package com.sillyhat.learningenglish.linkedlist.test;
 
-import com.sillyhat.learningenglish.linkedlist.dto.Element;
+import com.sillyhat.swing.utils.StringUtils;
 
 /**
  * 单循环链表工厂
@@ -8,22 +8,24 @@ import com.sillyhat.learningenglish.linkedlist.dto.Element;
  * @author 徐士宽
  * @date 2017/3/23 10:25
  */
-public class SingleCycleLinkedListFactory {
+public class SingleCycleLinkedListFactorytest {
 
     /**
      * 头指针（第一个节点的前一个节点）
      */
-    private Element headPointer;
+    private ElementTest headPointer;
 
     /**
      * 头节点（第一个节点）
      */
-    private Element headNode;
+    private ElementTest headNode;
+
+    private int headNodeHashCode;
 
     /**
      * 当前指针所指向节点元素
      */
-    private Element current;
+    private ElementTest current;
 
     int size;//节点的个数
 
@@ -46,10 +48,10 @@ public class SingleCycleLinkedListFactory {
     /**
      * 初始化一个空链表
      */
-    public SingleCycleLinkedListFactory() {
+    public SingleCycleLinkedListFactorytest() {
         //初始化头节点，让头指针指向头节点,并且让当前节点对象等于头节点
-        this.headPointer = current = new Element(null);
-        this.headNode = new Element(null);
+        this.headPointer = current = new ElementTest(null);
+        this.headNode = new ElementTest(null);
         //循环列表属性
         this.headPointer.setNext(headPointer);
         this.headPointer.setPrior(headPointer);
@@ -76,18 +78,18 @@ public class SingleCycleLinkedListFactory {
     }
 
     /**
-     * 获得节点
+     * 获得头节点
      * @return
      */
-    public Element getHeadNode(){
-
-
-        return headNode;
+    public ElementTest getHeadNode(){
+        ElementTest element = current.getPrior();
+        int i = 0;//防止死循环
+        while (element != null && StringUtils.isNotEmpty(element.getElement()) && i < size()){
+            element = element.getPrior();
+            i++;
+        }
+        return element;
     }
-
-//    public Element getHeadNode() {
-//        return headNode;
-//    }
 
     /**
      * 向链表插入数据
@@ -106,7 +108,8 @@ public class SingleCycleLinkedListFactory {
         // 定位到要操作节点的前一个节点对象
         index(index - 1);
         // 将前一个节点进行设置,使其指向要插入节点的指针域，
-        Element element = new Element(value, current.getNext());
+//        Element element = new Element(value, current.getNext());
+        ElementTest element = new ElementTest(value, getHeadNode());
         element.setPrior(current);
         current.setNext(element);
         refreshHeadNode(index);
@@ -132,7 +135,7 @@ public class SingleCycleLinkedListFactory {
 
     }
 
-    public Element get(int index) throws Exception {
+    public ElementTest get(int index) throws Exception {
         if (index < -1 || index > size - 1) {
             throw new Exception("参数非法，无法查询");
         }
@@ -178,7 +181,7 @@ public class SingleCycleLinkedListFactory {
     }
 
     public static void main(String[] args) throws Exception {
-        SingleCycleLinkedListFactory linkedListFactory = new SingleCycleLinkedListFactory();
+        SingleCycleLinkedListFactorytest linkedListFactory = new SingleCycleLinkedListFactorytest();
         for (int i = 0; i < 5; i++) {
             linkedListFactory.insert(i,"Value(" + (i) + ")");
         }
@@ -187,30 +190,11 @@ public class SingleCycleLinkedListFactory {
         System.out.println("head上一个元素 --- " + linkedListFactory.getHeadNode().getPrior().getElement());
         System.out.println("head下一个元素 --- " + linkedListFactory.getHeadNode().getNext().getElement());
         for (int i = 0; i < linkedListFactory.size(); i++) {
-            Element element = linkedListFactory.get(i);
+            ElementTest element = linkedListFactory.get(i);
             System.out.println("得到第"+i+"个元素 --- " + element.getElement() + "");
             System.out.println("直接得到上一个元素 --- " + (element.getPrior() != null ? element.getPrior().getElement() : "") + "");
             System.out.println("直接得到下一个元素 --- " + element.getNext().getElement() + "");
             System.out.println("---------------------------------------------------");
         }
-//        System.out.println("现在链表的大小值：" + linkedList.size);
-//        int doubleCycle = 0;//打算循环两次
-//        while(doubleCycle < 2){
-//            System.out.println("headPointer --- " + linkedList.getHead().getElement());
-//            for (int i = 0; i < linkedList.size; i++) {
-//                System.out.println("得到第 "+i+"个元素 --- " + linkedList.get(i).getElement() + "");
-//                System.out.println("直接得到下一个元素 --- " + linkedList.get(i).getNext().getElement() + "");
-//                System.out.println("直接得到上一个元素 --- " + (linkedList.get(i).getPrior() != null ? linkedList.get(i).getPrior().getElement() : "") + "");
-//                System.out.println("---------------------------------------------------");
-//            }
-//            doubleCycle++;
-//        }
-//        linkedList.delete(4);
-//        System.out.println("----删除第五个元素之后------");
-//        System.out.println("现在链表的大小值：" + linkedList.size);
-//        System.out.println("输出链表的内容");
-//        System.out.println("");
-//        System.out.println("");
-
     }
 }
