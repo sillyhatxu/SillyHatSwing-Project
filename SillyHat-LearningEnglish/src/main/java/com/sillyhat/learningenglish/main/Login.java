@@ -5,10 +5,13 @@ import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.learningenglish.utils.thread.LoadingMainApp;
 import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 import com.sillyhat.swing.utils.StringUtils;
+
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,17 +23,14 @@ public class Login extends JFrame {
     private Future future;
     private UserService userService;
 
-    private JPanel contextPanel = new JPanel(new GridLayout(2, 1));
+    private JPanel contextPanel = new JPanel(new GridLayout(2, 2));
     private JPanel userNamePanel = new JPanel();
     private JPanel passwordPanel = new JPanel();
-//    private JPanel rememberPasswordPanel = new JPanel();
-
-//    private JPanel btnPanel = new JPanel(new GridLayout(1, 3));
     private JPanel btnPanel = new JPanel();
     // 用户名
     private JTextField fieldLogin = new JTextField(20);
     // 密码
-    private JPasswordField fieldPassword = new JPasswordField(20);
+    private JPasswordField fieldPassword = new JPasswordField(28);
 
     // 小容器
     private JLabel lblLogin = new JLabel("用户名：");
@@ -103,12 +103,12 @@ public class Login extends JFrame {
         lblPassword.setPreferredSize(new Dimension(80,30));
         passwordPanel.add(lblPassword);
         passwordPanel.add(fieldPassword);
-//        rememberPasswordPanel.add(rememberPassword);
-//        rememberPasswordPanel.add(lblRememberPassword);
-
+//        userNamePanel.setBorder(BorderFactory.createLineBorder(Color.blue));
+//        passwordPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+        userNamePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        passwordPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         contextPanel.add(userNamePanel);
         contextPanel.add(passwordPanel);
-//        contextPanel.add(rememberPasswordPanel);
 
         btnPanel.add(btnLogin,BorderLayout.WEST);
         btnPanel.add(new JPanel(),BorderLayout.CENTER);
@@ -137,9 +137,10 @@ public class Login extends JFrame {
         this.setTitle("欢迎使用嘿咻傻帽的学习系统");
         // 窗体组件初始化
         initComponents();
-        this.pack();
+//        this.pack();
+        setSize(380,180);
         // 窗体大小不能改变
-        this.setResizable(false);
+//        this.setResizable(false);
         // 居中显示
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,7 +149,42 @@ public class Login extends JFrame {
     }
 
 
+    /**
+     * 统一设置字体，父界面设置之后，所有由父界面进入的子界面都不需要再次设置字体
+     */
+    private static void InitGlobalFont(Font font) {
+        FontUIResource fontUIResource = new FontUIResource(font);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys();
+             keys.hasMoreElements(); ) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, fontUIResource);
+            }
+        }
+    }
+
     public static void main(String[] args) {
+        try {
+//            InitGlobalFont(new Font("alias", Font.PLAIN, 12));  //统一设置字体
+            InitGlobalFont(new Font("宋体", Font.PLAIN, 16));  //统一设置字体
+//            UIManager.setLookAndFeel(com.sun.java.swing.plaf.windows.WindowsLookAndFeel.class.getName());//还可以，只能在windows系统中用，也就是这句代码不跨平台
+//            UIManager.setLookAndFeel(javax.swing.plaf.nimbus.NimbusLookAndFeel.class.getName());//还可以
+//            UIManager.setLookAndFeel(javax.swing.plaf.basic.BasicLookAndFeel.class.getName());//swing默认的丑皮肤
+//            UIManager.setLookAndFeel(javax.swing.plaf.metal.MetalLookAndFeel.class.getName());//swing默认的丑皮肤
+//            UIManager.setLookAndFeel(com.sun.java.swing.plaf.motif.MotifLookAndFeel.class.getName());//灰暗型
+//            UIManager.setLookAndFeel(com.sun.java.swing.plaf.gtk.GTKLookAndFeel.class.getName());//还可以
+//            UIManager.setLookAndFeel(javax.swing.plaf.nimbus.AbstractRegionPainter.class.getName());//还可以
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
 //        JFrame.setDefaultLookAndFeelDecorated(true);
         new Login();
     }

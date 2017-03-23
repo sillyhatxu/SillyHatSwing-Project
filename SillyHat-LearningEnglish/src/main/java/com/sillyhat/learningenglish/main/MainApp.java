@@ -45,6 +45,7 @@ public class MainApp extends ViewForm{
 		setTopJMenuBar(jMenuBar);
 		setborderLayoutCenter(centerPanel);
 		QueueUtils.getInstance().startThread();//启动队列监听程序
+//		this.setResizable(false);// 窗体大小不能改变
 	}
 
 	private void initService(){

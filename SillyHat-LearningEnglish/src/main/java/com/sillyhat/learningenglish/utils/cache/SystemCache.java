@@ -3,6 +3,7 @@ package com.sillyhat.learningenglish.utils.cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO;
 import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
 import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.utils.Constants;
@@ -23,6 +24,7 @@ public class SystemCache {
 
     private static UserService userService = (UserService) SpringUtils.getInstance().getContext().getBean(UserService.class);
 
+    /**************************** 登录用户session    begin ********************************/
     public static LoadingCache<String, UserDTO> userCache = CacheBuilder.newBuilder()
 //        .refreshAfterWrite(10, TimeUnit.SECONDS)// 给定时间内没有被读/写访问，则回收。
 //        .expireAfterAccess(10, TimeUnit.SECONDS)//设置过期时间
@@ -58,6 +60,10 @@ public class SystemCache {
         userCache.put(key,dto);
     }
 
+    /**************************** 登录用户session    end ********************************/
+
+
+    /**************************** 计数器    begin ********************************/
     public static LoadingCache<String, Integer> countCache = CacheBuilder.newBuilder().maximumSize(10).// 设置缓存个数
         build(new CacheLoader<String, Integer>() {
             @Override
@@ -80,5 +86,33 @@ public class SystemCache {
     public static void putCountCache(String key,int value){
         countCache.put(key,value);
     }
+    /**************************** 计数器    begin ********************************/
+
+
+    /**************************** 今日计划    begin ********************************/
+    public static LoadingCache<String, TodayPlanDetailDTO> todayPlanDetailCache = CacheBuilder.newBuilder().// 设置缓存个数
+        build(new CacheLoader<String, TodayPlanDetailDTO>() {
+            @Override
+            /** 当本地缓存命没有中时，调用load方法获取结果并将结果缓存 **/
+            public TodayPlanDetailDTO load(String key) throws Exception {
+                return null;//取消加载，同时取消过期时间
+            }
+        }
+    );
+
+    public static TodayPlanDetailDTO getTodayPlanDetailCache(String key){
+        try {
+            return todayPlanDetailCache.get(key);
+        } catch (ExecutionException e) {
+            logger.error("过去缓存内容异常",e);
+            return null;
+        }
+    }
+
+    public static void putTodayPlanDetailCache(String key,TodayPlanDetailDTO value){
+        todayPlanDetailCache.put(key,value);
+    }
+
+    /**************************** 今日计划    end ********************************/
 
 }

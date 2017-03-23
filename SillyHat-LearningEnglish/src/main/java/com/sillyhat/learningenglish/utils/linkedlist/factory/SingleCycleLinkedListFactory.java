@@ -35,6 +35,11 @@ public class SingleCycleLinkedListFactory {
      */
     private Element header = null;
 
+    /**
+     * 指针指向元素
+     */
+    private Element pointer = null;
+
     private int index = 0;
 
     /**
@@ -50,29 +55,67 @@ public class SingleCycleLinkedListFactory {
             //不是第一次插入元素
             Element element = new Element();
             element.setValue(value);
-            if (header.getNext() == header){
-
-                header.setNext(element);
-                element.setNext(header);
-            } else {
-
-                //temp引用在栈中，temp和header引用都指向堆中的initList()中new的Element对象
-                Element temp = header;
-                while (temp.getNext() != header) {
-                    //寻找最后一个元素
-                    temp = temp.getNext();
-                }
-                temp.setNext(element);
-                element.setNext(header);//新插入的最后一个节点指向头结点
+            //temp引用在栈中，temp和header引用都指向堆中的initList()中new的Element对象
+            Element temp = header;
+            while (temp.getNext() != header) {
+                //寻找最后一个元素
+                temp = temp.getNext();
             }
+            temp.setNext(element);
+            element.setNext(header);//新插入的最后一个节点指向头结点
         }
         index++;
     }
 
     /**
+     * 把某一个元素插入到链表中的第i个位置
+     * @param i
+     * @param value
+     */
+    public boolean insert(int i,String value){
+        if (i < 0 || i > (size() + 1)) {
+            logger.error("获取链表的位置有误。无法将" + value + "值插入");
+            return false;
+        } else {
+            if(i == size()){
+                //正好插入到末尾，直接插入
+                insert(value);
+            }else if(i == 0){
+                //插入到起点
+                Element element = new Element();
+                element.setValue(value);
+                Element temp = header;
+                int oldHeaderHashcode = temp.hashCode();
+                element.setNext(temp);
+                while (temp.getNext() != header) {
+                    temp = temp.getNext();
+                }
+                header = element;
+                temp.setNext(header);
+            }else{
+                int count = 0;
+                Element element = new Element();
+                element.setValue(value);
+                Element temp = header;
+                while (temp.getNext() != header) {
+                    if (count == i) {
+                        element.setNext(temp.getNext());
+                        temp.setNext(element);
+                        break;
+                    }
+                    count++;
+                    temp = temp.getNext();
+                }
+            }
+        }
+        index++;
+        return true;
+    }
+
+    /**
      * 删除链表中第i个元素
      */
-    public void deletelist(String value) {
+    public void delete(String value) {
         Element temp = header;
         while (temp.getNext() != header) {
             //判断temp当前指向的结点的下一个结点是否是要删除的结点
@@ -82,12 +125,13 @@ public class SingleCycleLinkedListFactory {
                 temp = temp.getNext();//temp“指针”后移
             }
         }
+        index--;
     }
 
     /**
      * 获取链表的第i个位置的元素
      */
-    public Element getElement(int i) {
+    public Element getElement(int i){
         if (i <= 0 || i > size()) {
             logger.info("获取链表的位置有误！返回null");
             return null;
@@ -110,27 +154,30 @@ public class SingleCycleLinkedListFactory {
      * 链表长度
      */
     public int size() {
-        Element temp = header;
-        int size = 0;
-        while (temp.getNext() != header) {
-            size++;
-            temp = temp.getNext();
-        }
-        return size;
+        return index;
     }
 
     /**
      * 判断链表中是否存在某元素
      */
-    public boolean isContain(String o) {
+    public boolean isContain(String value) {
         Element temp = header;
         while (temp.getNext() != header) {
-            if (temp.getNext().getValue().equals(o)) {
+            if (temp.getNext().getValue().equals(value)) {
                 return true;
             }
             temp = temp.getNext();
         }
         return false;
+    }
+
+    public Element getNextElement(){
+        if(pointer == null){
+            pointer = header;
+        }else{
+            pointer = pointer.getNext();
+        }
+        return pointer;
     }
 
     /**
@@ -139,6 +186,7 @@ public class SingleCycleLinkedListFactory {
     public void print() {
         logger.info("打印链表：");
         Element temp = header;
+        logger.info(temp.getValue());
         while (temp.getNext() != header) {
             temp = temp.getNext();
             logger.info(temp.getValue());
@@ -150,22 +198,25 @@ public class SingleCycleLinkedListFactory {
         for (int i = 1; i <= 10; i++) {
             factory.insert("Word-" + i);
         }
-        Element element = factory.header;
-        logger.info(element.getValue());
-        while(element.getNext() != null){
-            element = element.getNext();
-            logger.info(element.getValue());
+        factory.print();
+        factory.insert(0,"AAA");
+        factory.insert(4,"BBB");
+        factory.insert(5,"CCC");
+        factory.insert(10,"DDD");
+        factory.insert(14,"EEE");
+        factory.print();
+        logger.info(factory.size()+"");
+        logger.info("-------------------------------------");
+        logger.info("-------------------------------------");
+        logger.info("-------------------------------------");
+        logger.info("-------------------------------------");
+        for (int i = 0; i < 80; i++) {
+            logger.info(SingleCycleLinkedListFactory.getInstance().getNextElement().getValue());
         }
-
-//        logger.info("打印链表结果：");
-//        factory.print();
-//        logger.info("生成链表结束");
-//        logger.info("-------------------------");
-//
+//        System.out.println(factory.size());
 //        logger.info("链表长度：" + factory.size());
-//        factory.deletelist("Word-1");
-//        factory.deletelist("Word-4");
-//        factory.print();
+//        factory.delete("Word-1");
+//        factory.delete("Word-4");
 //        logger.info("第1个元素值为：" + factory.getElement(1).getValue());
 //        logger.info("第2个元素值为：" + factory.getElement(2).getValue());
 //        logger.info("第3个元素值为：" + factory.getElement(3).getValue());

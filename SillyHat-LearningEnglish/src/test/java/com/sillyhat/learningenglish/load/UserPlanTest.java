@@ -5,7 +5,6 @@ import com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO
 import com.sillyhat.learningenglish.business.learningplan.service.LearningPlanService;
 import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.utils.JunitTestSupport;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,9 @@ public class UserPlanTest extends JunitTestSupport{
         logger.info("--------------------------------------------------");
         List<TodayPlanDetailDTO> list = dto.getTodayPlanDetailList();
         for (int i = 0; i < list.size(); i++) {
-            logger.info(list.get(i).toString());
+//            logger.info(list.get(i).toString());
+            TodayPlanDetailDTO todayPlanDetailDTO = list.get(i);
+            logger.info(todayPlanDetailDTO.getWord() != null ? todayPlanDetailDTO.getWord().toString() : todayPlanDetailDTO.getWordId() + "--null");
         }
     }
 }

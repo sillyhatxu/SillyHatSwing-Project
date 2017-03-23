@@ -85,4 +85,10 @@ public class Constants {
 	public static final String CACHE_USER_REVIEW_NUM = "CACHE_REVIEW_NUM";
 
 
+	/**
+	 * 缓存的Key值
+	 */
+	public static final String CACHE_USER_PLAN_WORD = "USER_PLAN_WORD_";
+
+
 }

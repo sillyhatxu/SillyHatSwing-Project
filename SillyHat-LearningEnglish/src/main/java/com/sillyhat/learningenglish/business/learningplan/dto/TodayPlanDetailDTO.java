@@ -1,5 +1,7 @@
 package com.sillyhat.learningenglish.business.learningplan.dto;
 
+import com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO;
+
 import java.io.Serializable;
 
 /**
@@ -44,13 +46,13 @@ public class TodayPlanDetailDTO implements Serializable {
     private int sortNum;
 
 
-    private String word;
+    private WordRepositoryDTO word;
 
-    public String getWord() {
+    public WordRepositoryDTO getWord() {
         return word;
     }
 
-    public void setWord(String word) {
+    public void setWord(WordRepositoryDTO word) {
         this.word = word;
     }
 

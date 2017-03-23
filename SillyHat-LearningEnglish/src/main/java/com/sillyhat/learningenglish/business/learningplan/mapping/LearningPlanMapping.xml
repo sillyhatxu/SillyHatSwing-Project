@@ -118,21 +118,60 @@
         where ID = #{id}
     </update>
 
-    <select id="queryTodayPlanDetailByTodayPlanId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+
+    <resultMap id="Base_Result_Map" type="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+        <id property="id" column="ID" />
+        <result property="todayPlanId" column="TODAY_PLAN_ID" />
+        <result property="wordId" column="WORD_ID" />
+        <result property="isError" column="IS_ERROR" />
+        <result property="occurrenceNum" column="OCCURRENCE_NUM" />
+        <result property="sortNum" column="SORT_NUM" />
+        <association property="word" column="WORD_ID" select="getWordById" />
+    </resultMap>
+
+    <select id="getWordById" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.wordrepository.dto.WordRepositoryDTO">
         SELECT
-          t.ID as id,
-          t.TODAY_PLAN_ID as todayPlanId,
-          t.WORD_ID as wordId,
-          wr.word as word,
-          t.IS_ERROR as isError,
-          t.OCCURRENCE_NUM as occurrenceNum,
-          t.SORT_NUM as sortNum
+            ID AS id,
+            WORD AS word,
+            US_PHONETIC AS usPhonetic,
+            UK_PHONETIC AS ukPhonetic,
+            WORD_TRANSLATE AS wordTranslate,
+            WEB_TRANSLATE AS webTranslate,
+            SAMPLE_SENTENCES AS sampleSentences
+        FROM
+            T_WORD_REPOSITORY
+        WHERE ID = #{id}
+    </select>
+
+    <select id="queryTodayPlanDetailByTodayPlanId" parameterType="java.lang.Long" resultMap="Base_Result_Map">
+        SELECT
+          t.ID,
+          t.TODAY_PLAN_ID,
+          t.WORD_ID,
+          t.IS_ERROR,
+          t.OCCURRENCE_NUM,
+          t.SORT_NUM
         FROM
           T_TODAY_PLAN_DETAIL t,T_WORD_REPOSITORY wr
         WHERE t.WORD_ID = wr.ID
           AND TODAY_PLAN_ID = #{todayPlanId}
           order by t.SORT_NUM
     </select>
+    <!--<select id="queryTodayPlanDetailByTodayPlanId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">-->
+        <!--SELECT-->
+          <!--t.ID as id,-->
+          <!--t.TODAY_PLAN_ID as todayPlanId,-->
+          <!--t.WORD_ID as wordId,-->
+          <!--wr.word as word,-->
+          <!--t.IS_ERROR as isError,-->
+          <!--t.OCCURRENCE_NUM as occurrenceNum,-->
+          <!--t.SORT_NUM as sortNum-->
+        <!--FROM-->
+          <!--T_TODAY_PLAN_DETAIL t,T_WORD_REPOSITORY wr-->
+        <!--WHERE t.WORD_ID = wr.ID-->
+          <!--AND TODAY_PLAN_ID = #{todayPlanId}-->
+          <!--order by t.SORT_NUM-->
+    <!--</select>-->
 
     <insert id="addTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
         insert into T_TODAY_PLAN_DETAIL (TODAY_PLAN_ID,WORD_ID,IS_ERROR,OCCURRENCE_NUM,SORT_NUM)
