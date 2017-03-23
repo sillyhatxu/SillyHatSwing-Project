@@ -52,7 +52,7 @@ public class UserTest extends JunitTestSupport {
     @Test
     public void testUpdateUser() {
         UserDTO dto = new UserDTO();
-//        dto.setId("40288AF15AE21F5B015AE21F5B440000");
+//        Element.setId("40288AF15AE21F5B015AE21F5B440000");
         dto.setLogin("xushikuan");
         dto.setPassword("123");
         dto.setUserName("徐士宽");
