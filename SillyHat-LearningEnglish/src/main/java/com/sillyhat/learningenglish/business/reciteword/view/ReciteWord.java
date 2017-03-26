@@ -12,11 +12,17 @@ import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.learningenglish.utils.cache.SystemCache;
 import com.sillyhat.learningenglish.utils.linkedlist.factory.SingleCycleLinkedListFactory;
 import com.sillyhat.swing.module.basic.SillyHatJLabel;
+import com.sillyhat.swing.module.basic.SillyHatJTextPane;
+import com.sillyhat.swing.module.container.middle.SillyHatJOptionPane;
 import com.sillyhat.swing.module.container.middle.SillyHatTabPanel;
 import com.sillyhat.swing.utils.SillyHatWindowUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
@@ -25,6 +31,8 @@ import java.util.List;
 public class ReciteWord extends SillyHatTabPanel {
 
     private static final long serialVersionUID = 2468707319118554415L;
+
+    private Logger logger = LoggerFactory.getLogger(ReciteWord.class);
 
     private MessageService messageService;
 
@@ -49,8 +57,17 @@ public class ReciteWord extends SillyHatTabPanel {
     private SillyHatJLabel unKnowJLabel;
     private SillyHatJLabel unKnowTextJLabel;
 
+    private int getTextNum;
+    private int knowTextNum;
+    private int unKnowTextNum;
+    private int maxTextNum;//单词显示最大数量
+
     private JPanel questionJPanel;
     private JPanel answerJPanel;
+
+    private SillyHatJTextPane question;
+
+    private SillyHatJTextPane answer;
 
     private JPanel contextJpanel;
 
@@ -59,59 +76,62 @@ public class ReciteWord extends SillyHatTabPanel {
     private JButton btnKnow;
     private JButton btnUnKnow;
 
+    private String currentWordKey;//当前单词在缓存中的key值
+
     public void initCache(long userId){
         TodayPlanDTO todayPlanDTO = learningPlanService.getTodayPlan(userId);
         List<TodayPlanDetailDTO> todayPlanDetailList = todayPlanDTO.getTodayPlanDetailList();
         for (int i = 0; i < todayPlanDetailList.size(); i++) {
             TodayPlanDetailDTO dto = todayPlanDetailList.get(i);
-            String key = Constants.CACHE_USER_PLAN_WORD + i;
+            String key = Constants.CACHE_USER_PLAN_WORD + dto.getWordId();
             SingleCycleLinkedListFactory.getInstance().insert(key);//插入单循环链表
             SystemCache.putTodayPlanDetailCache(key,dto);//插入缓存
         }
     }
     public void initContextJpanel(){
+        getTextNum = 0;
+        knowTextNum = 0;
+        unKnowTextNum = SingleCycleLinkedListFactory.getInstance().size();
+        maxTextNum = SingleCycleLinkedListFactory.getInstance().size();
         northJPanel = new JPanel(new GridLayout(1, 3));
         getJPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         getJLabel = new SillyHatJLabel(messageService.getMessageZH("recite.word.get") + "：");
-        getTextJLabel = new SillyHatJLabel("0");
+        getTextJLabel = new SillyHatJLabel(getTextNum+"");
         getJPanel.add(getJLabel);
         getJPanel.add(getTextJLabel);
         northJPanel.add(getJPanel);
         knowJPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         knowJLabel = new SillyHatJLabel(messageService.getMessageZH("recite.word.know") + "：");
-        knowTextJLabel = new SillyHatJLabel("0");
+        knowTextJLabel = new SillyHatJLabel(knowTextNum+"");
         knowJPanel.add(knowJLabel);
         knowJPanel.add(knowTextJLabel);
         northJPanel.add(knowJPanel);
         unKnowJPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         unKnowJLabel = new SillyHatJLabel(messageService.getMessageZH("recite.word.unknow") + "：");
-        unKnowTextJLabel = new SillyHatJLabel("0");
+        unKnowTextJLabel = new SillyHatJLabel(unKnowTextNum+"");
         unKnowJPanel.add(unKnowJLabel);
         unKnowJPanel.add(unKnowTextJLabel);
         northJPanel.add(unKnowJPanel);
         northJPanel.setPreferredSize(new Dimension((int)SillyHatWindowUtils.getWindowsWidth() - 20,40));
         contextJpanel.add(northJPanel);
 
-        String wordKey = SingleCycleLinkedListFactory.getInstance().getNextElement().getValue();
-        TodayPlanDetailDTO dto = SystemCache.getTodayPlanDetailCache(wordKey);
+        currentWordKey = SingleCycleLinkedListFactory.getInstance().getNextElement().getValue();
+        TodayPlanDetailDTO dto = SystemCache.getTodayPlanDetailCache(currentWordKey);
 
-        questionJPanel = new JPanel();
-        SillyHatJLabel jLabel1 = new SillyHatJLabel(dto.getWord().getUkPhonetic() + "    "  + dto.getWord().getUsPhonetic());
-        SillyHatJLabel jLabel2 = new SillyHatJLabel(dto.getWord().getWordTranslate());
-        SillyHatJLabel jLabel3 = new SillyHatJLabel(dto.getWord().getWebTranslate());
-        questionJPanel.add(jLabel1);
-        questionJPanel.add(jLabel2);
-        questionJPanel.add(jLabel3);
+        questionJPanel = new JPanel(new GridLayout(1, 1));
+        question = new SillyHatJTextPane(dto.getWord().getWord() + dto.getWord().getUkPhonetic() + " " + dto.getWord().getUsPhonetic(),(int)SillyHatWindowUtils.getWindowsWidth()-20,50);
+        question.isReadonly(true);
+        questionJPanel.add(question);
         contextJpanel.add(questionJPanel);
 
-        answerJPanel = new JPanel();
-//        answerJPanel.add(answerJLabel);
+        answerJPanel = new JPanel(new GridLayout(1, 1));
+        answer = new SillyHatJTextPane(dto.getWord().getWordTranslate() + dto.getWord().getWebTranslate(),(int)SillyHatWindowUtils.getWindowsWidth()-20,300);
+        answer.isReadonly(true);
+        answerJPanel.add(answer);
         contextJpanel.add(answerJPanel);
-//        questionJPanel.drawString
-//        private JPanel questionJPanel;
-//        private JPanel answerJPanel;
-        northJPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
-        contextJpanel.setBorder(BorderFactory.createLineBorder(Color.red));
+
+//        questionJPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
+//        answerJPanel.setBorder(BorderFactory.createLineBorder(Color.red));
     }
 
     public void initComponents(){
@@ -128,12 +148,93 @@ public class ReciteWord extends SillyHatTabPanel {
         buttonJPanel.setPreferredSize(new Dimension((int)SillyHatWindowUtils.getWindowsWidth() - 20,80));
         btnKnow = new JButton(messageService.getMessageZH("btn.know"));
         btnUnKnow = new JButton(messageService.getMessageZH("btn.unknow"));
+        btnKnow.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickButtonKnow();
+            }
+        });
+        btnKnow.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                panelKeyPressed(e);
+            }
+        });
+        btnUnKnow.addActionListener(new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                clickButtonUnKnow();
+            }
+        });
+        btnUnKnow.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                panelKeyPressed(e);
+            }
+        });
         buttonJPanel.add(btnKnow);
         buttonJPanel.add(btnUnKnow);
+        buttonJPanel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                panelKeyPressed(e);
+            }
+        });
         add(contextJpanel,BorderLayout.SOUTH);
         add(buttonJPanel,BorderLayout.NORTH);
     }
 
+    public void panelKeyPressed(KeyEvent e){
+        if(e.getKeyChar() == KeyEvent.VK_UP){
+            clickButtonKnow();
+        }else if(e.getKeyChar() == KeyEvent.VK_DOWN){
+            clickButtonUnKnow();
+        }
+    }
+
+    /**
+     * 点击认识按钮
+     */
+    private void clickButtonKnow(){
+        logger.info("know key : " + currentWordKey);
+        TodayPlanDetailDTO currentDTO = SystemCache.getTodayPlanDetailCache(currentWordKey);
+        int occurrenceNum = currentDTO.getOccurrenceNum() - 1;
+        if(occurrenceNum <= 0){
+            //学习完毕，从环状链表中移除;认识的单词增加一个，了解的单词，减少一个
+            SingleCycleLinkedListFactory.getInstance().delete(currentWordKey);
+            if(getTextNum != maxTextNum) getTextNum++;
+            if(knowTextNum != 0) knowTextNum--;
+        }else if(occurrenceNum < 3){
+            //了解的单词增加一个，未学会的单词，减少一个
+            if(knowTextNum != maxTextNum) knowTextNum++;
+            if(unKnowTextNum != 0) unKnowTextNum--;
+        }
+        currentDTO.setOccurrenceNum(occurrenceNum);
+        SystemCache.putTodayPlanDetailCache(currentWordKey,currentDTO);
+        if(SingleCycleLinkedListFactory.getInstance().size() == 0){
+            //学习完毕，返回今日全部单词
+            SillyHatJOptionPane.alert(messageService.getMessageZH("alert.reminder"),"完成本日计划");
+        }else{
+            currentWordKey = SingleCycleLinkedListFactory.getInstance().getNextElement().getValue();
+            TodayPlanDetailDTO dto = SystemCache.getTodayPlanDetailCache(currentWordKey);
+            refreshPage(dto.getWord().getWord() + dto.getWord().getUkPhonetic() + " " + dto.getWord().getUsPhonetic(),dto.getWord().getWordTranslate() + dto.getWord().getWebTranslate());
+        }
+    }
+
+    /**
+     * 点击不认识按钮
+     */
+    private void clickButtonUnKnow(){
+
+    }
+
+    /**
+     * 刷新页面显示
+     * @param questionTextValue
+     * @param answerTextValue
+     */
+    private void refreshPage(String questionTextValue,String answerTextValue){
+        getTextJLabel.setText(getTextNum+"");
+        knowTextJLabel.setText(knowTextNum+"");
+        unKnowTextJLabel.setText(unKnowTextNum+"");
+        question.setTextValue(questionTextValue);
+        answer.setTextValue(answerTextValue);
+    }
     /**
      * @param panelCode
      * @Fields panelCode : panel唯一ID

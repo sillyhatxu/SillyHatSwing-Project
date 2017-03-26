@@ -19,6 +19,7 @@ public class SillyHatTabPanel extends JPanel{
 		initService();//业务初始化Service
 		initComponents();
 		setName(panelCode);
+
 	}
 
 	public void initService(){
@@ -28,6 +29,7 @@ public class SillyHatTabPanel extends JPanel{
 	public void initComponents(){
 
 	}
+
 
 	public void debugFrame(Color color){
 		setBorder(BorderFactory.createLineBorder(color));

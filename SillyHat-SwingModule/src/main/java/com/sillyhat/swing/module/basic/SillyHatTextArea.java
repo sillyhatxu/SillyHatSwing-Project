@@ -25,8 +25,8 @@ public class SillyHatTextArea extends JPanel{
         centerPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         centerPanel.setPreferredSize(new Dimension(textWidth, textHeight));//关键代码,设置JPanel的大小
         add(centerPanel);
+        setPreferredSize(new Dimension(textWidth, textHeight + 20));//关键代码,设置JPanel的大小
         setLayout(new FlowLayout(FlowLayout.LEFT));
-//        setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 
     public void setTextValue(String textArea) {
@@ -35,5 +35,13 @@ public class SillyHatTextArea extends JPanel{
 
     public String getTextValue() {
         return jTextPane.getText();
+    }
+
+    /**
+     * 是否只读 true:只读
+     * @param value
+     */
+    public void isReadonly(boolean value){
+        jTextPane.setEnabled(!value);
     }
 }
