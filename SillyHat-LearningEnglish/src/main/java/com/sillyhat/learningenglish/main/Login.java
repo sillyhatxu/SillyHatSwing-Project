@@ -30,7 +30,7 @@ public class Login extends JFrame {
     // 用户名
     private JTextField fieldLogin = new JTextField(20);
     // 密码
-    private JPasswordField fieldPassword = new JPasswordField(28);
+    private JPasswordField fieldPassword = new JPasswordField(20);
 
     // 小容器
     private JLabel lblLogin = new JLabel("用户名：");

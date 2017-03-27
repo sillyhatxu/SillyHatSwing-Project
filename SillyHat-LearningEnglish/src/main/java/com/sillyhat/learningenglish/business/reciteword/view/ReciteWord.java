@@ -8,6 +8,7 @@ import com.sillyhat.learningenglish.business.personalinformation.dto.UserDTO;
 import com.sillyhat.learningenglish.business.personalinformation.dto.UserLearningParamsDTO;
 import com.sillyhat.learningenglish.business.personalinformation.service.UserService;
 import com.sillyhat.learningenglish.utils.Constants;
+import com.sillyhat.learningenglish.utils.MathUtils;
 import com.sillyhat.learningenglish.utils.SpringUtils;
 import com.sillyhat.learningenglish.utils.cache.SystemCache;
 import com.sillyhat.learningenglish.utils.linkedlist.factory.SingleCycleLinkedListFactory;
@@ -22,13 +23,15 @@ import org.slf4j.LoggerFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 /**
  * Created by ${XUSHIKUAN} on 2017-03-19.
  */
-public class ReciteWord extends SillyHatTabPanel {
+public class ReciteWord extends SillyHatTabPanel{
 
     private static final long serialVersionUID = 2468707319118554415L;
 
@@ -153,31 +156,34 @@ public class ReciteWord extends SillyHatTabPanel {
                 clickButtonKnow();
             }
         });
-        btnKnow.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                panelKeyPressed(e);
-            }
-        });
+//        btnKnow.addKeyListener(new java.awt.event.KeyAdapter() {
+//            public void keyPressed(KeyEvent e) {
+//                panelKeyPressed(e);
+//            }
+//        });
         btnUnKnow.addActionListener(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 clickButtonUnKnow();
             }
         });
-        btnUnKnow.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                panelKeyPressed(e);
-            }
-        });
+//        btnUnKnow.addKeyListener(new java.awt.event.KeyAdapter() {
+//            public void keyPressed(KeyEvent e) {
+//                panelKeyPressed(e);
+//            }
+//        });
         buttonJPanel.add(btnKnow);
         buttonJPanel.add(btnUnKnow);
-        buttonJPanel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                panelKeyPressed(e);
-            }
-        });
+//        buttonJPanel.addKeyListener(new KeyAdapter() {
+//            public void keyPressed(KeyEvent e) {
+//                System.out.println(e.getKeyCode());
+//                panelKeyPressed(e);
+//            }
+//        });
         add(contextJpanel,BorderLayout.SOUTH);
         add(buttonJPanel,BorderLayout.NORTH);
+//        this.grabFocus();//获取焦点
     }
+
 
     public void panelKeyPressed(KeyEvent e){
         if(e.getKeyChar() == KeyEvent.VK_UP){
@@ -214,14 +220,36 @@ public class ReciteWord extends SillyHatTabPanel {
             TodayPlanDetailDTO dto = SystemCache.getTodayPlanDetailCache(currentWordKey);
             refreshPage(dto.getWord().getWord() + dto.getWord().getUkPhonetic() + " " + dto.getWord().getUsPhonetic(),dto.getWord().getWordTranslate() + dto.getWord().getWebTranslate());
         }
+        SingleCycleLinkedListFactory.getInstance().print();
     }
 
     /**
      * 点击不认识按钮
      */
     private void clickButtonUnKnow(){
-
+        logger.info("know key : " + currentWordKey);
+        TodayPlanDetailDTO currentDTO = SystemCache.getTodayPlanDetailCache(currentWordKey);
+        int occurrenceNum = currentDTO.getOccurrenceNum();
+        if(occurrenceNum < Constants.DEFAULT_OCCURRENCE_NUM){
+            if(unKnowTextNum != maxTextNum) unKnowTextNum++;
+            if(knowTextNum != 0) knowTextNum--;
+        }
+        currentDTO.setOccurrenceNum(Constants.DEFAULT_OCCURRENCE_NUM);//重新赋值
+        SystemCache.putTodayPlanDetailCache(currentWordKey,currentDTO);
+        logger.info("CycleLinked size -----> " + SingleCycleLinkedListFactory.getInstance().size());
+        if(SingleCycleLinkedListFactory.getInstance().size() >= Constants.DEFAULT_LEARNING_GROUP_NUM * 2){
+            //链表长度在每组长度之上，随机插入到隔着1组之后的位置
+            int insertIndex = MathUtils.getSectionMath(Constants.DEFAULT_LEARNING_GROUP_NUM * 2,SingleCycleLinkedListFactory.getInstance().size());
+            logger.info("change to " + insertIndex);
+            SingleCycleLinkedListFactory.getInstance().delete(currentWordKey);
+            SingleCycleLinkedListFactory.getInstance().insert(insertIndex,currentWordKey);//随机插入到后边位置
+        }
+        currentWordKey = SingleCycleLinkedListFactory.getInstance().getNextElement().getValue();
+        TodayPlanDetailDTO dto = SystemCache.getTodayPlanDetailCache(currentWordKey);
+        refreshPage(dto.getWord().getWord() + dto.getWord().getUkPhonetic() + " " + dto.getWord().getUsPhonetic(),dto.getWord().getWordTranslate() + dto.getWord().getWebTranslate());
+        SingleCycleLinkedListFactory.getInstance().print();
     }
+
 
     /**
      * 刷新页面显示
@@ -242,6 +270,5 @@ public class ReciteWord extends SillyHatTabPanel {
     public ReciteWord(String panelCode) {
         super(panelCode);
     }
-
 
 }

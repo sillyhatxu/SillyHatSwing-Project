@@ -39,7 +39,7 @@
             T_USER_LEARNING_PLAN t
     </select>
 
-    <insert id="addUserLearningPlan" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
+    <insert id="addUserLearningPlan" keyProperty="id" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.UserLearningPlanDTO">
         insert into T_USER_LEARNING_PLAN
         (
           USER_ID,
@@ -75,7 +75,7 @@
 
     <select id="getLastTodayPlanByUserId" parameterType="java.lang.Long" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
         SELECT
-          LEARNING_NUM as learningNum,IS_FINISH as isFinish
+          ID as id,LEARNING_NUM as learningNum,IS_FINISH as isFinish
         FROM
           T_USER_TODAY_PLAN t
         WHERE
@@ -84,7 +84,7 @@
 
     <select id="getTodayPlan" parameterType="java.lang.String" resultType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
         SELECT
-          LEARNING_NUM as learningNum,IS_FINISH as isFinish
+          id as ID,LEARNING_NUM as learningNum,IS_FINISH as isFinish
         FROM
           T_USER_TODAY_PLAN t
         WHERE
@@ -93,7 +93,7 @@
             ]]>
     </select>
 
-    <insert id="addTodayPlan" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
+    <insert id="addTodayPlan" keyProperty="id" useGeneratedKeys="true" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDTO">
         insert into T_USER_TODAY_PLAN
         (
           USER_ID,
@@ -173,7 +173,7 @@
           <!--order by t.SORT_NUM-->
     <!--</select>-->
 
-    <insert id="addTodayPlanDetail" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
+    <insert id="addTodayPlanDetail" keyProperty="id" parameterType="com.sillyhat.learningenglish.business.learningplan.dto.TodayPlanDetailDTO">
         insert into T_TODAY_PLAN_DETAIL (TODAY_PLAN_ID,WORD_ID,IS_ERROR,OCCURRENCE_NUM,SORT_NUM)
         values (
           #{todayPlanId},#{wordId},#{isError},#{occurrenceNum},#{sortNum}

@@ -77,8 +77,8 @@ public class SingleCycleLinkedListFactory {
             logger.error("获取链表的位置有误。无法将" + value + "值插入");
             return false;
         } else {
-            if(i == size()){
-                //正好插入到末尾，直接插入
+            if(i >= size()){
+                //插入到末尾，直接插入
                 insert(value);
             }else if(i == 0){
                 //插入到起点
@@ -117,15 +117,33 @@ public class SingleCycleLinkedListFactory {
      */
     public void delete(String value) {
         Element temp = header;
-        while (temp.getNext() != header) {
-            //判断temp当前指向的结点的下一个结点是否是要删除的结点
-            if (temp.getNext().getValue().equals(value)) {
-                temp.setNext(temp.getNext().getNext());//删除结点
-            } else {
-                temp = temp.getNext();//temp“指针”后移
+        if(temp != null){
+            if(temp.getValue().equals(value)){
+                //删除header节点
+                Element nowHeader = header.getNext();
+                while (temp.getNext() != header) {
+                    temp = temp.getNext();
+                }
+                temp.setNext(nowHeader);
+                header = temp;
+                index--;
+            }else{
+                while (temp.getNext() != header) {
+                    //判断temp当前指向的结点的下一个结点是否是要删除的结点
+                    if (temp.getNext().getValue().equals(value)) {
+                        temp.setNext(temp.getNext().getNext());//删除结点
+                        index--;
+                    } else {
+                        temp = temp.getNext();//temp“指针”后移
+                    }
+                }
             }
+            if(index == 0){
+                header = null;//链表长度为0，清空header数据
+            }
+        }else{
+            logger.error("链表为null，无法删除");
         }
-        index--;
     }
 
     /**
@@ -186,33 +204,53 @@ public class SingleCycleLinkedListFactory {
     public void print() {
         logger.info("打印链表：");
         Element temp = header;
-        logger.info(temp.getValue());
-        while (temp.getNext() != header) {
-            temp = temp.getNext();
+        if(temp != null){
             logger.info(temp.getValue());
+            while (temp.getNext() != header) {
+                temp = temp.getNext();
+                logger.info(temp.getValue());
+            }
+        }else{
+            logger.error("链表为空，打印失败");
         }
     }
 
     public static void main(String[] args) {
         SingleCycleLinkedListFactory factory = SingleCycleLinkedListFactory.getInstance();
-        for (int i = 1; i <= 10; i++) {
-            factory.insert("Word-" + i);
-        }
-        factory.print();
-        factory.insert(0,"AAA");
-        factory.insert(4,"BBB");
-        factory.insert(5,"CCC");
-        factory.insert(10,"DDD");
-        factory.insert(14,"EEE");
-        factory.print();
+//        for (int i = 1; i <= 10; i++) {
+//            factory.insert("Word-" + i);
+//        }
+//        factory.print();
+        factory.insert("AAA");
+        factory.insert("BBB");
+        factory.insert("CCC");
+        factory.insert("DDD");
+        factory.insert("EEE");
         logger.info(factory.size()+"");
         logger.info("-------------------------------------");
         logger.info("-------------------------------------");
         logger.info("-------------------------------------");
         logger.info("-------------------------------------");
-        for (int i = 0; i < 80; i++) {
-            logger.info(SingleCycleLinkedListFactory.getInstance().getNextElement().getValue());
-        }
+        factory.delete("AAA");
+        logger.info("delete AAA size--->" + factory.size()+"");
+        factory.print();
+        factory.delete("BBB");
+        logger.info("delete BBB size--->" + factory.size()+"");
+        factory.print();
+        factory.delete("CCC");
+        logger.info("delete CCC size--->" + factory.size()+"");
+        factory.print();
+        factory.delete("DDD");
+        logger.info("delete DDD size--->" + factory.size()+"");
+        factory.print();
+        factory.delete("EEE");
+        logger.info("delete EEE size--->" + factory.size()+"");
+        factory.print();
+        logger.info((SingleCycleLinkedListFactory.getInstance().getNextElement() == null) + "");
+
+//        for (int i = 0; i < 80; i++) {
+//            logger.info(SingleCycleLinkedListFactory.getInstance().getNextElement().getValue());
+//        }
 //        System.out.println(factory.size());
 //        logger.info("链表长度：" + factory.size());
 //        factory.delete("Word-1");
