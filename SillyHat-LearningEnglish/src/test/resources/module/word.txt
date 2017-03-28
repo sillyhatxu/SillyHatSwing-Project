@@ -1,1 +1,4 @@
 private,privacy,modify,model,mode,modern,moderate,modest,alert,alternative,significant,significance,extreme,extremely,tremendous,comment,outstanding,excellent,splendid,formal,glance ,grace,graceful,elegant,elegance,grateful,magnificent,official,officer,sacrifice,appealing,ball,race,racial,discrimination,global,globe,glory,glorious,glare,flag,flame,fly,flexible,flexibility,reflect,reflection,conflict,appeal,alcohol,sympathetic,pathetic,miserable,symbol,meter,system,systematic,flood,float,fluent,criticize,criticism,critic,classical,symptom,sympathetically,flu,influence,influential,classic
+
+
+external,individual,continual,qualify,quality,qualified,modernize,modernized,globalize,globalized
