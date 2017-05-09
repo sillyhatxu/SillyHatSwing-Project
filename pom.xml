@@ -10,6 +10,7 @@
         <module>SillyHat-SQLiteGUI</module>
         <module>SillyHat-LearningEnglish</module>
         <module>SillyHat-SpringMybatisHikaricp</module>
+        <module>SillyHat-SendEmail</module>
     </modules>
     <packaging>pom</packaging>
 
