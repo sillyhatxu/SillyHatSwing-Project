@@ -17,9 +17,9 @@ public interface LearningPlanMapper {
 
     public List<UserLearningPlanDTO> queryUserLearningPlanAll();
 
-    public void addUserLearningPlan(UserLearningPlanDTO dto);
+    public long addUserLearningPlan(UserLearningPlanDTO dto);
 
-    public void updateUserLearningPlan(UserLearningPlanDTO dto);
+    public long updateUserLearningPlan(UserLearningPlanDTO dto);
 
 
     /**************************************************************/
@@ -40,15 +40,15 @@ public interface LearningPlanMapper {
      * 初始化今日计划
      * @param dto
      */
-    public void addTodayPlan(TodayPlanDTO dto);
+    public long addTodayPlan(TodayPlanDTO dto);
 
-    public void updateTodayPlan(TodayPlanDTO dto);
+    public long updateTodayPlan(TodayPlanDTO dto);
 
     public List<TodayPlanDetailDTO> queryTodayPlanDetailByTodayPlanId(long todayPlanId);
 
-    public void addTodayPlanDetail(TodayPlanDetailDTO dto);
+    public long addTodayPlanDetail(TodayPlanDetailDTO dto);
 
-    public void updateTodayPlanDetail(TodayPlanDetailDTO dto);
+    public long updateTodayPlanDetail(TodayPlanDetailDTO dto);
 
     public List<UserLearningPlanDTO> queryLearningPlanLearningWordList(@Param("userId")long userId,@Param("learningNum")int learningNum,@Param("existingWordIdSet")Set<Long> existingWordIdSet);
 

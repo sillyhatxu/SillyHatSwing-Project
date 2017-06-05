@@ -10,6 +10,7 @@ import java.net.InetAddress;
  * @date 2017/3/14 13:38
  */
 public class UUIDUtils {
+
     private static final int IP;
 
     public static int IptoInt(byte[] bytes) {

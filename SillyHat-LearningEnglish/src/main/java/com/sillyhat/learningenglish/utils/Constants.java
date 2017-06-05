@@ -72,7 +72,7 @@ public class Constants {
 	/**
 	 * 默认每组词汇数量
 	 */
-	public static final int DEFAULT_LEARNING_GROUP_NUM = 8;
+	public static final int DEFAULT_LEARNING_GROUP_NUM = 7;
 
 	/**
 	 * 新词汇
